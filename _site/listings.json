@@ -4,18 +4,18 @@
     "items": []
   },
   {
-    "listing": "/data_mining.html",
-    "items": [
-      "/data_mining/pandas/week_1b_pandas.html",
-      "/data_mining/numpy/numpy.html"
-    ]
-  },
-  {
     "listing": "/data_vis.html",
     "items": []
   },
   {
     "listing": "/geo.html",
     "items": []
+  },
+  {
+    "listing": "/data_mining.html",
+    "items": [
+      "/data_mining/pandas/week_1b_pandas.html",
+      "/data_mining/numpy/numpy.html"
+    ]
   }
 ]

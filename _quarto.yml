@@ -3,6 +3,19 @@ project:
 
 website:
   title: "blog"
+  navbar:
+    background: primary
+    search: true
+    left:
+      - text: "Profile"
+        file: about.qmd
+      - text: "Data Mining"
+        file: data_mining.qmd
+      - text: "Data_Visualization"
+        file: data_vis.qmd
+      - text: "Geocomputation"
+        file: geo.qmd
+
   sidebar:
     style: "docked"
     search: true
@@ -14,9 +27,7 @@ website:
         contents:
           - data_mining.qmd
           - data_vis.qmd
-    left: 
-    - about.qmd
-    - data_mining.qmd
+          - geo.qmd
     right:
       - icon: github
         href: https://github.com/ljw02220
@@ -26,6 +37,4 @@ format:
   html:
     theme: cerulean
     css: styles.css
-
-
 

@@ -616,13 +616,6 @@
     "text": "연결\nDataFrame을 조인하는 대신 그냥 연결할 수도 있습니다. concat() 함수가 하는 일입니다:\n\ncity_loc\n\n\n\n\n\n  \n    \n      \n      state\n      city\n      lat\n      lng\n    \n  \n  \n    \n      0\n      CA\n      San Francisco\n      37.781334\n      -122.416728\n    \n    \n      1\n      NY\n      New York\n      40.705649\n      -74.008344\n    \n    \n      2\n      FL\n      Miami\n      25.791100\n      -80.320733\n    \n    \n      3\n      OH\n      Cleveland\n      41.473508\n      -81.739791\n    \n    \n      4\n      UT\n      Salt Lake City\n      40.755851\n      -111.896657\n    \n  \n\n\n\n\n\ncity_pop\n\n\n\n\n\n  \n    \n      \n      population\n      city\n      state\n    \n  \n  \n    \n      3\n      808976\n      San Francisco\n      California\n    \n    \n      4\n      8363710\n      New York\n      New-York\n    \n    \n      5\n      413201\n      Miami\n      Florida\n    \n    \n      6\n      2242193\n      Houston\n      Texas\n    \n  \n\n\n\n\n\nresult_concat = pd.concat([city_loc, city_pop])\nresult_concat\n\n\n\n\n\n  \n    \n      \n      state\n      city\n      lat\n      lng\n      population\n    \n  \n  \n    \n      0\n      CA\n      San Francisco\n      37.781334\n      -122.416728\n      NaN\n    \n    \n      1\n      NY\n      New York\n      40.705649\n      -74.008344\n      NaN\n    \n    \n      2\n      FL\n      Miami\n      25.791100\n      -80.320733\n      NaN\n    \n    \n      3\n      OH\n      Cleveland\n      41.473508\n      -81.739791\n      NaN\n    \n    \n      4\n      UT\n      Salt Lake City\n      40.755851\n      -111.896657\n      NaN\n    \n    \n      3\n      California\n      San Francisco\n      NaN\n      NaN\n      808976.0\n    \n    \n      4\n      New-York\n      New York\n      NaN\n      NaN\n      8363710.0\n    \n    \n      5\n      Florida\n      Miami\n      NaN\n      NaN\n      413201.0\n    \n    \n      6\n      Texas\n      Houston\n      NaN\n      NaN\n      2242193.0\n    \n  \n\n\n\n\n이 연산은 (행을 따라) 수직적으로 데이터를 연결하고 (열을 따라) 수평으로 연결하지 않습니다. 이 예에서 동일한 인덱스를 가진 행이 있습니다(예를 들면 3). 판다스는 이를 우아하게 처리합니다:\n\nresult_concat.loc[3]\n\n\n\n\n\n  \n    \n      \n      state\n      city\n      lat\n      lng\n      population\n    \n  \n  \n    \n      3\n      OH\n      Cleveland\n      41.473508\n      -81.739791\n      NaN\n    \n    \n      3\n      California\n      San Francisco\n      NaN\n      NaN\n      808976.0\n    \n  \n\n\n\n\n또는 인덱스를 무시하도록 설정할 수 있습니다:\n\npd.concat([city_loc, city_pop], ignore_index=True)\n\n\n\n\n\n  \n    \n      \n      state\n      city\n      lat\n      lng\n      population\n    \n  \n  \n    \n      0\n      CA\n      San Francisco\n      37.781334\n      -122.416728\n      NaN\n    \n    \n      1\n      NY\n      New York\n      40.705649\n      -74.008344\n      NaN\n    \n    \n      2\n      FL\n      Miami\n      25.791100\n      -80.320733\n      NaN\n    \n    \n      3\n      OH\n      Cleveland\n      41.473508\n      -81.739791\n      NaN\n    \n    \n      4\n      UT\n      Salt Lake City\n      40.755851\n      -111.896657\n      NaN\n    \n    \n      5\n      California\n      San Francisco\n      NaN\n      NaN\n      808976.0\n    \n    \n      6\n      New-York\n      New York\n      NaN\n      NaN\n      8363710.0\n    \n    \n      7\n      Florida\n      Miami\n      NaN\n      NaN\n      413201.0\n    \n    \n      8\n      Texas\n      Houston\n      NaN\n      NaN\n      2242193.0\n    \n  \n\n\n\n\n한 DataFrame에 열이 없을 때 NaN이 채워져 있는 것처럼 동작합니다. join=\"inner\"로 설정하면 양쪽의 DataFrame에 존재하는 열만 반환됩니다:\n\npd.concat([city_loc, city_pop], join=\"inner\")\n\n\n\n\n\n  \n    \n      \n      state\n      city\n    \n  \n  \n    \n      0\n      CA\n      San Francisco\n    \n    \n      1\n      NY\n      New York\n    \n    \n      2\n      FL\n      Miami\n    \n    \n      3\n      OH\n      Cleveland\n    \n    \n      4\n      UT\n      Salt Lake City\n    \n    \n      3\n      California\n      San Francisco\n    \n    \n      4\n      New-York\n      New York\n    \n    \n      5\n      Florida\n      Miami\n    \n    \n      6\n      Texas\n      Houston\n    \n  \n\n\n\n\naxis=1로 설정하면 DataFrame을 수직이 아니라 수평으로 연결할 수 있습니다:\n\npd.concat([city_loc, city_pop], axis=1)\n\n\n\n\n\n  \n    \n      \n      state\n      city\n      lat\n      lng\n      population\n      city\n      state\n    \n  \n  \n    \n      0\n      CA\n      San Francisco\n      37.781334\n      -122.416728\n      NaN\n      NaN\n      NaN\n    \n    \n      1\n      NY\n      New York\n      40.705649\n      -74.008344\n      NaN\n      NaN\n      NaN\n    \n    \n      2\n      FL\n      Miami\n      25.791100\n      -80.320733\n      NaN\n      NaN\n      NaN\n    \n    \n      3\n      OH\n      Cleveland\n      41.473508\n      -81.739791\n      808976.0\n      San Francisco\n      California\n    \n    \n      4\n      UT\n      Salt Lake City\n      40.755851\n      -111.896657\n      8363710.0\n      New York\n      New-York\n    \n    \n      5\n      NaN\n      NaN\n      NaN\n      NaN\n      413201.0\n      Miami\n      Florida\n    \n    \n      6\n      NaN\n      NaN\n      NaN\n      NaN\n      2242193.0\n      Houston\n      Texas\n    \n  \n\n\n\n\n이 경우 인덱스가 잘 정렬되지 않기 때문에 의미가 없습니다(예를 들어 Cleveland와 San Francisco의 인덱스 레이블이 3이기 때문에 동일한 행에 놓여 있습니다). 이 DataFrame을 연결하기 전에 도시로 인덱스를 재설정해 보죠:\n\npd.concat([city_loc.set_index(\"city\"), city_pop.set_index(\"city\")], axis=1)\n\n\n\n\n\n  \n    \n      \n      state\n      lat\n      lng\n      population\n      state\n    \n    \n      city\n      \n      \n      \n      \n      \n    \n  \n  \n    \n      San Francisco\n      CA\n      37.781334\n      -122.416728\n      808976.0\n      California\n    \n    \n      New York\n      NY\n      40.705649\n      -74.008344\n      8363710.0\n      New-York\n    \n    \n      Miami\n      FL\n      25.791100\n      -80.320733\n      413201.0\n      Florida\n    \n    \n      Cleveland\n      OH\n      41.473508\n      -81.739791\n      NaN\n      NaN\n    \n    \n      Salt Lake City\n      UT\n      40.755851\n      -111.896657\n      NaN\n      NaN\n    \n    \n      Houston\n      NaN\n      NaN\n      NaN\n      2242193.0\n      Texas\n    \n  \n\n\n\n\nFULL OUTER JOIN을 수행한 것과 비슷합니다. 하지만 state 열이 state_x와 state_y로 바뀌지 않았고 city 열이 인덱스가 되었습니다.\nappend() 메서드는 DataFrame을 수직으로 연결하는 단축 메서드입니다:\n\ncity_loc.append(city_pop)\n\n\n\n\n\n  \n    \n      \n      state\n      city\n      lat\n      lng\n      population\n    \n  \n  \n    \n      0\n      CA\n      San Francisco\n      37.781334\n      -122.416728\n      NaN\n    \n    \n      1\n      NY\n      New York\n      40.705649\n      -74.008344\n      NaN\n    \n    \n      2\n      FL\n      Miami\n      25.791100\n      -80.320733\n      NaN\n    \n    \n      3\n      OH\n      Cleveland\n      41.473508\n      -81.739791\n      NaN\n    \n    \n      4\n      UT\n      Salt Lake City\n      40.755851\n      -111.896657\n      NaN\n    \n    \n      3\n      California\n      San Francisco\n      NaN\n      NaN\n      808976.0\n    \n    \n      4\n      New-York\n      New York\n      NaN\n      NaN\n      8363710.0\n    \n    \n      5\n      Florida\n      Miami\n      NaN\n      NaN\n      413201.0\n    \n    \n      6\n      Texas\n      Houston\n      NaN\n      NaN\n      2242193.0\n    \n  \n\n\n\n\n\npd.concat([city_loc,city_pop])\n\n\n\n\n\n  \n    \n      \n      state\n      city\n      lat\n      lng\n      population\n    \n  \n  \n    \n      0\n      CA\n      San Francisco\n      37.781334\n      -122.416728\n      NaN\n    \n    \n      1\n      NY\n      New York\n      40.705649\n      -74.008344\n      NaN\n    \n    \n      2\n      FL\n      Miami\n      25.791100\n      -80.320733\n      NaN\n    \n    \n      3\n      OH\n      Cleveland\n      41.473508\n      -81.739791\n      NaN\n    \n    \n      4\n      UT\n      Salt Lake City\n      40.755851\n      -111.896657\n      NaN\n    \n    \n      3\n      California\n      San Francisco\n      NaN\n      NaN\n      808976.0\n    \n    \n      4\n      New-York\n      New York\n      NaN\n      NaN\n      8363710.0\n    \n    \n      5\n      Florida\n      Miami\n      NaN\n      NaN\n      413201.0\n    \n    \n      6\n      Texas\n      Houston\n      NaN\n      NaN\n      2242193.0\n    \n  \n\n\n\n\n판다스의 다른 메서드와 마찬가지로 append() 메서드는 실제 city_loc을 수정하지 않습니다. 복사본을 만들어 수정한 다음 반환합니다."
   },
   {
-    "objectID": "posts/welcome/index.html",
-    "href": "posts/welcome/index.html",
-    "title": "Welcome To My Blog",
-    "section": "",
-    "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "blog",
@@ -637,11 +630,11 @@
     "text": "Hannam University | Deajeon, Kor"
   },
   {
-    "objectID": "data_mining.html",
-    "href": "data_mining.html",
-    "title": "Data Mining",
-    "section": "",
-    "text": "Pandas\n\n\n\n\n\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nApr 6, 2023\n\n\nJungwoo Lee\n\n\n\n\n\n\n  \n\n\n\n\nNumpy\n\n\n\n\n\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nApr 5, 2023\n\n\nJungwoo Lee\n\n\n\n\n\n\nNo matching items"
+    "objectID": "about.html#introduction",
+    "href": "about.html#introduction",
+    "title": "Jungwoo Lee",
+    "section": "Introduction",
+    "text": "Introduction\nHello."
   },
   {
     "objectID": "data_vis.html",
@@ -651,17 +644,17 @@
     "text": "No matching items"
   },
   {
-    "objectID": "about.html#introduction",
-    "href": "about.html#introduction",
-    "title": "Jungwoo Lee",
-    "section": "Introduction",
-    "text": "Introduction\nHello."
-  },
-  {
     "objectID": "geo.html",
     "href": "geo.html",
     "title": "Geocomputation",
     "section": "",
     "text": "No matching items"
+  },
+  {
+    "objectID": "data_mining.html",
+    "href": "data_mining.html",
+    "title": "Data Mining",
+    "section": "",
+    "text": "Pandas\n\n\n\n\n\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nApr 6, 2023\n\n\nJungwoo Lee\n\n\n\n\n\n\n  \n\n\n\n\nNumpy\n\n\n\n\n\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nApr 5, 2023\n\n\nJungwoo Lee\n\n\n\n\n\n\nNo matching items"
   }
 ]
