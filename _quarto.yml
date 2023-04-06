@@ -2,24 +2,24 @@ project:
   type: website
 
 website:
-  title: "blog"
+  title: "Blog"
   navbar:
     background: primary
     search: true
     left:
       - text: "Profile"
         file: about.qmd
-      - text: "Data Mining"
-        file: data_mining.qmd
-      - text: "Data_Visualization"
-        file: data_vis.qmd
-      - text: "Geocomputation"
-        file: geo.qmd
-
+    right:
+      - text: "about"
+        file: new index.qmd
+      - icon: github
+        href: https://github.com/ljw02220
+      - icon: twitter
+        href: https://twitter.com
   sidebar:
     style: "docked"
     search: true
-    contents:
+    contents: 
       - section: "Profile"
         contents: 
           - about.qmd
@@ -28,11 +28,9 @@ website:
           - data_mining.qmd
           - data_vis.qmd
           - geo.qmd
-    right:
-      - icon: github
-        href: https://github.com/ljw02220
-      - icon: twitter
-        href: https://twitter.com
+      - section: "Project"
+        contents: 
+          - machine learning.qmd
 format:
   html:
     theme: cerulean
