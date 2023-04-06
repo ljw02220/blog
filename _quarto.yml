@@ -1,0 +1,31 @@
+project:
+  type: website
+
+website:
+  title: "blog"
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - section: "Profile"
+        contents: 
+          - about.qmd
+      - section: "College"
+        contents:
+          - data_mining.qmd
+          - data_vis.qmd
+    left: 
+    - about.qmd
+    - data_mining.qmd
+    right:
+      - icon: github
+        href: https://github.com/ljw02220
+      - icon: twitter
+        href: https://twitter.com
+format:
+  html:
+    theme: cerulean
+    css: styles.css
+
+
+
