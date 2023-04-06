@@ -1,5 +1,9 @@
 [
   {
+    "listing": "/new index.html",
+    "items": []
+  },
+  {
     "listing": "/index.html",
     "items": []
   },
@@ -17,10 +21,6 @@
       "/data_mining/pandas/week_1b_pandas.html",
       "/data_mining/numpy/numpy.html"
     ]
-  },
-  {
-    "listing": "/new index.html",
-    "items": []
   },
   {
     "listing": "/machine learning.html",

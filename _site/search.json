@@ -1,5 +1,12 @@
 [
   {
+    "objectID": "new index.html",
+    "href": "new index.html",
+    "title": "About",
+    "section": "",
+    "text": "No matching items"
+  },
+  {
     "objectID": "data_mining/numpy/numpy.html",
     "href": "data_mining/numpy/numpy.html",
     "title": "Numpy",
@@ -656,13 +663,6 @@
     "title": "Data Mining",
     "section": "",
     "text": "Pandas\n\n\n\n\n\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nApr 6, 2023\n\n\nJungwoo Lee\n\n\n\n\n\n\n  \n\n\n\n\nNumpy\n\n\n\n\n\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nApr 5, 2023\n\n\nJungwoo Lee\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "new index.html",
-    "href": "new index.html",
-    "title": "About",
-    "section": "",
-    "text": "No matching items"
   },
   {
     "objectID": "machine learning.html",
