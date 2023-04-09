@@ -1,8 +1,0 @@
----
-title: "Hello"
-image: profile.jpeg
-about:
-  template: jolla
-
----
-Hello. Welcome to my blog.

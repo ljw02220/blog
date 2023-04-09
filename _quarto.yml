@@ -2,7 +2,7 @@ project:
   type: website
   output-dir: docs
 
-website:
+website: 
   title: "Blog"
   navbar:
     background: primary
@@ -10,6 +10,14 @@ website:
     left:
       - text: "Profile"
         file: about.qmd
+      - text: "College"
+        menu:
+          - text: Data mining
+            file:  data_mining.qmd
+          - text: Data Visualization
+            file:  data_vis.qmd
+          - text: Geocomputation
+            file: geo.qmd
     right:
       - text: "about"
         file: new index.qmd
@@ -33,7 +41,7 @@ website:
         contents: 
           - machine learning.qmd
 format:
-  html:
-    theme: cerulean
+  html: 
+    theme: yeti
     css: styles.css
 
