@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jungwoo Lee">
+<meta name="dcterms.date" content="2023-04-11">
+
+<title>Blog - Chapter 2 Geograpic data in R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Blog</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../about.html" aria-current="page">
+ <span class="menu-text">Profile</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-college" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">College</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-college">    
+        <li>
+    <a class="dropdown-item" href="../../data_mining.html">
+ <span class="dropdown-text">Data mining</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../data_vis.html">
+ <span class="dropdown-text">Data Visualization</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../geo.html">
+ <span class="dropdown-text">Geocomputation</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../new index.html">
+ <span class="menu-text">about</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/ljw02220"><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com"><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Chapter 2 Geograpic data in R</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Profile</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../about.html" class="sidebar-item-text sidebar-link">Jungwoo Lee</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">College</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../data_mining.html" class="sidebar-item-text sidebar-link">Data Mining</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../data_vis.html" class="sidebar-item-text sidebar-link">Data Visualization</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../geo.html" class="sidebar-item-text sidebar-link">Geocomputation</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Project</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../machine learning.html" class="sidebar-item-text sidebar-link">제주도 교통량 예측 ai 만들기</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Chapter 2 Geograpic data in R</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">code</div>
+    <div class="quarto-category">visualation</div>
+    <div class="quarto-category">R</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jungwoo Lee </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 11, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<blockquote class="blockquote">
+<p>공간정보분석 2장 코드</p>
+</blockquote>
+<div class="cell">
+
+</div>
+<ul>
+<li><code>sf</code>: 지리 공간 벡터 데이터(vector data) 분석을 위한 패키지</li>
+<li><code>raster</code>: 지리 공간 레스터 데이터(raster data)를 처리 및 분석하는데 사용</li>
+<li><code>spData</code>: 37개의 지리공간 데이터셋이 내장</li>
+<li><code>spDataLarge</code>: 지리 공간 데이터 샘플을 내장</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 패키지 설치</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"sf"</span>)  <span class="co">#지리공간 벡터 데이터 분석을 위핸 패키지</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"raster"</span>) <span class="co">#지리공간 레스터 데이터를 처리 및 분석하는데 사용</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"spData"</span>) <span class="co">#지리공간 데이터 샘플을 내장</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"spDataLarge"</span>, <span class="at">repos =</span> <span class="st">"https://nowosad.github.io/drat/"</span>, <span class="at">type =</span> <span class="st">"source"</span>) <span class="co">#지리공간 데이터 샘플을 내장</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 패키지 로드</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(raster)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spData)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spDataLarge)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="소개" class="level2">
+<h2 class="anchored" data-anchor-id="소개"><strong>2.1 소개</strong></h2>
+<p><strong>Vector data</strong> VS. <strong>Raster data</strong></p>
+</section>
+<section id="벡터-데이터" class="level2">
+<h2 class="anchored" data-anchor-id="벡터-데이터">2.2 벡터 데이터</h2>
+<ul>
+<li>벡터 데이터 의 두가지 의미 (혼동주의)
+<ul>
+<li>공간 위치데이터의 점,선,면을 나타내는 데이터</li>
+<li>data.frame 과 matrix 같은 R class</li>
+</ul></li>
+</ul>
+<section id="sf패키지simple-features" class="level3">
+<h3 class="anchored" data-anchor-id="sf패키지simple-features"><strong>sf패키지(Simple Features)</strong></h3>
+<ul>
+<li>sf 패키지는 sp 패키지의 기능을 승계하였으며, 이에 더해 지리공간 데이터를 읽고 쓰는 ‘GDAL’, 지리적 연산을 할 때 사용하는 ‘GEOS’, 지도의 투영 변환(projection conversions)과 데이터 변환(datum transformations)을 위한 ‘PROJ’ 와 R과의 인터페이스를 제공</li>
+<li>선택적으로 지리적 좌표에 대한 구면 기하 연산 (spherical geometry operations) 을 위해 ‘s2’ 패키지를 사용</li>
+<li>sf 는 모든 벡터 유형(점,선,면, 다각형)을 지원함(raster는 지원하지 않음)</li>
+<li>sf 패키지의 장점
+<ul>
+<li>지리공간 벡터 데이터를 빠르게 읽고 쓸 수 있음</li>
+<li>지리공간 벡터 데이터 시각화 <strong>성능의 고도화</strong>(tmap, leaflet, mapview 지리공간 데이터 시각화&nbsp;패키지가 sf 클래스 지원)</li>
+<li>대부분의 연산에서 sf 객체는 DataFrame 처럼 처리가 가능함</li>
+<li>sf 함수들은 ‘%&gt;%’ 연산자 (chain operator) 와 함께 사용할 수 있고, R의 tidyverse 패키지들과도 잘 작동함(sp 패키지도 spdplyr 패키지를 설치하면 dplyr의 %&gt;% 체인 연산자와 기능을 사용할 수 있음)</li>
+<li>sf 함수이름은 <code>st_</code> 로 시작하여 상대적으로 일관성이 있고 직관적임</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sf패키지 확인</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vignette</span>(<span class="at">package =</span> <span class="st">"sf"</span>) <span class="co"># vignetee(package = ""): 비니에트 함수는 설치된 모든 패키지에 대한 이용가능한 모든 목록을 출력 </span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">vignette</span>(<span class="st">"sf1"</span>) <span class="co"># 패키지에 대한 소개</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><code>world</code>데이터셋은 spData에 의해 제공된</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">names</span>(world)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">1</span>] <span class="st">"iso_a2"</span>    <span class="st">"name_long"</span> <span class="st">"continent"</span> <span class="st">"region_un"</span> <span class="st">"subregion"</span> <span class="st">"type"</span>      <span class="st">"area_km2"</span>  <span class="st">"pop"</span>       <span class="st">"lifeExp"</span>   <span class="st">"gdpPercap"</span> <span class="st">"geom"</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">plot</span>(world)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="w.png" class="img-fluid" style="width:100.0%"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> world_mini <span class="ot">=</span> world[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> world_mini</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Simple feature collection with <span class="dv">2</span> features and <span class="dv">3</span> fields</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>Geometry type<span class="sc">:</span> MULTIPOLYGON</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>Dimension<span class="sc">:</span>     XY</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>Bounding box<span class="sc">:</span>  xmin<span class="sc">:</span> <span class="sc">-</span><span class="dv">180</span> ymin<span class="sc">:</span> <span class="sc">-</span><span class="fl">18.28799</span> xmax<span class="sc">:</span> <span class="dv">180</span> ymax<span class="sc">:</span> <span class="sc">-</span><span class="fl">0.95</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>Geodetic CRS<span class="sc">:</span>  WGS <span class="dv">84</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 2 × 4</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  iso_a2 name_long continent                                                                                    geom</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>  <span class="er">&lt;</span>chr<span class="sc">&gt;</span>     <span class="er">&lt;</span>chr<span class="sc">&gt;</span>                                                                          <span class="er">&lt;</span>MULTIPOLYGON [°]<span class="sc">&gt;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> FJ     Fiji      <span class="fu">Oceania</span>   (((<span class="sc">-</span><span class="dv">180</span> <span class="sc">-</span><span class="fl">16.55522</span>, <span class="sc">-</span><span class="fl">179.9174</span> <span class="sc">-</span><span class="fl">16.50178</span>, <span class="sc">-</span><span class="fl">179.7933</span> <span class="sc">-</span><span class="fl">16.02088</span>, <span class="sc">-</span><span class="dv">180</span> <span class="sc">-</span><span class="fl">16.06713</span>, <span class="sc">-</span><span class="dv">180</span> <span class="sc">-</span><span class="dv">1</span>...</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> TZ     Tanzania  <span class="fu">Africa</span>    (((<span class="fl">33.90371</span> <span class="sc">-</span><span class="fl">0.95</span>, <span class="fl">31.86617</span> <span class="sc">-</span><span class="fl">1.02736</span>, <span class="fl">30.76986</span> <span class="sc">-</span><span class="fl">1.01455</span>, <span class="fl">30.4191</span> <span class="sc">-</span><span class="fl">1.134659</span>, <span class="dv">30</span>.<span class="dv">81613</span>...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>기존의 sp에 사용되는 공간 데이터는 sf로 변환을 통해 사용 가능
+<ul>
+<li><code>st_as_sf()</code>: sf로 변환 하는 함수</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sp)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>world_sp <span class="ot">=</span> <span class="fu">as</span>(world, <span class="at">Class =</span> <span class="st">"Sptial"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>world_sf <span class="ot">=</span> <span class="fu">st_as_sf</span>(world_sp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="t.png" class="img-fluid" style="width:100.0%"></p>
+<ul>
+<li>plot 함수를 이용해서 기본 지도 만들기</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(world[<span class="dv">3</span><span class="sc">:</span><span class="dv">6</span>])</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(world[<span class="st">"pop"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="w-1.png" class="img-fluid"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="a.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<ul>
+<li>다른 지도층을 추가하기
+<ul>
+<li>plot() 함수 내에 <code>add = TRUE</code> 매개변수를 사용하면 나중에 그 위에 다른 지도를 겹쳐서, 즉 층을 추가하여 지도를 덮어쓰기로 그릴 수 있음</li>
+<li>단, 첫번째 지도 그래프에 키(key)가 있을 경우에는 <code>reset = FALSE</code> 매개변수를 꼭 설정해준 다음에, 이후에 다음번 plot(add = TRUE)를 사용</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>world_aisa <span class="ot">=</span> world[world<span class="sc">$</span>continent <span class="sc">==</span> <span class="st">"Asia"</span>,] <span class="co">#국가에서 아시아만 뽑은 후</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>asia <span class="ot">=</span> <span class="fu">st_union</span>(world_aisa) <span class="co">#아시아 이름으로 하나의 좌표로 합침</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#아시아만 빨간색으로 표시</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(world[<span class="st">"pop"</span>], <span class="at">reset=</span><span class="cn">FALSE</span>) <span class="co">#reset =FLASE이면 지도 요소를 더 추가할 수 있는 모드로 플롯을 유지</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(asia,<span class="at">add=</span><span class="cn">TRUE</span>,<span class="at">col =</span> <span class="st">"red"</span>)  <span class="co">#add=TRUE : 기존에 있는거 유지 후 그 위에다 그림</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="a.png" class="img-fluid"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="ar.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="base-plot-arguments" class="level3">
+<h3 class="anchored" data-anchor-id="base-plot-arguments"><strong>Base Plot arguments</strong></h3>
+<ul>
+<li>대륙별 중심점에 원을 덮어 씌우기
+<ul>
+<li><a href="https://www.rdocumentation.org/packages/sf/versions/1.0-6/topics/geos_unary">st_centroid()</a>: 폴리곤의 중심점을 계산하는 함수</li>
+<li>of_largest = TRUE : if&nbsp;<code>TRUE</code>, return centroid of the largest (sub)polygon of a&nbsp;<code>MULTIPOLYGON</code>&nbsp;rather than of the whole&nbsp;<code>MULTIPOLYGON</code></li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(world[<span class="st">"continent"</span>],<span class="at">reset =</span> <span class="cn">FALSE</span>)  <span class="co">#국가를 표시 하고 무언갈 더 추가할수 있게 FALSE로 해 놓기</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>cex <span class="ot">=</span> <span class="fu">sqrt</span>(world<span class="sc">$</span>pop)<span class="sc">/</span><span class="dv">10000</span> <span class="co"># pop변수에 제곱근을 취하고 1000으로 나누어성 지도 시각화를 위해 크기를 맞춤</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>world_cents <span class="ot">=</span> <span class="fu">st_centroid</span>(world, <span class="at">of_largest =</span> <span class="cn">TRUE</span>) <span class="co"># 다각형(국가별) 중앙점 계산</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(world_cents),<span class="at">add =</span> <span class="cn">TRUE</span>,<span class="at">cex =</span> cex) <span class="co"># 인구크기에 따라 대륙별 중앙점에 원그려넣기</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="w-2.png" class="img-fluid" style="width:100.0%"></p>
+<ul>
+<li>특정 나라를 중심으로 확장하여 주변 나라 표시하기</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>india <span class="ot">=</span> world[world<span class="sc">$</span>name_long <span class="sc">==</span> <span class="st">"India"</span>, ]</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(india),<span class="at">expandBB=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="dv">1</span>),<span class="at">col =</span> <span class="st">"gray"</span>,<span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(world_aisa[<span class="dv">0</span>],<span class="at">add=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><a href="https://www.rdocumentation.org/packages/sf/versions/0.4-3/topics/plot">expandBB</a>: 각 방향으로 경계 상자를 확장(아래, 왼쪽, 위, 오른쪽)</li>
+<li><code>lwd</code>: 선굵기</li>
+<li><code>world_asia[0]</code>: 아시아에 대한 geometry column <img src="i.png" class="img-fluid" style="width:100.0%"></li>
+</ul>
+</section>
+<section id="geometry-types" class="level3">
+<h3 class="anchored" data-anchor-id="geometry-types"><strong>Geometry types</strong></h3>
+<ul>
+<li>sf패키지에서 지원하는 <a href="http://postgis.net/docs/using_postgis_dbmanagement.html">17개의 geometry types</a>이 있음
+<ul>
+<li>the seven most commonly used types:
+<ul>
+<li><code>POINT (5 2)</code></li>
+<li><code>LINESTRING (1 5, 4 4, 4 1, 2 2, 3 2)</code></li>
+<li><code>POLYGON ((1 5, 2 2, 4 1, 4 4, 1 5))</code></li>
+<li><code>MULTIPOINT (5 2, 1 3, 3 4, 3 2)</code></li>
+<li><code>MULTILINESTRING ((1 5, 4 4, 4 1, 2 2, 3 2), (1 2, 2 4))</code></li>
+<li><code>MULTIPOLYGON (((1 5, 2 2, 4 1, 4 4, 1 5), (0 2, 1 2, 1 3, 0 3, 0 2)))</code> <img src="po.png" class="img-fluid" style="width:100.0%"> <img src="po2.png" class="img-fluid" style="width:100.0%"></li>
+<li><code>GEOMETRYCOLLECTION (MULTIPOINT (5 2, 1 3, 3 4, 3 2), LINESTRING (1 5, 4 4, 4 1, 2 2, 3 2))</code> <img src="po3.png" class="img-fluid" style="width:50.0%"></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="simple-feature-geometriessfg" class="level3">
+<h3 class="anchored" data-anchor-id="simple-feature-geometriessfg"><strong>Simple feature geometries(sfg)</strong></h3>
+<ul>
+<li>sfg는 “Simple Feature Geometries”의 약어로, 공간 데이터의 기하학적 특성을 표현하는 방법 중 하나</li>
+<li>sfg는 지오메트리 객체를 나타내며, 일반적으로 점(Point), 선(Line), 면(Polygon) 등과 같은 기본 기하학적 요소를 포함</li>
+<li>R에서 simple feature geometry types
+<ul>
+<li>A point:&nbsp;<code>st_point()</code></li>
+<li>A linestring:&nbsp;<code>st_linestring()</code></li>
+<li>A polygon:&nbsp;<code>st_polygon()</code></li>
+<li>A multipoint:&nbsp;<code>st_multipoint()</code></li>
+<li>A multilinestring:&nbsp;<code>st_multilinestring()</code></li>
+<li>A multipolygon:&nbsp;<code>st_multipolygon()</code></li>
+<li>A geometry collection:&nbsp;<code>st_geometrycollection()</code></li>
+</ul></li>
+<li><code>sfg</code>&nbsp;objects can be created from 3 base R data types:</li>
+</ul>
+<ol type="1">
+<li><strong>A numeric vector</strong>: a single point</li>
+<li><strong>A matrix</strong>: a set of points, where each row represents a point, a multipoint or linestring</li>
+<li><strong>A list:</strong> a collection of objects such as matrices, multilinestrings or geometry collections</li>
+</ol>
+<ul>
+<li>st_point()</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_point</span>(<span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">2</span>))                 <span class="co"># XY point</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; POINT (5 2)</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">st_point</span>(<span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">3</span>))              <span class="co"># XYZ point</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; POINT Z (5 2 3)</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">st_point</span>(<span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">1</span>), <span class="at">dim =</span> <span class="st">"XYM"</span>) <span class="co"># XYM point</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; POINT M (5 2 1)</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">st_point</span>(<span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>))           <span class="co"># XYZM point</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; POINT ZM (5 2 3 1)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>multipoint (<code>st_multipoint()</code>) and linestring (<code>st_linestring()</code>)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the rbind function simplifies the creation of matrices</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="do">## MULTIPOINT</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>multipoint_matrix <span class="ot">=</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>), <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>))</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">st_multipoint</span>(multipoint_matrix)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MULTIPOINT ((5 2), (1 3), (3 4), (3 2))</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="do">## LINESTRING</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>linestring_matrix <span class="ot">=</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>), <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>), <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>))</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">st_linestring</span>(linestring_matrix)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; LINESTRING (1 5, 4 4, 4 1, 2 2, 3 2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>ist를 사용 : multilinestrings, (multi-)polygons and geometry collections</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## POLYGON</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>polygon_list <span class="ot">=</span> <span class="fu">list</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>), <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>)))</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">st_polygon</span>(polygon_list)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; POLYGON ((1 5, 2 2, 4 1, 4 4, 1 5))</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="do">## POLYGON with a hole</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>polygon_border <span class="ot">=</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>), <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>))</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>polygon_hole <span class="ot">=</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>), <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>), <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>))</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>polygon_with_hole_list <span class="ot">=</span> <span class="fu">list</span>(polygon_border, polygon_hole)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="fu">st_polygon</span>(polygon_with_hole_list)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; POLYGON ((1 5, 2 2, 4 1, 4 4, 1 5), (2 4, 3 4, 3 3, 2 3, 2 4))</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="do">## MULTILINESTRING</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>multilinestring_list <span class="ot">=</span> <span class="fu">list</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>), <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>), <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>)), </span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>)))</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="fu">st_multilinestring</span>((multilinestring_list))</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MULTILINESTRING ((1 5, 4 4, 4 1, 2 2, 3 2), (1 2, 2 4))</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="do">## MULTIPOLYGON</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>multipolygon_list <span class="ot">=</span> <span class="fu">list</span>(<span class="fu">list</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>), <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>))),</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">list</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>))))</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="fu">st_multipolygon</span>(multipolygon_list)</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; MULTIPOLYGON (((1 5, 2 2, 4 1, 4 4, 1 5)), ((0 2, 1 2, 1 3, 0 3, 0 2)))</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="do">## GEOMETRYCOLLECTION</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>gemetrycollection_list <span class="ot">=</span> <span class="fu">list</span>(<span class="fu">st_multipoint</span>(multipoint_matrix),</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">st_linestring</span>(linestring_matrix))</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="fu">st_geometrycollection</span>(gemetrycollection_list)</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; GEOMETRYCOLLECTION (MULTIPOINT (5 2, 1 3, 3 4, 3 2),</span></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   LINESTRING (1 5, 4 4, 4 1, 2 2, 3 2))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="simple-feature-columnssfc" class="level3">
+<h3 class="anchored" data-anchor-id="simple-feature-columnssfc"><strong>Simple feature columns(sfc)</strong></h3>
+<ul>
+<li><p>두 개의 지리특성(features)를 하나의 칼럼 객체로 합침</p></li>
+<li><p>SFC는 “Simple Feature Columns”의 약어로, 공간 데이터를 표현하는 방법 중 하나</p></li>
+<li><p>SFC는 일반적으로 지리 정보 시스템(GIS)에서 사용되며, 지도 및 공간 데이터를 저장하고 분석하는 데 사용됨</p></li>
+<li><p>SFC는 일반적으로 공간 데이터를 테이블 형태로 나타내며, 각 행은 하나의 공간 객체를 나타냄</p>
+<ul>
+<li>예를 들어, 도시의 경계를 포함하는 행정 구역 데이터를 저장할 때, 각 행은 구역의 이름, 인구, 경계 등을 포함하는 <strong>속성 데이터</strong>와 <strong>함께 구역의 경계를 나타내는 지오메트리 데이터</strong>를 포함</li>
+<li>sfc와 sfg는 공간 데이터를 다루는 데 사용되는 서로 다른 개념. sfc는 공간 데이터를 저장하고 관리하는 방법을 나타내며, sfg는 공간 데이터의 기하학적 특성을 표현하는 방법을 나타냄</li>
+<li>sfc 공간 데이터를 sfg공간 데이터로 변경할 때 <strong>st_sfc()</strong> 함수를 사용</li>
+</ul></li>
+<li><p>a list of sfg <img src="sfg.png" class="img-fluid" style="width:100.0%"></p></li>
+<li><p><strong>동일한 단순 지리특성</strong> 기하 유형 합치기</p>
+<ul>
+<li><strong>두개의 단순 지리특성 기하 점</strong>(2 sfg points)를&nbsp;한 개의 단순 지리특성 칼럼(1&nbsp;sfc)&nbsp;객체로 합치기</li>
+<li><strong>두개의 단순 지리특성 기하 면</strong>(2 sfg polygons)를 한 개의 단순 지리특성 칼럼(1 sfc) 객체로 합치기</li>
+</ul></li>
+<li><p><strong>서로 다른 단순 지리특성</strong> 기하 유형 합치기</p>
+<ul>
+<li><strong>단순 지리특성 기하 점과 면</strong>을 합쳐서 한 개의 단순 지리특성 칼럼(1 sfc) 객체로 만들기</li>
+</ul>
+<ol type="1">
+<li>두개의 단순 지리특성 기하 점(2 sfg points)를 st_sfc() 함수로 한개의 단순 지리특성 칼럼(1&nbsp;sfc)&nbsp;객체로 합치기</li>
+</ol>
+<p>::: {.cell}</p>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sfc POINT</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>point1 <span class="ot">=</span> <span class="fu">st_point</span>(<span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">2</span>))</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>point2 <span class="ot">=</span> <span class="fu">st_point</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>points_sfc <span class="ot">=</span> <span class="fu">st_sfc</span>(point1, point2)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>points_sfc</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Geometry set for 2 features </span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Geometry type: POINT</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Dimension:     XY</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Bounding box:  xmin: 1 ymin: 2 xmax: 5 ymax: 3</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; CRS:           NA</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; POINT (5 2)</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; POINT (1 3)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<ol start="2" type="1">
+<li>두개의 단순 지리특성 기하 면(2 sfg polygons)를 st_sfc() 함수로 한개의 단순 지리특성 칼럼(1 sfc) 객체로 합치기</li>
+</ol>
+<ul>
+<li><code>st_geometry_type()</code>: 기하유형을 확인</li>
+</ul>
+<p>::: {.cell}</p>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sfc POLYGON</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>polygon_list1 <span class="ot">=</span> <span class="fu">list</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>), <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>)))</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>polygon1 <span class="ot">=</span> <span class="fu">st_polygon</span>(polygon_list1)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>polygon_list2 <span class="ot">=</span> <span class="fu">list</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>)))</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>polygon2 <span class="ot">=</span> <span class="fu">st_polygon</span>(polygon_list2)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>polygon_sfc <span class="ot">=</span> <span class="fu">st_sfc</span>(polygon1, polygon2)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>polygon_sfc</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">st_geometry_type</span>(polygon_sfc)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] POLYGON POLYGON</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 18 Levels: GEOMETRY POINT LINESTRING POLYGON MULTIPOINT ... TRIANGLE</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co"># sfc MULTILINESTRING</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>multilinestring_list1 <span class="ot">=</span> <span class="fu">list</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>), <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>), <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>)), </span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>)))</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>multilinestring1 <span class="ot">=</span> <span class="fu">st_multilinestring</span>((multilinestring_list1))</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>multilinestring_list2 <span class="ot">=</span> <span class="fu">list</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">9</span>), <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">9</span>), <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">6</span>), <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">7</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">7</span>)), </span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">7</span>), <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">8</span>)))</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>multilinestring2 <span class="ot">=</span> <span class="fu">st_multilinestring</span>((multilinestring_list2))</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>multilinestring_sfc <span class="ot">=</span> <span class="fu">st_sfc</span>(multilinestring1, multilinestring2)</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>multilinestring_sfc</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="fu">st_geometry_type</span>(multilinestring_sfc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<ol start="3" type="1">
+<li>단순 지리특성 기하 점과 면을 st_sfc() 함수로&nbsp;합쳐서 한개의 단순 지리특성 칼럼(1 sfc) 객체로 만들기</li>
+</ol>
+<p>::: {.cell}</p>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sfc GEOMETRY</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>point_multilinestring_sfc <span class="ot">=</span> <span class="fu">st_sfc</span>(point1, multilinestring1)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">st_geometry_type</span>(point_multilinestring_sfc)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] POINT           MULTILINESTRING</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 18 Levels: GEOMETRY POINT LINESTRING POLYGON MULTIPOINT ... TRIANGLE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<ul>
+<li>sfc 객체는 CRS(coordinate reference systems, 좌표계시스템) 에 대한 정보를 추가로 저장할 수 있음
+<ul>
+<li>특정 CRS를 지정하기 위해 (a)<code>epsg (SRID)</code>또는&nbsp;(b)<code>proj4string</code>속성을 사용할수 있음</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(points_sfc)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coordinate Reference System: NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+</ul></li>
+</ul>
+<p>☐ 좌표계 정보를 추가하는 방법</p>
+<ol type="a">
+<li><strong>epsg 코드를 입력</strong></li>
+</ol>
+<ul>
+<li>epsg코드 장점
+<ul>
+<li>짧아서 기억하기 쉬움<br>
+</li>
+<li>EPSG: European Petroleum Survey Group, 지도 투영과 datums 에 대한 좌표계 정보 데이터베이스를 제공<br>
+</li>
+</ul></li>
+<li><code>sfc</code>&nbsp;객체 내에 모든 geometries는 동일한 CRS를 가져야함<br>
+</li>
+<li><code>epsg</code>&nbsp;code 를&nbsp;<code>4326</code> 로 설정<br>
+</li>
+<li><strong>EPSG:4326</strong>&nbsp;→ WGS84 경위도: GPS가 사용하는 좌표계
+<ul>
+<li><p>서비스: 구글 지구(Google Earth)<br>
+</p></li>
+<li><p>단위: 소수점 (decimal degrees)<br>
+</p></li>
+<li><p><code>+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>    <span class="co"># EPSG definition</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>points_sfc_wgs <span class="ot">=</span> <span class="fu">st_sfc</span>(point1, point2, <span class="at">crs =</span> <span class="dv">4326</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(points_sfc_wgs)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coordinate Reference System:</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   User input: EPSG:4326 </span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   wkt:</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; GEOGCRS["WGS 84",</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     DATUM["World Geodetic System 1984",</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         ELLIPSOID["WGS 84",6378137,298.257223563,</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             LENGTHUNIT["metre",1]]],</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     PRIMEM["Greenwich",0,</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         ANGLEUNIT["degree",0.0174532925199433]],</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     CS[ellipsoidal,2],</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         AXIS["geodetic latitude (Lat)",north,</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             ORDER[1],</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             ANGLEUNIT["degree",0.0174532925199433]],</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         AXIS["geodetic longitude (Lon)",east,</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             ORDER[2],</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             ANGLEUNIT["degree",0.0174532925199433]],</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     USAGE[</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         SCOPE["Horizontal component of 3D system."],</span></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         AREA["World."],</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         BBOX[-90,-180,90,180]],</span></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     ID["EPSG",4326]]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+</ul></li>
+</ul>
+<ol start="2" type="a">
+<li>PROJ.4 문자열을 직접 입력</li>
+</ol>
+<ul>
+<li>proj4string 장단점
+<ul>
+<li>투사 유형이나 datum, 타원체 등의 다른 모수들을 구체화할 수 있는 유연성이 있음</li>
+<li>사용자가 구체화를 해야 하므로 길고 복잡하며 기억하기 어려움</li>
+<li><strong><code>proj4string</code></strong>은 문자열 형식으로 저장되며, 일반적으로 PROJ.4 라이브러리에서 사용하는 형식과 호환됨</li>
+<li>이 문자열에는 좌표계의 이름, 중앙 메리디언, 기준 위도 및 경도, 원점 위도 및 경도, 스케일링 요소 등의 정보가 포함
+<ul>
+<li>예를 들어, WGS 84 좌표계의 <strong><code>proj4string</code></strong>은 다음과 같이 표시됨</li>
+<li><strong><code>proj4string</code></strong>을 변경하면 공간 데이터를 다른 좌표계로 변환 가능</li>
+</ul></li>
+</ul></li>
+<li><strong><code>st_transform()</code></strong> <strong>함수를 사용하여 다른 좌표계로 변환가능</strong></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PROJ4STRING definition</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">st_sfc</span>(point1, point2, <span class="at">crs =</span> <span class="st">"+proj=longlat +datum=WGS84 +no_defs"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="sf-class" class="level3">
+<h3 class="anchored" data-anchor-id="sf-class"><strong>sf class</strong></h3>
+<ul>
+<li>위의 위치데이터에 속성데이터(이름, 특정 값, 그룹 등)를 추가</li>
+<li>아래 예시는 2017년 6월 21일 런던의 25°C 온도를 나타냄</li>
+<li>a geometry (the coordinates), and <strong>three attributes with three different classes (place name, temperature and date)</strong></li>
+<li>simple feature geometry column (<code>sfc</code> )에 속성(data.frame)을 나타내는 sf(simple features)의 calss를 합침</li>
+<li><code>st_sf()</code> 를 이용하여 sfc와 class sf의 객체들을 하나로 통합할 수 있음</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>lnd_point <span class="ot">=</span> <span class="fu">st_point</span>(<span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">51.5</span>))                 <span class="co"># sfg object</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>lnd_geom <span class="ot">=</span> <span class="fu">st_sfc</span>(lnd_point, <span class="at">crs =</span> <span class="dv">4326</span>)           <span class="co"># sfc object</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>lnd_attrib <span class="ot">=</span> <span class="fu">data.frame</span>(                           <span class="co"># data.frame object</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">"London"</span>,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">temperature =</span> <span class="dv">25</span>,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">date =</span> <span class="fu">as.Date</span>(<span class="st">"2017-06-21"</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>lnd_sf <span class="ot">=</span> <span class="fu">st_sf</span>(lnd_attrib, <span class="at">geometry =</span> lnd_geom)    <span class="co"># sf object</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li><p><code>sfg</code> (simple feature geometry) 를 만듬</p></li>
+<li><p>CRS(좌표계시스템)를 가지는 <code>sfc</code> (simple feature geometry column)으로 전환</p></li>
+<li><p><code>st_sf()</code> 를 이용하여<code>data.frame</code> 에 저장된 속성 정보와 <code>sfc</code> 를 통합</p></li>
+<li><p><code>sf</code> object 완성</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> lnd_sf</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>Simple feature collection with <span class="dv">1</span> feature and <span class="dv">3</span> fields</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>Geometry type<span class="sc">:</span> POINT</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>Dimension<span class="sc">:</span>     XY</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>Bounding box<span class="sc">:</span>  xmin<span class="sc">:</span> <span class="fl">0.1</span> ymin<span class="sc">:</span> <span class="fl">51.5</span> xmax<span class="sc">:</span> <span class="fl">0.1</span> ymax<span class="sc">:</span> <span class="fl">51.5</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>Geodetic CRS<span class="sc">:</span>  WGS <span class="dv">84</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    name temperature       date         geometry</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> London          <span class="dv">25</span> <span class="dv">2017-06-21</span> <span class="fu">POINT</span> (<span class="fl">0.1</span> <span class="fl">51.5</span>)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">class</span>(lnd_sf)</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "sf"         "data.frame"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="raster-data" class="level2">
+<h2 class="anchored" data-anchor-id="raster-data"><strong>2.3 Raster data</strong></h2>
+<ul>
+<li>지리적 레스터 데이터 모델은 <strong>래스터 헤더</strong>와 일반적으로 동일한 간격의 셀(픽셀)을 나타내는 <strong>matrix로 구성</strong>됨
+<ul>
+<li><strong>Raster header</strong>: 좌표 참조 시스템(CRS, Coordinate Reference System), 시작점(the origin)과 범위 (the extent)를 정의함
+<ul>
+<li>더는 열 수, 행 수 및 셀 크기 해상도를 통해 범위를 정의</li>
+<li>셀의 ID를 사용하여 각 단일 셀에 쉽게 접근하고 수정</li>
+</ul></li>
+<li><strong>행렬(matrix)</strong>: 동일한 크기의 픽셀 또는 셀(pixel, or cell)을 표현. 픽셀 ID(pixel IDs)와 픽셀 값(pixel values)</li>
+</ul></li>
+<li>원점(또는 시작점)은 종종 행렬의 <strong>왼쪽 아래 모서리 좌표</strong>(R의 래스터&nbsp;패키지는 기본적으로 <strong>왼쪽 위 모서리</strong>를 사용)</li>
+<li>래스터 레이어의 셀에는 단일 값(숫자 또는 범주)만 포함</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="raster.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">래스터 데이터 유형: (A)셀 ID, (B)셀 값, (C)컬러 래스터 맵</figcaption><p></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="raster-1.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">연속 및 범주 래스터의 예</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="an-introduction-to-raster" class="level2">
+<h2 class="anchored" data-anchor-id="an-introduction-to-raster">An introduction to raster</h2>
+<ul>
+<li>raster package는 R에서 raster objects을 만들고, 읽고, 내보내고, 조작 및 처리하기 위한 광범위한 기능을 제공</li>
+<li>래스터 개념을 설명하기 위해 <strong>spDataLarge</strong>&nbsp;의 데이터 세트를 사용</li>
+<li>Zion National Park(미국 유타) 지역을 덮는 몇 개의 래스터 개체와 하나의 벡터 개체로 구성</li>
+<li><code>srtm.tif</code>은 이 지역의 디지털 표고 모델</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"rgdal"</span>) </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rgdal)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"spDataLarge"</span>, <span class="at">repos =</span> <span class="st">"https://nowosad.github.io/drat/"</span>, <span class="at">type =</span> <span class="st">"source"</span>) <span class="co">#지리공간 데이터 샘플을 내장</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"raster"</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spDataLarge)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(raster)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>raster_filepath <span class="ot">=</span> <span class="fu">system.file</span>(<span class="st">"raster/srtm.tif"</span>, <span class="at">package =</span> <span class="st">"spDataLarge"</span>) </span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>new_raster <span class="ot">=</span> <span class="fu">raster</span>(raster_filepath)</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="co"># rgdal 설치 error발생시 rgdal 설치및로드 필요</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><strong>raster header (extent, dimensions, resolution, CRS)</strong> and <strong>some additional information (class, data source name, summary of the raster values)</strong>
+<ul>
+<li>클래스(class) 차원(dimentions), 해상도(resolution), 범위(extent), 좌표 참조 시스템 (Coordinates Reference System), 출처(Source), 이름(names), 최소/최대 값(min, max values) 속성 정보</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> new_raster</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>class      <span class="sc">:</span> RasterLayer </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>dimensions <span class="sc">:</span> <span class="dv">457</span>, <span class="dv">465</span>, <span class="dv">212505</span>  (nrow, ncol, ncell)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>resolution <span class="sc">:</span> <span class="fl">0.0008333333</span>, <span class="fl">0.0008333333</span>  (x, y)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>extent     <span class="sc">:</span> <span class="sc">-</span><span class="fl">113.2396</span>, <span class="sc">-</span><span class="fl">112.8521</span>, <span class="fl">37.13208</span>, <span class="fl">37.51292</span>  (xmin, xmax, ymin, ymax)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>crs        <span class="sc">:</span> <span class="sc">+</span>proj<span class="ot">=</span>longlat <span class="sc">+</span>datum<span class="ot">=</span>WGS84 <span class="sc">+</span>no_defs </span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>source     <span class="sc">:</span> srtm.tif </span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>names      <span class="sc">:</span> srtm </span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>values     <span class="sc">:</span> <span class="dv">1024</span>, <span class="dv">2892</span>  (min, max)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Functions
+<ul>
+<li><code>dim()</code>:&nbsp;행, 열 및 레이어의 수를 반환</li>
+<li><code>ncell()</code>:&nbsp;셀 수(픽셀)를 반환</li>
+<li><code>res()</code>: &nbsp;래스터의 공간 해상도</li>
+<li><code>extent()</code>: &nbsp;공간적 범위</li>
+<li><code>crs()</code>:&nbsp;좌표 참조 시스템</li>
+<li><code>inMemory()</code>: &nbsp;래스터 데이터가 메모리(기본값) 또는 디스크에 저장되는지 여부를 보고</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">dim</span>(new_raster)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">457</span> <span class="dv">465</span>   <span class="dv">1</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ncell</span>(new_raster)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">212505</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">extent</span>(new_raster)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>class      <span class="sc">:</span> Extent </span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>xmin       <span class="sc">:</span> <span class="sc">-</span><span class="fl">113.2396</span> </span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>xmax       <span class="sc">:</span> <span class="sc">-</span><span class="fl">112.8521</span> </span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>ymin       <span class="sc">:</span> <span class="fl">37.13208</span> </span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>ymax       <span class="sc">:</span> <span class="fl">37.51292</span> </span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">crs</span>(new_raster)</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>Coordinate Reference System<span class="sc">:</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>Deprecated Proj<span class="fl">.4</span> representation<span class="sc">:</span> <span class="sc">+</span>proj<span class="ot">=</span>longlat <span class="sc">+</span>datum<span class="ot">=</span>WGS84 <span class="sc">+</span>no_defs </span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>WKT2 <span class="dv">2019</span> representation<span class="sc">:</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>GEOGCRS[<span class="st">"WGS 84 (with axis order normalized for visualization)"</span>,</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>    DATUM[<span class="st">"World Geodetic System 1984"</span>,</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>        ELLIPSOID[<span class="st">"WGS 84"</span>,<span class="dv">6378137</span>,<span class="fl">298.257223563</span>,</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>            LENGTHUNIT[<span class="st">"metre"</span>,<span class="dv">1</span>]]],</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>    PRIMEM[<span class="st">"Greenwich"</span>,<span class="dv">0</span>,</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>        ANGLEUNIT[<span class="st">"degree"</span>,<span class="fl">0.0174532925199433</span>]],</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>    CS[ellipsoidal,<span class="dv">2</span>],</span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>        AXIS[<span class="st">"geodetic longitude (Lon)"</span>,east,</span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>            ORDER[<span class="dv">1</span>],</span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>            ANGLEUNIT[<span class="st">"degree"</span>,<span class="fl">0.0174532925199433</span>,</span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>                ID[<span class="st">"EPSG"</span>,<span class="dv">9122</span>]]],</span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a>        AXIS[<span class="st">"geodetic latitude (Lat)"</span>,north,</span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>            ORDER[<span class="dv">2</span>],</span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a>            ANGLEUNIT[<span class="st">"degree"</span>,<span class="fl">0.0174532925199433</span>,</span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>                ID[<span class="st">"EPSG"</span>,<span class="dv">9122</span>]]]] </span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">inMemory</span>(new_raster)</span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span></span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">help</span>(<span class="st">"raster-package"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+</ul>
+</section>
+<section id="basic-map-making" class="level2">
+<h2 class="anchored" data-anchor-id="basic-map-making"><strong>Basic map making</strong></h2>
+<ul>
+<li><strong>sf</strong> package와 같이 <strong>raster 역시</strong> <code>plot()</code>함수 사용 가능</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(new_raster)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="rst.png" class="img-fluid"></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

@@ -1,0 +1,152 @@
+---
+title: "Chapter 3 Attribute data operations"
+author: "Jungwoo Lee"
+date: today
+image: cover.jpeg
+categories: [code, visualation, R]
+format: html
+editor: visual
+---
+> 공간정보분석 3장 코드
+
+```{r, echo=FALSE}
+knitr::opts_chunk$set(error = TRUE)
+```
+
+```{r, results = 'hide', message = FALSE, eval = FALSE}
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
+library(palmerpenguins)
+```
+
+### 기상청 자료 2021년
+```{r, results = 'hide', message = FALSE, eval = FALSE}
+# 기상청 자료 2021년
+data_2021 <- read.csv("/Users/jungwoolee/Desktop/college/Data Visualization/data/OBS_ASOS_DD_20220308125952.csv", fileEncoding =  "CP949")
+data_2021
+
+# 자료형 확인
+data_2021 %>% sapply(class)
+
+# 기초통계량
+data_2021 %>% summary()
+
+# Data type conversion: character > Date
+data_2021$일시 <- data_2021$일시 %>% as.Date("%Y-%m-%d")
+data_2021 %>% sapply(class)
+```
+
+```{r, results = 'hide', message = FALSE, eval = FALSE}
+# x축에 표시할 눈금
+date_s <- "2021-01-01" %>% as.Date("%Y-%m-%d") 
+date_e <- "2022-01-01" %>% as.Date("%Y-%m-%d") 
+break_date <- seq.Date(date_s, date_e, by = "3 month")
+break_date
+```
+
+```{r, results = 'hide', message = FALSE, eval = FALSE}
+# ggplot + 축 설정
+data_2021 %>% names()
+ggplot(data_2021, aes(x = 일시, y = 평균기온..C., color = 지점명)) + 
+  geom_line(linewidth = 0.5) + 
+  scale_x_date(name = "월", 
+               breaks = break_date,
+               labels = c("1월", "4월", "7월", "10월", "1월")) +
+  scale_y_continuous(name = "평균기온") + 
+  theme_light(base_family = "AppleSDGothicNeo-Regular") 
+# 강조는 "AppleSDGothicNeo-ExtraBold"
+
+# geom_smooth()
+ggplot(data_2021, aes(x = 일시, y = 평균기온..C., color = 지점명)) + 
+  geom_smooth(linewidth = 0.5, se = F, span = 0.2) + 
+  scale_x_date(name = "월", 
+               breaks = break_date,
+               labels = c("1월", "4월", "7월", "10월", "1월")) +
+  scale_y_continuous(name = "평균기온") + 
+  theme_light(base_family = "AppleSDGothicNeo-Regular") 
+# se = confidence interval 구간 나타내는 함수
+# span = smooth lined을 더 부드럽게 나타내는 함수/ 숫자가 클 수록 더 부드러워 짐
+```
+::: {layout-ncol=2}
+![](w.png)
+
+![](w-1.png)
+:::
+```{r, message = FALSE, eval = FALSE}
+## heat map
+data_2021_month <- data_2021 %>% 
+  mutate(month = format(일시, "%m")) %>% 
+  group_by(지점명, month) %>% 
+  summarize(mean = mean(평균기온..C.))
+  # mutate(month = factor(month, levels = paste(1:12, "월", sep = "")))
+
+ggplot(data_2021_month,aes(x = month, y = 지점명, fill = mean)) +
+  geom_tile(width = 0.95, height = 0.95) +
+  coord_fixed(expand = FALSE) + 
+  scale_fill_viridis_c(option = "B",begin = 0.15,end = 0.98, name = "temperature") + 
+  theme_light(base_family = "AppleSDGothicNeo-Regular") +
+  ylab(NULL) 
+# ggtitle("2021년 기상청 자료") +
+# theme(plot.title = element_text(hjust = 0.5, size = 30, color = "blue"))
+```
+![](w-2.png){width="100%"}
+
+### 기상청 자료 2022년
+```{r, result = 'hide', message = FALSE, eval = FALSE}
+# 기상청 자료 2022년
+data_2022<-read.csv("/Users/jungwoolee/Desktop/college/Data Visualization/data/OBS_ASOS_DD_20230322080932.csv", fileEncoding =  "CP949")
+head(data_2022)
+
+# Data type conversion: character > Date
+data_2022$일시 <- data_2022$일시 %>% as.Date("%Y-%m-%d")
+# 자료형 확인
+data_2022 %>% sapply(class)
+```
+
+```{r, result = 'hide', message = FALSE, eval = FALSE}
+# x축에 표시할 눈금
+date_s <- "2022-01-01" %>% as.Date("%Y-%m-%d") 
+date_e <- "2023-01-01" %>% as.Date("%Y-%m-%d") 
+break_date <- seq.Date(date_s, date_e, by = "2 month")
+break_date
+
+#지점명확인
+data_2022$지점명 %>%  table()
+data_2022_use <- data_2022 %>% filter(지점명 %in%c("대전","서울","세종","제주"))
+```
+
+```{r mutiple, fig.ncol = 2, result = 'hide', message = FALSE, eval = FALSE}
+ggplot(data_2022_use, aes(x = 일시, y = 평균기온..C., color = 지점명)) + 
+  geom_line(linewidth = 0.5) + 
+  scale_x_date(name = "월", 
+               breaks = break_date,
+               labels = c("1월", "3월", "5월", "7월", "9월", "11월", "1월")) +
+  scale_y_continuous(name = "평균기온") + 
+  theme_light(base_family = "AppleSDGothicNeo-Regular") 
+
+ggplot(data_2022_use, aes(x = 일시, y = 평균기온..C., color = 지점명)) + 
+  geom_smooth(linewidth = 0.5, se = F, span = 0.2) + 
+  scale_x_date(name = "월", 
+               breaks = break_date,
+               labels = c("1월", "3월", "5월", "7월", "9월", "11월", "1월")) +
+  scale_y_continuous(name = "평균기온") + 
+  theme_light(base_family = "AppleSDGothicNeo-Regular")
+```
+::: {layout-ncol=2}
+![](w-3.png)
+
+![](w-4.png)
+:::
+```{r, result = 'hide', message = FALSE, eval = FALSE}
+# heatmap
+ggplot(data_2022_month,aes(x = month, y = 지점명, fill = mean)) +
+  geom_tile(width = 0.95, height = 0.95) +
+  coord_fixed(expand = FALSE) + 
+  scale_fill_viridis_c(option = "B",begin = 0.15,end = 0.98, name = "temperature") + 
+  theme_light(base_family = "AppleSDGothicNeo-Regular") +
+  ylab(NULL)
+# ggtitle("2022년 기상청 자료") + 
+# theme(plot.title = element_text(hjust = 0.5, size = 30, color = "blue"))
+```
+![](w-5.png){width="100%"}

@@ -14,7 +14,10 @@
   },
   {
     "listing": "/geo.html",
-    "items": []
+    "items": [
+      "/geo/3/ch3.html",
+      "/geo/2/ch2.html"
+    ]
   },
   {
     "listing": "/data_mining.html",

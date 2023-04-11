@@ -2,7 +2,7 @@
 title: "Coordinate systems (ncdc_normal)"
 author: "Jungwoo Lee"
 date: today
-image: Rplot.png
+image: cp.png
 categories: [code, visualation, R]
 format: html
 editor: visual
@@ -21,39 +21,27 @@ library(palmerpenguins)
 ```
 
 ```{r, results = 'hide', message = FALSE, eval = FALSE}
-#데이터 불러오기 1)
-#data_file <- choose.files()  #경로지정해서 데이터 불러오기
-#ncdc_normals <- read.csv(data_file)
-
-#데이터 불러오기 2)
 ncdc_normals <- read.csv("/Users/jungwoolee/Desktop/college/Data Visualization/data/ncdc_normals.csv")
-ncdc_normals
-```
-
-```{r, results = 'hide', message = FALSE, eval = FALSE}
-#데이터 확인
-ncdc_normals %>% dim()
-ncdc_normals %>% head()
-ncdc_normals %>% summary()
-ncdc_normals %>% sapply(class)  #class로 합쳐 문자형인지 숫자형인지 확인
-
-ncdc_normals$date <- ncdc_normals$date %>% as.Date("%Y-%m-%d") #날짜가 문자형이기 때문에 날짜형식으로 바꿈
-ncdc_normals %>% sapply(class) #문자,숫자형 다시 확인 #data가 Date로 바뀜
-```
-
-```{r, results = 'hide', message = FALSE, eval = FALSE}
-#station_id 갯수
-ncdc_normals$station_id %>% unique() %>% length()
-
-#station_id,location을 데이터 프레임으로 만들기
 station_loc <- data.frame(station_id = c("USW00014819","USC00042319","USW00093107","USW00012918"),
                           location = c("Chicago","Death Valley","San Diego","Houston"))
-station_loc
-
-#기존 데이터와 데이터 프레임 합치기
 temps_long <- ncdc_normals %>% inner_join(station_loc, by="station_id")  #station_id기준으로 합쳐라
+temps_long$date <- temps_long$date %>% as.Date("%Y-%m-%d") # class를 Date로 바꿔줌
+```
 
-temps_long %>% head()
+```{r, results = 'hide', message = FALSE, eval = FALSE}
+# x축에 표시할 눈금
+date_s <- "0000-01-01" %>% as.Date("%Y-%m-%d") 
+date_e <- "0001-01-01" %>% as.Date("%Y-%m-%d") 
+break_date <- seq.Date(date_s, date_e, by = "3 month")
+```
+
+```{r, results = 'hide', message = FALSE, eval = FALSE}
+library(cowplot)
+
+# Houston 필터
+data_Houston <- temps_long %>% filter(location == "Houston")
+data_Houston %>% dim
+data_Houston %>% head()
 ```
 
 ```{r, message = FALSE, eval = FALSE}
@@ -64,19 +52,99 @@ break_date <- seq.Date(date_s, date_e, by = "3 month")
 ```
 
 ```{r, message = FALSE, eval = FALSE}
-#결과 데이터로 ggplot 그리기 
-#aes : 어떤 데이터로 그릴거니? 
-#geom_line : 어떤 라인? #theme_light : 그래프 뒷배경 밝게
-ggplot(temps_long,aes(x=date,y=temperature,color=location)) + 
-  geom_line() + 
+# ggplot 그리기 
+temp_plot <- ggplot(data_Houston, aes(x = date, y = temperature)) +
+  geom_line(linewidth = 1, color = "royalblue") + 
   scale_x_date(name = "month", breaks = break_date,
                labels = c("Jan", "Apr", "Jul", "Oct", "Jan")) +
-  scale_y_continuous(name = "temp", 
-                     #limits = c(0,100)
-                     ) + 
-  ylab("Temp") +
-  labs(title = "Fig. 2.2", subtitle = "Daily temperature normals") +
-  theme_light() 
+  scale_y_continuous(name = "temp") +
+  theme_light()
 ```
 
-![](Rplot.png)
+```{r, message = FALSE, eval = FALSE}
+# 여러 플롯 정렬
+plot_ab <- plot_grid(temp_plot,
+                     temp_plot,
+                     nrow = 1,
+                     rel_widths = c(1,2),
+                     labels = c("a","b"))
+plot_ab
+
+plot_abc <- plot_grid(plot_ab,
+                      temp_plot,
+                      ncol = 1,
+                      rel_heights = c(1.5,1),
+                      labels = c("","c"))
+plot_abc
+```
+![](c.png){width="100%"}
+
+### geom_hline()
+```{r, message = FALSE, eval = FALSE}
+library(ggrepel)
+
+US_census <- read.csv("/Users/jungwoolee/Desktop/college/Data Visualization/data/US_census.csv")
+tx_counties <- US_census %>% 
+  filter(state == "Texas") %>% 
+  select(name, pop2010) %>% 
+  mutate(county = gsub("County", "", name),
+         popratio = pop2010/median(pop2010)) %>% # 중위수
+  arrange(pop2010 %>% desc()) %>% 
+  mutate(index = 1:n(),
+         label = ifelse(index <= 3 | index > n()-3 | runif(n(5)) < 0.04, county, "")) # 앞, 뒤에서 3등까지, 랜덤으로 표시
+```
+
+```{r, message = FALSE, eval = FALSE}
+ggplot(tx_counties, aes(x = index, y = popratio)) +
+  geom_hline(yintercept = 0, linetype = 2, color = "grey40") +
+  geom_point(size = 1, color = "royalblue") +
+  geom_text_repel(aes(label = label),
+                  min.segment.length = 0,
+                  max.overlaps = 100) +
+  theme_light() +
+  theme(panel.border = element_blank())
+```
+![](h1.png){width="100%"}
+
+```{r, message = FALSE, eval = FALSE}
+label_log10 <- sapply(-2:2, function(i) as.expression(bquote(10^ .(i))))
+
+ggplot(tx_counties, aes(x = index, y = popratio)) +
+  geom_hline(yintercept = 0, linetype = 2, color = "grey40") +
+  geom_point(size = 1, color = "royalblue") +
+  geom_text_repel(aes(label = label),
+                  min.segment.length = 0,
+                  max.overlaps = 100) +
+  scale_y_log10(name = "population number / median", 
+                breaks = 10^(-2:2),
+                labels = label_log10) +
+  scale_x_continuous(name = "Texas counties, from most to least populous",
+                     breaks = NULL) + # 눈금
+  theme_light() +
+  theme(panel.border = element_blank())
+```
+![](hl.png){width="100%"}
+
+### coord_polar()
+```{r, message = FALSE, eval = FALSE}
+# figure 3.10
+date_s <- "0000-01-01" %>% as.Date("%Y-%m-%d")
+date_e <- "0001-01-01" %>% as.Date("%Y-%m-%d")
+break_date <- seq.Date(date_s, date_e, by = "3 month")
+date_lab = format(break_date, "%B")
+```
+
+```{r, message = FALSE, eval = FALSE}
+ggplot(temps_long, aes(x = date, y = temperature, color = location)) +
+  geom_line(linewidth = 1) +
+  scale_x_date(name = "month",
+               breaks = break_date,
+               labels = date_lab) +
+  scale_y_continuous(name = "temperature",
+                     limits = c(0, 105)) +
+  coord_polar(theta = "x", start = pi, direction = -1) + # 6시 위치에서 반시계 방향
+  # coord_polar(theta = "x", start = 0, direction = 1) + # 12시 위치에서 시계 방향
+  theme_light() +
+  theme(panel.border = element_blank())
+```
+![](cp.png){width="100%"}
