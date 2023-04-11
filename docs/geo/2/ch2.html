@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jungwoo Lee">
-<meta name="dcterms.date" content="2023-04-11">
+<meta name="dcterms.date" content="2023-04-12">
 
 <title>Blog - Chapter 2 Geograpic data in R</title>
 <style>
@@ -295,7 +295,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 11, 2023</p>
+      <p class="date">April 12, 2023</p>
     </div>
   </div>
   
@@ -795,7 +795,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="raster.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">래스터 데이터 유형: (A)셀 ID, (B)셀 값, (C)컬러 래스터 맵</figcaption><p></p>
+<p></p><figcaption class="figure-caption">레스터 데이터 유형: (A)셀 ID, (B)셀 값, (C)컬러 래스터 맵</figcaption><p></p>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
@@ -852,7 +852,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>res()</code>: &nbsp;래스터의 공간 해상도</li>
 <li><code>extent()</code>: &nbsp;공간적 범위</li>
 <li><code>crs()</code>:&nbsp;좌표 참조 시스템</li>
-<li><code>inMemory()</code>: &nbsp;래스터 데이터가 메모리(기본값) 또는 디스크에 저장되는지 여부를 보고</li>
+<li><code>inMemory()</code>: &nbsp;레스터 데이터가 메모리(기본값) 또는 디스크에 저장되는지 여부를 보고</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">dim</span>(new_raster)</span>
@@ -899,9 +899,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(new_raster)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><img src="rst.png" class="img-fluid"></p>
+<p><img src="rst.png" class="img-fluid" width="80"></p>
+</section>
+<section id="raster-classes" class="level2">
+<h2 class="anchored" data-anchor-id="raster-classes"><strong>Raster classes</strong></h2>
+<p>3가지의 레스터 클래스(Raster Classes)의 특장점 (1) RasterLayer Class (2) RasterBrick Class (3) RasterStack Class</p>
+<section id="rasterlayer-class" class="level3">
+<h3 class="anchored" data-anchor-id="rasterlayer-class">1. RasterLayer class</h3>
+<ul>
+<li><code>RasterLayer</code> class는 래스터 객체 중에서 가장 간단한 형태의 클래스이며, 한개의 층으로 구성되어 있음</li>
+<li>RasterLayer Class 객체를 만드는 가장 쉬운 방법은 기존의 RasterLayer Class 객체 파일을 읽어오는 것
+<ul>
+<li>아래 예에서는 raster 패키지의 raster() 함수를 사용해서 spDataLarge 패키지에 내장되어 있는 srtm.tif 레스터 층 클래스 객체를 읽어와서 raster_layer 라는 이름의 단 한개의 층만을 가진 RasterLayer Class 객체를 만듬</li>
+<li>nlayers() 함수로 층의 개수를 살펴보면 ’1’개 인 것을 확인할 수 있습니다.</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>raster_filepath <span class="ot">=</span> <span class="fu">system.file</span>(<span class="st">"raster/srtm.tif"</span>, <span class="at">package =</span> <span class="st">"spDataLarge"</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>new_raster <span class="ot">=</span> <span class="fu">raster</span>(raster_filepath)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="do">## number of layers </span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="fu">nlayers</span>(new_raster)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>RasterLayer 클래스 객체를 raster() 함수를 사용해서 처음부터 직접 만들 수도 있음
+<ul>
+<li>8개의 행과 8개의 열, 총 64개의 셀(픽셀)을 가진 RasterLayer 클래스를 직접 만들기</li>
+<li>레스터 객체의 좌표 참조 시스템(CRS, Coordinates Reference System)은 <strong>WGS84 가 기본 설정값(해상도(resolution)의 단위가 도 (in degrees))</strong></li>
+<li>res = 0.5 로서 해상도를 0.5도로 설정</li>
+<li>각 셀의 값은 왼쪽 상단부터 시작하여, 행 방향(row-wise)으로 왼쪽에서 오른쪽으로 채워짐</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>my_raster <span class="ot">=</span> <span class="fu">raster</span>(<span class="at">nrows =</span> <span class="dv">8</span>, <span class="at">ncols =</span> <span class="dv">8</span>, <span class="at">res =</span> <span class="fl">0.5</span>, <span class="at">xmn =</span> <span class="sc">-</span><span class="fl">2.0</span>, <span class="at">xmx =</span> <span class="fl">2.0</span>, <span class="at">ymn =</span> <span class="sc">-</span><span class="fl">2.0</span>, <span class="at">ymx =</span> <span class="fl">2.0</span>, <span class="at">vals =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">64</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>my_raster</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="do">## plotting </span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(my_raster, <span class="at">main =</span> <span class="st">"my raster (64 cells = 8 rows * 8 cols)"</span>)           </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
