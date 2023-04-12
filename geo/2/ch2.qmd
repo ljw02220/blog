@@ -488,7 +488,7 @@ values     : 1024, 2892  (min, max)
 ```{r, message = FALSE, eval = FALSE}
 plot(new_raster)
 ```
-![](rst.png){width="80"}
+![](rst.png){width="1000"}
 
 ## **Raster classes**
 3가지의 레스터 클래스(Raster Classes)의 특장점

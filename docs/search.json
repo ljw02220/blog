@@ -655,7 +655,7 @@
     "href": "geo.html",
     "title": "Geocomputation",
     "section": "",
-    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n  \n\n\n\n\nChapter 3 Attribute data operations\n\n\n\n\n\n\n\ncode\n\n\nvisualation\n\n\nR\n\n\n\n\n\n\n\n\n\n\n\nApr 12, 2023\n\n\nJungwoo Lee\n\n\n\n\n\n\n  \n\n\n\n\nChapter 2 Geograpic data in R\n\n\n\n\n\n\n\ncode\n\n\nvisualation\n\n\nR\n\n\n\n\n\n\n\n\n\n\n\nApr 12, 2023\n\n\nJungwoo Lee\n\n\n\n\n\n\nNo matching items"
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n  \n\n\n\n\nChapter 4 Spatial data operations\n\n\n\n\n\n\n\ncode\n\n\nvisualation\n\n\nR\n\n\n\n\n\n\n\n\n\n\n\nApr 12, 2023\n\n\nJungwoo Lee\n\n\n\n\n\n\n  \n\n\n\n\nChapter 3 Attribute data operations\n\n\n\n\n\n\n\ncode\n\n\nvisualation\n\n\nR\n\n\n\n\n\n\n\n\n\n\n\nApr 12, 2023\n\n\nJungwoo Lee\n\n\n\n\n\n\n  \n\n\n\n\nChapter 2 Geograpic data in R\n\n\n\n\n\n\n\ncode\n\n\nvisualation\n\n\nR\n\n\n\n\n\n\n\n\n\n\n\nApr 12, 2023\n\n\nJungwoo Lee\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "data_vis/3-1/weather.html",
@@ -796,5 +796,26 @@
     "title": "Chapter 2 Geograpic data in R",
     "section": "Raster classes",
     "text": "Raster classes\n3가지의 레스터 클래스(Raster Classes)의 특장점 (1) RasterLayer Class (2) RasterBrick Class (3) RasterStack Class\n\n1. RasterLayer class\n\nRasterLayer class는 래스터 객체 중에서 가장 간단한 형태의 클래스이며, 한개의 층으로 구성되어 있음\nRasterLayer Class 객체를 만드는 가장 쉬운 방법은 기존의 RasterLayer Class 객체 파일을 읽어오는 것\n\n아래 예에서는 raster 패키지의 raster() 함수를 사용해서 spDataLarge 패키지에 내장되어 있는 srtm.tif 레스터 층 클래스 객체를 읽어와서 raster_layer 라는 이름의 단 한개의 층만을 가진 RasterLayer Class 객체를 만듬\nnlayers() 함수로 층의 개수를 살펴보면 ’1’개 인 것을 확인할 수 있습니다.\n\n\n\nraster_filepath = system.file(\"raster/srtm.tif\", package = \"spDataLarge\")\nnew_raster = raster(raster_filepath)\n\n## number of layers \nnlayers(new_raster)\n\n\nRasterLayer 클래스 객체를 raster() 함수를 사용해서 처음부터 직접 만들 수도 있음\n\n8개의 행과 8개의 열, 총 64개의 셀(픽셀)을 가진 RasterLayer 클래스를 직접 만들기\n레스터 객체의 좌표 참조 시스템(CRS, Coordinates Reference System)은 WGS84 가 기본 설정값(해상도(resolution)의 단위가 도 (in degrees))\nres = 0.5 로서 해상도를 0.5도로 설정\n각 셀의 값은 왼쪽 상단부터 시작하여, 행 방향(row-wise)으로 왼쪽에서 오른쪽으로 채워짐\n\n\n\nmy_raster = raster(nrows = 8, ncols = 8, res = 0.5, xmn = -2.0, xmx = 2.0, ymn = -2.0, ymx = 2.0, vals = 1:64)\nmy_raster\n## plotting \nplot(my_raster, main = \"my raster (64 cells = 8 rows * 8 cols)\")"
+  },
+  {
+    "objectID": "geo/4/ch4.html",
+    "href": "geo/4/ch4.html",
+    "title": "Chapter 4 Spatial data operations",
+    "section": "",
+    "text": "공간정보분석 4장 코드"
+  },
+  {
+    "objectID": "geo/4/ch4.html#소개",
+    "href": "geo/4/ch4.html#소개",
+    "title": "Chapter 4 Spatial data operations",
+    "section": "4.1 소개",
+    "text": "4.1 소개"
+  },
+  {
+    "objectID": "geo/4/ch4.html#벡터-데이터에-대한-공간-작업",
+    "href": "geo/4/ch4.html#벡터-데이터에-대한-공간-작업",
+    "title": "Chapter 4 Spatial data operations",
+    "section": "4.2 벡터 데이터에 대한 공간 작업",
+    "text": "4.2 벡터 데이터에 대한 공간 작업\n\n이번 세션은 sf 패키지 에서 단순 기능으로 표현된 벡터 지리 데이터에 대한 공간 연산의 개요를 제공함\n\n\n4.2.1 Spatial subsetting(공간 부분 집합)\n\n공간부분집합의 예는 spData의 nz 의 및 nz_height데이터 세트를 활용\n\n\nnz                     # MULTIPOLYGON의 해당되는 정보\ncanterbury  <-  nz %>% filter(Name == \"Canterbury\")\ncanterbury             # MULTIPOLYGON\ncanterbury_height <-  nz_height[canterbury, ]\ncanterbury_height      # POINT\n\nnz_height[canterbury,]\nplot(nz_height[canterbury,])\n\nnz_height[canterbury, , op = st_disjoint]\nplot(nz_height[canterbury, , op = st_disjoint])\n\nnz_height[canterbury, 2, op = st_disjoint]\nplot(nz_height[canterbury, 2, op = st_disjoint])\n\n\nst_intersects() 를 활용한 공간 부분 집합 추출\n\n\nsel_sgbp <-  st_intersects(x = nz_height, y = canterbury) # 두 공간에서 겹치는 지역은 1로 출력 아닌 것은 empty로 출력\nclass(sel_sgbp)\n#> [1] \"sgbp\" \"list\"\nsel_logical  <-  lengths(sel_sgbp) > 0 # \ncanterbury_height2 <-  nz_height[sel_logical, ]\ncanterbury_height2\n\n\nfilter()함수를 활용한 공간부분집합 추출\n\n\ncanterbury_height3  <-  nz_height %>%\n  filter(st_intersects(x = ., y = canterbury, sparse = FALSE))\n\n#아래 두개의 차이 확인\nst_intersects(x = nz_height, y = canterbury, sparse = FALSE)\nst_intersects(x = nz_height, y = canterbury)\n\n\n\n4.2.2 Topological relations(위상 관계)\n\n위상 관계는 객체의 간의 공간적 관계를 설명함\n\n이해를 돕기 위해 아래와 같이 (a) 폴리곤, (l) 라인, (p) 포인트를 생성함\n\n# create a polygon\na_poly  <-  st_polygon(list(rbind(c(-1, -1), c(1, -1), c(1, 1), c(-1, -1))))\na <-   st_sfc(a_poly)\n# create a line\nl_line <-   st_linestring(x = matrix(c(-1, -1, -0.5, 1), ncol = 2))\nl <-   st_sfc(l_line)\n# create points\np_matrix <- matrix(c(0.5, 1, -1, 0, 0, 1, 0.5, 1), ncol = 2)\np_multi <- st_multipoint(x = p_matrix)\np <- st_cast(st_sfc(p_multi), \"POINT\")\n\nplot(a, col = c(\"gray\"), border = c(\"red\"))\nplot(l,add = T)\nplot(p,add = T)\nbox(col=\"black\")\n\naxis(side = 1, at = seq(-1.0, 1.0, 0.5), tck = 0.02)\naxis(side = 2, at = seq(-1, 1, 0.5), tck = 0.02, las=1)\ntext(p_matrix,pos=1)\n\n\n\n폴리곤 a에 교차하는 p포인트는?\n\n1번과 2번 포인트가 삼각형 내에 또는 위에 있음\nst_intersects(p, a)를 활용하여 구할 수 있음\nsparse = FALSE로 설정하면 TRUE or FALSE로 출력\n\n\n\n\n\nst_intersects(p, a)\n#> Sparse geometry binary ..., where the predicate was `intersects'\n#> 1: 1\n#> 2: 1\n#> 3: (empty)\n#> 4: (empty)\n\nst_intersects(p, a, sparse = FALSE)\n#>       [,1]\n#> [1,]  TRUE\n#> [2,]  TRUE\n#> [3,] FALSE\n#> [4,] FALSE"
   }
 ]
