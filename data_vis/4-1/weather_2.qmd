@@ -1,0 +1,88 @@
+---
+title: "Coordinate systems (기상청 자료)"
+author: "Jungwoo Lee"
+date: today
+image: weather.png
+categories: [code, visualation, R]
+format: html
+editor: visual
+---
+> 데이터 시각화 4주차 과제
+
+```{r, echo=FALSE}
+knitr::opts_chunk$set(error = TRUE)
+```
+
+```{r, results = 'hide', message = FALSE, eval = FALSE}
+library(ggplot2)
+library(dplyr)
+library(ggrepel)
+library(extrafont)
+```
+
+```{r, results = 'hide', message = FALSE, eval = FALSE}
+# 시군구 인구수 2023년
+data_202302 <- read.csv("/Users/jungwoolee/Desktop/college/Data Visualization/data/행정구역.csv", encoding = "UTF-8")
+data_202302
+```
+
+```{r, results = 'hide', message = FALSE, eval = FALSE}
+kor_census <- data_202302 %>% filter(X2023.02>0) %>% 
+  mutate(popratio = X2023.02 / median(X2023.02)) %>% 
+  arrange(popratio %>% desc()) %>% 
+  mutate(index = 1:n(),
+         labels = ifelse(index <= 5 | index > n()-5 | index == median(index), 행정구역.시군구.별,""))
+
+label_log10 <- sapply(-2:2, function(i) as.expression(bquote(10^ .(i))))
+```
+
+```{r, results = 'hide', message = FALSE, eval = FALSE}
+# ggplot 그리기
+ggplot(kor_census, aes(x = index, y = popratio)) +
+  geom_hline(yintercept = 1, linetype = 2, color = "grey40") +
+  geom_point(size = 1, color = "royalblue") +
+  geom_text_repel(aes(label = labels), 
+                  min.segment.length = 0,
+                  max.overlaps = 100,
+                  family = "AppleGothic") + 
+  scale_y_log10(name = "인구 수 / 중위 수",
+                breaks = 10^(-2:2),
+                labels = label_log10,
+                limits = c(10^-1.3, 10^1.3)) + # 그래프를 그렸을 때 아래에 모여있을 때 파악하기 힘들기 때문에 로그변환을 해줌
+  scale_x_continuous(name = "행정구역(시군구)별 주민등록세대수",
+                     breaks = NULL) + # breaks = NULL이면 x축 안보임, breaks=seq(0,350, by=50)이면 50부터 50씩 커짐
+  theme_light(base_family = "AppleGothic") +
+  theme(panel.border = element_blank())
+```
+![](kor.png){width="100%"}
+```{r, message = FALSE, eval = FALSE}
+# 기상청 자료 2022년
+data_2022<-read.csv("/Users/jungwoolee/Desktop/college/Data Visualization/data/OBS_ASOS_DD_20230322080932.csv", fileEncoding =  "CP949")
+data_2022$일시 <- data_2022$일시 %>% as.Date("%Y-%m-%d")
+```
+
+```{r, message = FALSE, eval = FALSE}
+date_s <- "2022-01-01" %>% as.Date("%Y-%m-%d") 
+date_e <- "2023-01-01" %>% as.Date("%Y-%m-%d") 
+break_date <- seq.Date(date_s, date_e, by = "2 month")
+date_lab = format(break_date, "%b")
+
+# 지점명 뽑기
+data_2022_use <- data_2022 %>% filter(지점명 %in%c("대전","서울","세종","제주"))
+data_2022_use %>% sapply(class)
+```
+
+```{r, message = FALSE, eval = FALSE}
+# ggplot 그리기
+ggplot(data_2022_use, aes(x = 일시, y = 평균기온..C., color = 지점명)) +
+  geom_line(linewidth = 0.5) +
+  scale_x_date(name = "월",
+               breaks = break_date,
+               labels = c("1월", "3월", "5월", "7월", "9월", "11월", "1월")) +
+  scale_y_continuous(name = "평군기온",
+                     limits = c(-20, 30)) +
+  coord_polar(theta = "x", start = pi, direction = -1) +
+  theme_light(base_family = "AppleGothic") +
+  theme(panel.border = element_blank())
+```
+![](cp1.png){width="100%"}

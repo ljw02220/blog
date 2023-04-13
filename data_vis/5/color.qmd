@@ -1,0 +1,151 @@
+---
+title: "Color scales"
+author: "Jungwoo Lee"
+date: "2023-04-13"
+image: color.png
+categories: [code, visualation, R]
+format: html
+editor: visual
+---
+> 데이터 시각화 5주차 실습
+
+```{r, echo=FALSE}
+knitr::opts_chunk$set(error = TRUE)
+```
+
+```{r, results = 'hide', message = FALSE, eval = FALSE}
+# 패키지 로드
+library(ggplot2)
+library(dplyr)
+library(colorspace)
+```
+
+```{r, results = 'hide', message = FALSE, eval = FALSE}
+### ColorBrewer palettes
+RColorBrewer::display.brewer.all()
+```
+![](color.png){width="2000"}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
+# 데이터 로드
+US_census <- read.csv("/Users/jungwoolee/Desktop/college/Data Visualization/data/US_census.csv")
+US_regions <- read.csv("/Users/jungwoolee/Desktop/college/Data Visualization/data/US_regions.csv")
+```
+
+```{r, results = 'hide', message = FALSE, eval = FALSE}
+popgrowth_df <- US_census %>% left_join(US_regions) %>% 
+  group_by(region, division, state) %>% 
+  summarise(pop2000 = sum(pop2000, na.rm = T),
+           pop2010 = sum(pop2010, na.rm = T),
+           popgrowth = (pop2010 - pop2000)/pop2000,
+           area = sum(area)) %>% 
+    arrange(popgrowth) %>% 
+    ungroup() %>% 
+    mutate(state = factor(state, levels = state),
+           region = factor(region, levels = c("West", "South", "Midwest", "Northeast")))
+```
+
+```{r, message = FALSE, eval = FALSE}
+# ggplot 그리기
+region_colors <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442")
+ggplot(popgrowth_df, aes(x = state, y = 100*popgrowth, fill = region)) +
+  geom_col() + 
+  scale_y_continuous(name = "population growth, 2000 to 2010",
+                     labels = scales::percent_format(scale = 1),
+                     expand = c(0,0)) +
+  scale_fill_manual(values = region_colors) +
+  coord_flip() +
+  theme_light() +
+  theme(panel.border = element_blank(),
+        panel.grid.major.y = element_blank(),
+        axis.title.y = element_blank(),
+        axis.ticks.length = unit(0,"pt"),
+        axis.text.y = element_text(size = 10),
+        legend.position = c(.58, .68),
+        legend.background = element_rect(fill = "#ffffffb0"))
+```
+![](popplot.png){width="2000"}
+```{r, message = FALSE, eval = FALSE}
+region_colors <- c("#E69F00","#56B4E9","#009E73","#F0E442") %>% 
+  lighten(0.4) %>% desaturate(0.8)
+
+popgrowth_df <- popgrowth_df %>% 
+  mutate(region_highlight = ifelse(state %in% c("Texas", "Louisiana"), NA, region %>% 
+  paste()))
+popgrowth_df %>% head()
+```
+
+```{r, message = FALSE, eval = FALSE}
+# ggplot 그리기
+ggplot(popgrowth_df, aes(x = state, y = 100*popgrowth, fill = region_highlight)) +
+  geom_col() +
+  scale_y_continuous(name = 'population growth, 2000 to 2010',
+                     labels = scales::percent_format(scale = 1),
+                     expand = c(0,0)) +
+  scale_fill_manual(values = region_colors,
+                    breaks = c("West", "South", "Midwest", "Northeast"),
+                    na.value = '#56B4E9' %>% darken(0.3)) +
+  coord_flip() +
+  theme_light() +
+  theme(axis.title.y = element_blank(),
+        axis.line.y = element_blank(),
+        axis.ticks.length = unit(0,"pt"),
+        axis.text.y = element_text(size = 8),
+        legend.position = c(.58,.68),
+        legend.background = element_rect(fill = "#ffffffb0"))
+```
+![](popplot2.png){width="2000"}
+
+### geom_hline()
+```{r, message = FALSE, eval = FALSE}
+### 총인구
+library(geojsonsf)
+library(sf)
+```
+
+```{r, message = FALSE, eval = FALSE}
+### 지도
+kor_sido <- geojson_sf('/Users/jungwoolee/Desktop/college/Data Visualization/data/KOR_SIDO.json')
+kor_sigu <- geojson_sf('/Users/jungwoolee/Desktop/college/Data Visualization/data/KOR_SIGU.json')
+
+use_map <- kor_sigu
+use_map$행정구역_코드 <- paste(use_map$SIG_CD, "00000", sep = "")
+use_map <- use_map %>% merge(kor_202202, by = "행정구역_코드", all.x = T)
+```
+
+```{r, message = FALSE, eval = FALSE}
+use_map %>% ggplot(aes(fill = 총인구수)) + 
+  geom_sf(color = "gray90") +
+  coord_sf(datum = NA) +
+  scale_fill_distiller(
+    name = '인구수',
+    palette = "Blues" , type = 'seq', na.value = 'grey60',
+    direction = 1,
+    breaks = seq(0, 10, 2) * 1e+5,
+    labels = format(seq(0, 10, 2) * 1e+5, big.mark = ",", scientific = F),) +
+  theme_minimal() +
+  theme_light(base_family = "AppleSDGothicNeo-Regular") +
+  theme(legend.title.align = 0.5,
+        legend.text.align = 1.0,
+        legend.position = c(.85,.2))
+```
+![](kormap.png){width="700"}
+
+### coord_polar()
+```{r, message = FALSE, eval = FALSE}
+# 남여 비율
+use_map %>% 
+  ggplot(aes(fill = 남여_비율)) +
+  geom_sf() + # 경계 생성
+  coord_sf(datum = NA) + # 좌표 삭제
+  scale_fill_continuous_diverging(palette = "Blue-Red", mid = 1, limits = 1 +c(-1, +1)*0.35) +
+  theme_minimal() +
+  theme_light(base_family = "AppleSDGothicNeo-Regular") +
+  theme(legend.title.align = 0.5,         # 범례 제목 정렬: 0 ~ 1
+        legend.text.align = 1.0,          # 범례 레이블 정렬: 0 ~ 1
+        legend.position = c(.85,.2))      # 범례의 위치
+```
+::: {layout-ncol=2}
+![rev = F](lg.png)
+
+![rev = T](lgr.png)
+:::

@@ -400,8 +400,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="at">col=</span><span class="st">"black"</span>)</span>
 <span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side =</span> <span class="dv">1</span>, <span class="at">at =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">1.0</span>, <span class="fl">1.0</span>, <span class="fl">0.5</span>), <span class="at">tck =</span> <span class="fl">0.02</span>)</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side =</span> <span class="dv">2</span>, <span class="at">at =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.5</span>), <span class="at">tck =</span> <span class="fl">0.02</span>, <span class="at">las=</span><span class="dv">1</span>)</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(p_matrix,<span class="at">pos=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side =</span> <span class="dv">2</span>, <span class="at">at =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.5</span>), <span class="at">tck =</span> <span class="fl">0.02</span>, <span class="at">las =</span> <span class="dv">1</span>)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(p_matrix,<span class="at">pos =</span> <span class="dv">1</span>) <span class="co"># 1 = 6시 2 = 9시 3 = 12시 4 = 3시 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="poly.png" class="img-fluid" style="width:100.0%"></p>
 <ul>
@@ -410,8 +410,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>1번과 2번 포인트가 삼각형 내에 또는 위에 있음</li>
 <li><code>st_intersects(p, a)</code>를 활용하여 구할 수 있음</li>
 <li><code>sparse = FALSE</code>로 설정하면 TRUE or FALSE로 출력</li>
-</ul></li>
-</ul></li>
 </ul></li>
 </ul>
 <div class="cell">
@@ -428,7 +426,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,]  TRUE</span></span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] FALSE</span></span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,] FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p><code>st_intersects()</code> 의 반대는 <code>st_disjoint()</code>이며, 이는 선택 객체와 어떤 식으로든 공간적으로 관련되지 않는 객체만 반환(참고 [, 1]은 결과를 벡터로 변환)</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_disjoint</span>(p, a, <span class="at">sparse =</span> F)[, <span class="dv">1</span>]</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] FALSE FALSE  TRUE  TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<ul>
+<li><code>st_within()</code> 는 완전히 객체 내부에 있는 객체들만 TRUE로 출력
+<ul>
+<li>삼각형 내부에 있는 1번째 포인트만 TRUE로 출력</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_within</span>(p, a, <span class="at">sparse =</span> <span class="cn">FALSE</span>)[, <span class="dv">1</span>]</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1]  TRUE FALSE FALSE FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><code>st_touches()</code> 는 삼각형 위(테두리)에 있는 객체들 출력
+<ul>
+<li>삼각형 테두리에 있는 2번째 포인트만 TRUE로 출력</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_touches</span>(p, a, <span class="at">sparse =</span> <span class="cn">FALSE</span>)[, <span class="dv">1</span>]</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] FALSE  TRUE FALSE FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><code>st_is_within_distance</code>는 삼각형에서 주어진 거리보다 가까운 객체들을 반환</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sel  <span class="ot">&lt;-</span>  <span class="fu">st_is_within_distance</span>(p, a, <span class="at">dist =</span> <span class="fl">0.9</span>) <span class="co"># can only return a sparse matrix</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lengths</span>(sel) <span class="sc">&gt;</span> <span class="dv">0</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1]  TRUE  TRUE FALSE  TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+</ul>
 
 
 </section>
