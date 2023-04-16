@@ -1,7 +1,8 @@
 ---
-title: "Coordinate systems (기상청 자료)"
+title: "Coordinate systems"
+subtitle: "(기상청 자료)"
 author: "Jungwoo Lee"
-date: today
+date: "2023-04-11"
 image: weather.png
 categories: [code, visualation, R]
 format: html

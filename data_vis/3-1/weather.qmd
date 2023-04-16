@@ -1,5 +1,6 @@
 ---
-title: "geom_line & heatmap(기상청자료)"
+title: "geom_line & heatmap" 
+subtitle: "(기상청자료)"
 author: "Jungwoo Lee"
 date: "2023-04-05"
 image: weather.png

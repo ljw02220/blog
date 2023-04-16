@@ -1,5 +1,6 @@
 ---
-title: "geom_line & heatmap(ncdc_normal)"
+title: "geom_line & heatmap" 
+subtitle: "(ncdc_normal)"
 author: "Jungwoo Lee"
 date: "2023-04-04"
 image: Rplot.png

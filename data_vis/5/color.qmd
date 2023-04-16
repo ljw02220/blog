@@ -64,6 +64,47 @@ ggplot(popgrowth_df, aes(x = state, y = 100*popgrowth, fill = region)) +
         legend.background = element_rect(fill = "#ffffffb0"))
 ```
 ![](popplot.png){width="2000"}
+
+```{r, message = FALSE, eval = FALSE}
+### 주민등록 인구 및 세대현황 데이터
+kor_202202 <- read.csv('/Users/jungwoolee/Desktop/college/Data Visualization/data/202202_주민등록인구및세대현황.csv')
+kor_202202 %>% head()          
+kor_202202 %>% sapply(class)
+kor_202202$행정구역_코드 <- kor_202202$행정구역_코드 %>% format()
+```
+
+```{r, message = FALSE, eval = FALSE}
+kor_202202_use <- kor_202202 %>% 
+  filter(substr(행정구역,1,2)%in% c("서울","대전","대구","부산")) %>% 
+  filter(substr(행정구역_코드,3,4)!="00") %>% 
+  select(행정구역,총인구수) %>% 
+  arrange(총인구수)
+
+kor_202202_use$시도 = sapply(kor_202202_use$행정구역,
+                          function(x)strsplit(x," ")[[1]][1])
+kor_202202_use$시도 = factor(kor_202202_use$시도,
+                         levels = c("서울특별시", "대전광역시", "대구광역시", "부산광역시"))
+```
+
+```{r, message = FALSE, eval = FALSE}
+#4개 지방의 색 지정
+region_colors <- c("#E69F00","#56B4E9","#009E73","#F0E442")
+
+ggplot(kor_202202_use,aes(x = reorder(행정구역, 총인구수),y = 총인구수 ,fill = 시도))+
+  geom_col()+
+  scale_y_continuous(name="총인구수, 2022년 2월",labels = scales::comma) +
+  scale_fill_manual(values = region_colors) +
+  coord_flip()+
+  theme_light(base_family = "AppleSDGothicNeo-Regular")+ theme(panel.border = element_blank(), panel.grid.major.y = element_blank()) +
+  theme(axis.title.y = element_blank(),
+        axis.line.y = element_blank(),
+        axis.ticks.length = unit(0,"pt"),
+        axis.text.y = element_text(size = 8),
+        legend.position = c(.58,.68),
+        legend.background = element_rect(fill = "#ffffffb0"))
+```
+![](nr.png){width="1000"}
+
 ```{r, message = FALSE, eval = FALSE}
 region_colors <- c("#E69F00","#56B4E9","#009E73","#F0E442") %>% 
   lighten(0.4) %>% desaturate(0.8)
@@ -95,7 +136,29 @@ ggplot(popgrowth_df, aes(x = state, y = 100*popgrowth, fill = region_highlight))
 ```
 ![](popplot2.png){width="2000"}
 
-### geom_hline()
+```{r, message = FALSE, eval = FALSE}
+region_colors <- c("#E69F00","#56B4E9","#009E73","#F0E442") %>% 
+  lighten(0.4) %>% desaturate(0.8)
+
+region_colors[2] <- "#56B4E9" %>% darken(0.5)
+```
+
+```{r, message = FALSE, eval = FALSE}
+ggplot(kor_202202_use, aes(x = reorder(행정구역, 총인구수),y = 총인구수 ,fill = 시도)) +
+  geom_col() +
+  scale_y_continuous(name="총인구수, 2022년 2월", labels = scales::comma) +
+  scale_fill_manual(values = region_colors) +
+  coord_flip() +
+  theme_light(base_family = "AppleSDGothicNeo-Regular")+ theme(panel.border = element_blank(), panel.grid.major.y = element_blank()) +
+  theme(axis.title.y = element_blank(),
+        axis.line.y = element_blank(),
+        axis.ticks.length = unit(0,"pt"),
+        axis.text.y = element_text(size = 8),
+        legend.position = c(.58,.68),
+        legend.background = element_rect(fill = "#ffffffb0"))
+```
+![](popplot3.png)
+
 ```{r, message = FALSE, eval = FALSE}
 ### 총인구
 library(geojsonsf)
@@ -130,9 +193,8 @@ use_map %>% ggplot(aes(fill = 총인구수)) +
 ```
 ![](kormap.png){width="700"}
 
-### coord_polar()
 ```{r, message = FALSE, eval = FALSE}
-# 남여 비율
+# 남녀 비율
 use_map %>% 
   ggplot(aes(fill = 남여_비율)) +
   geom_sf() + # 경계 생성
