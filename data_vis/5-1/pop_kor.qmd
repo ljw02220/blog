@@ -14,7 +14,7 @@ editor: visual
 knitr::opts_chunk$set(error = TRUE)
 ```
 
-```{r, results = 'hide', message = FALSE, eval = FALSE}
+```{r, results = 'hide', results = 'hide', message = FALSE, eval = FALSE}
 # 패키지 로드
 library(ggplot2)
 library(dplyr)
@@ -25,13 +25,13 @@ library(stringr)
 library(extrafont) # mac os 한글 깨지는 처리해주는 패키지
 ```
 
-```{r, results = 'hide', message = FALSE, eval = FALSE}
+```{r, results = 'hide', results = 'hide', message = FALSE, eval = FALSE}
 # 데이터 로드
 kor_202303 <- read.csv('/Users/jungwoolee/Desktop/college/Data Visualization/data/202303_202303_주민등록인구및세대현황_월간.csv',  fileEncoding = "euc-kr")
 kor_sido <- geojson_sf('/Users/jungwoolee/Desktop/college/Data Visualization/data/KOR_SIDO.json')
 ```
 
-```{r, results = 'hide', message = FALSE, eval = FALSE}
+```{r, results = 'hide', results = 'hide', message = FALSE, eval = FALSE}
 # 데이터 전처리
 kor_202303$행정구역 <- str_sub(kor_202303$행정구역, -30, -15) # 행정구역에서 글자만 추출
 kor = str_replace_all(kor_202303[,2],",", "") # 쉼표(,) 제거
@@ -47,7 +47,7 @@ use_map[, "행정구역_코드"] = as.numeric(use_map$행정구역_코드) # 행
 use_map <- use_map %>% merge(kor_202303,by="행정구역", all.x = T) # use_map과 kor_202303 병합
 ```
 
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 # ggplot 그리기
 use_map %>% ggplot(aes(fill = 총인구수))+
   geom_sf(color = "gray90")+

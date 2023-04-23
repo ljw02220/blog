@@ -14,14 +14,14 @@ editor: visual
 knitr::opts_chunk$set(error = TRUE)
 ```
 
-```{r, results = 'hide', message = FALSE, eval = FALSE}
+```{r, results = 'hide', results = 'hide', message = FALSE, eval = FALSE}
 library(ggplot2)
 library(dplyr)
 library(tidyverse)
 library(palmerpenguins)
 ```
 
-```{r, results = 'hide', message = FALSE, eval = FALSE}
+```{r, results = 'hide', results = 'hide', message = FALSE, eval = FALSE}
 ncdc_normals <- read.csv("/Users/jungwoolee/Desktop/college/Data Visualization/data/ncdc_normals.csv")
 station_loc <- data.frame(station_id = c("USW00014819","USC00042319","USW00093107","USW00012918"),
                           location = c("Chicago","Death Valley","San Diego","Houston"))
@@ -29,14 +29,14 @@ temps_long <- ncdc_normals %>% inner_join(station_loc, by="station_id")  #statio
 temps_long$date <- temps_long$date %>% as.Date("%Y-%m-%d") # class를 Date로 바꿔줌
 ```
 
-```{r, results = 'hide', message = FALSE, eval = FALSE}
+```{r, results = 'hide', results = 'hide', message = FALSE, eval = FALSE}
 # x축에 표시할 눈금
 date_s <- "0000-01-01" %>% as.Date("%Y-%m-%d") 
 date_e <- "0001-01-01" %>% as.Date("%Y-%m-%d") 
 break_date <- seq.Date(date_s, date_e, by = "3 month")
 ```
 
-```{r, results = 'hide', message = FALSE, eval = FALSE}
+```{r, results = 'hide', results = 'hide', message = FALSE, eval = FALSE}
 library(cowplot)
 
 # Houston 필터
@@ -45,14 +45,14 @@ data_Houston %>% dim
 data_Houston %>% head()
 ```
 
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 # x축에 표시할 눈금
 date_s <- "0000-01-01" %>% as.Date("%Y-%m-%d") 
 date_e <- "0001-01-01" %>% as.Date("%Y-%m-%d") 
 break_date <- seq.Date(date_s, date_e, by = "3 month")
 ```
 
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 # ggplot 그리기 
 temp_plot <- ggplot(data_Houston, aes(x = date, y = temperature)) +
   geom_line(linewidth = 1, color = "royalblue") + 
@@ -62,7 +62,7 @@ temp_plot <- ggplot(data_Houston, aes(x = date, y = temperature)) +
   theme_light()
 ```
 
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 # 여러 플롯 정렬
 plot_ab <- plot_grid(temp_plot,
                      temp_plot,
@@ -81,7 +81,7 @@ plot_abc
 ![](c.png){width="100%"}
 
 ### geom_hline()
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 library(ggrepel)
 
 US_census <- read.csv("/Users/jungwoolee/Desktop/college/Data Visualization/data/US_census.csv")
@@ -95,7 +95,7 @@ tx_counties <- US_census %>%
          label = ifelse(index <= 3 | index > n()-3 | runif(n(5)) < 0.04, county, "")) # 앞, 뒤에서 3등까지, 랜덤으로 표시
 ```
 
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 ggplot(tx_counties, aes(x = index, y = popratio)) +
   geom_hline(yintercept = 0, linetype = 2, color = "grey40") +
   geom_point(size = 1, color = "royalblue") +
@@ -107,7 +107,7 @@ ggplot(tx_counties, aes(x = index, y = popratio)) +
 ```
 ![](h1.png){width="100%"}
 
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 label_log10 <- sapply(-2:2, function(i) as.expression(bquote(10^ .(i))))
 
 ggplot(tx_counties, aes(x = index, y = popratio)) +
@@ -127,7 +127,7 @@ ggplot(tx_counties, aes(x = index, y = popratio)) +
 ![](hl.png){width="100%"}
 
 ### coord_polar()
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 # figure 3.10
 date_s <- "0000-01-01" %>% as.Date("%Y-%m-%d")
 date_e <- "0001-01-01" %>% as.Date("%Y-%m-%d")
@@ -135,7 +135,7 @@ break_date <- seq.Date(date_s, date_e, by = "3 month")
 date_lab = format(break_date, "%B")
 ```
 
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 ggplot(temps_long, aes(x = date, y = temperature, color = location)) +
   geom_line(linewidth = 1) +
   scale_x_date(name = "month",

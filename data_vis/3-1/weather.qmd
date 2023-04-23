@@ -14,7 +14,7 @@ editor: visual
 knitr::opts_chunk$set(error = TRUE)
 ```
 
-```{r, results = 'hide', message = FALSE, eval = FALSE}
+```{r, results = 'hide', results = 'hide', message = FALSE, eval = FALSE}
 library(ggplot2)
 library(dplyr)
 library(tidyverse)
@@ -22,7 +22,7 @@ library(palmerpenguins)
 ```
 
 ### 기상청 자료 2021년
-```{r, results = 'hide', message = FALSE, eval = FALSE}
+```{r, results = 'hide', results = 'hide', message = FALSE, eval = FALSE}
 # 기상청 자료 2021년
 data_2021 <- read.csv("/Users/jungwoolee/Desktop/college/Data Visualization/data/OBS_ASOS_DD_20220308125952.csv", fileEncoding =  "CP949")
 data_2021
@@ -38,7 +38,7 @@ data_2021$일시 <- data_2021$일시 %>% as.Date("%Y-%m-%d")
 data_2021 %>% sapply(class)
 ```
 
-```{r, results = 'hide', message = FALSE, eval = FALSE}
+```{r, results = 'hide', results = 'hide', message = FALSE, eval = FALSE}
 # x축에 표시할 눈금
 date_s <- "2021-01-01" %>% as.Date("%Y-%m-%d") 
 date_e <- "2022-01-01" %>% as.Date("%Y-%m-%d") 
@@ -46,7 +46,7 @@ break_date <- seq.Date(date_s, date_e, by = "3 month")
 break_date
 ```
 
-```{r, results = 'hide', message = FALSE, eval = FALSE}
+```{r, results = 'hide', results = 'hide', message = FALSE, eval = FALSE}
 # ggplot + 축 설정
 data_2021 %>% names()
 ggplot(data_2021, aes(x = 일시, y = 평균기온..C., color = 지점명)) + 
@@ -74,7 +74,7 @@ ggplot(data_2021, aes(x = 일시, y = 평균기온..C., color = 지점명)) +
 
 ![](w-1.png)
 :::
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 ## heat map
 data_2021_month <- data_2021 %>% 
   mutate(month = format(일시, "%m")) %>% 
@@ -85,7 +85,7 @@ data_2021_month <- data_2021 %>%
 ggplot(data_2021_month,aes(x = month, y = 지점명, fill = mean)) +
   geom_tile(width = 0.95, height = 0.95) +
   coord_fixed(expand = FALSE) + 
-  scale_fill_viridis_c(option = "B",begin = 0.15,end = 0.98, name = "temperature") + 
+  scale_fill_viridis_c(option = "B", begin = 0.15, end = 0.98, name = "temperature") + 
   theme_light(base_family = "AppleSDGothicNeo-Regular") +
   ylab(NULL) 
 # ggtitle("2021년 기상청 자료") +
@@ -94,9 +94,9 @@ ggplot(data_2021_month,aes(x = month, y = 지점명, fill = mean)) +
 ![](w-2.png){width="100%"}
 
 ### 기상청 자료 2022년
-```{r, result = 'hide', message = FALSE, eval = FALSE}
+```{r, result = 'hide', results = 'hide', message = FALSE, eval = FALSE}
 # 기상청 자료 2022년
-data_2022<-read.csv("/Users/jungwoolee/Desktop/college/Data Visualization/data/OBS_ASOS_DD_20230322080932.csv", fileEncoding =  "CP949")
+data_2022 <- read.csv("/Users/jungwoolee/Desktop/college/Data Visualization/data/OBS_ASOS_DD_20230322080932.csv", fileEncoding =  "CP949")
 head(data_2022)
 
 # Data type conversion: character > Date
@@ -105,7 +105,7 @@ data_2022$일시 <- data_2022$일시 %>% as.Date("%Y-%m-%d")
 data_2022 %>% sapply(class)
 ```
 
-```{r, result = 'hide', message = FALSE, eval = FALSE}
+```{r, result = 'hide', results = 'hide', message = FALSE, eval = FALSE}
 # x축에 표시할 눈금
 date_s <- "2022-01-01" %>% as.Date("%Y-%m-%d") 
 date_e <- "2023-01-01" %>% as.Date("%Y-%m-%d") 
@@ -114,10 +114,10 @@ break_date
 
 #지점명확인
 data_2022$지점명 %>%  table()
-data_2022_use <- data_2022 %>% filter(지점명 %in%c("대전","서울","세종","제주"))
+data_2022_use <- data_2022 %>% filter(지점명 %in%c("대전", "서울", "세종", "제주"))
 ```
 
-```{r mutiple, fig.ncol = 2, result = 'hide', message = FALSE, eval = FALSE}
+```{r mutiple, fig.ncol = 2, result = 'hide', results = 'hide', message = FALSE, eval = FALSE}
 ggplot(data_2022_use, aes(x = 일시, y = 평균기온..C., color = 지점명)) + 
   geom_line(linewidth = 0.5) + 
   scale_x_date(name = "월", 
@@ -139,7 +139,15 @@ ggplot(data_2022_use, aes(x = 일시, y = 평균기온..C., color = 지점명)) 
 
 ![](w-4.png)
 :::
-```{r, result = 'hide', message = FALSE, eval = FALSE}
+```{r, result = 'hide', results = 'hide', message = FALSE, eval = FALSE}
+data_2022_month <- data_2022_use %>% 
+  mutate(month = format(일시, "%m")) %>% 
+  group_by(지점명, month) %>% 
+  summarize(mean = mean(평균기온..C.))
+# mutate(month = factor(month, levels = paste(1:12, "월", sep = "")))
+```
+
+```{r, result = 'hide', results = 'hide', message = FALSE, eval = FALSE}
 # heatmap
 ggplot(data_2022_month,aes(x = month, y = 지점명, fill = mean)) +
   geom_tile(width = 0.95, height = 0.95) +

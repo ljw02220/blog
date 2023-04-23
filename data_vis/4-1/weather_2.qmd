@@ -14,20 +14,20 @@ editor: visual
 knitr::opts_chunk$set(error = TRUE)
 ```
 
-```{r, results = 'hide', message = FALSE, eval = FALSE}
+```{r, results = 'hide', results = 'hide', message = FALSE, eval = FALSE}
 library(ggplot2)
 library(dplyr)
 library(ggrepel)
 library(extrafont)
 ```
 
-```{r, results = 'hide', message = FALSE, eval = FALSE}
+```{r, results = 'hide', results = 'hide', message = FALSE, eval = FALSE}
 # 시군구 인구수 2023년
 data_202302 <- read.csv("/Users/jungwoolee/Desktop/college/Data Visualization/data/행정구역.csv", encoding = "UTF-8")
 data_202302
 ```
 
-```{r, results = 'hide', message = FALSE, eval = FALSE}
+```{r, results = 'hide', results = 'hide', message = FALSE, eval = FALSE}
 kor_census <- data_202302 %>% filter(X2023.02>0) %>% 
   mutate(popratio = X2023.02 / median(X2023.02)) %>% 
   arrange(popratio %>% desc()) %>% 
@@ -37,7 +37,7 @@ kor_census <- data_202302 %>% filter(X2023.02>0) %>%
 label_log10 <- sapply(-2:2, function(i) as.expression(bquote(10^ .(i))))
 ```
 
-```{r, results = 'hide', message = FALSE, eval = FALSE}
+```{r, results = 'hide', results = 'hide', message = FALSE, eval = FALSE}
 # ggplot 그리기
 ggplot(kor_census, aes(x = index, y = popratio)) +
   geom_hline(yintercept = 1, linetype = 2, color = "grey40") +
@@ -56,13 +56,13 @@ ggplot(kor_census, aes(x = index, y = popratio)) +
   theme(panel.border = element_blank())
 ```
 ![](kor.png){width="100%"}
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 # 기상청 자료 2022년
 data_2022<-read.csv("/Users/jungwoolee/Desktop/college/Data Visualization/data/OBS_ASOS_DD_20230322080932.csv", fileEncoding =  "CP949")
 data_2022$일시 <- data_2022$일시 %>% as.Date("%Y-%m-%d")
 ```
 
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 date_s <- "2022-01-01" %>% as.Date("%Y-%m-%d") 
 date_e <- "2023-01-01" %>% as.Date("%Y-%m-%d") 
 break_date <- seq.Date(date_s, date_e, by = "2 month")
@@ -73,7 +73,7 @@ data_2022_use <- data_2022 %>% filter(지점명 %in%c("대전","서울","세종"
 data_2022_use %>% sapply(class)
 ```
 
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 # ggplot 그리기
 ggplot(data_2022_use, aes(x = 일시, y = 평균기온..C., color = 지점명)) +
   geom_line(linewidth = 0.5) +

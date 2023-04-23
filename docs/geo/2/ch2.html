@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jungwoo Lee">
-<meta name="dcterms.date" content="2023-04-16">
+<meta name="dcterms.date" content="2023-04-23">
 
 <title>Blog - Chapter 2 Geograpic data in R</title>
 <style>
@@ -295,7 +295,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 16, 2023</p>
+      <p class="date">April 23, 2023</p>
     </div>
   </div>
   
@@ -393,7 +393,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>st_as_sf()</code>: sf로 변환 하는 함수</li>
 </ul></li>
 </ul>
-<div class="cell">
+<div class="cell" data-esults="hide">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sp)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>world_sp <span class="ot">=</span> <span class="fu">as</span>(world, <span class="at">Class =</span> <span class="st">"Sptial"</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>world_sf <span class="ot">=</span> <span class="fu">st_as_sf</span>(world_sp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -936,9 +936,252 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="do">## plotting </span></span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(my_raster, <span class="at">main =</span> <span class="st">"my raster (64 cells = 8 rows * 8 cols)"</span>)           </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-
-
+<p><img src="my_raster.png" class="img-fluid"></p>
 </section>
+<section id="rasterbrick-class" class="level3">
+<h3 class="anchored" data-anchor-id="rasterbrick-class">2. RasterBrick class</h3>
+<ul>
+<li><code>RasterBrick</code> and <code>RasterStack</code> 클래스는 <strong>여러 개의 층(multiple layers)</strong>을 가질 수 있음</li>
+<li>특히, <code>RasterBrick</code>클래스는 단일 <strong>스펙드럼 위성 파일(a single multispectral satellite file)</strong> 이나 또는 <strong>메모리의 단일 다층 객체(a single multilayer object in memory)</strong>의 형태로 <strong>다층의 레스터 객체</strong>를 구성</li>
+<li>아래의 예는 raster 패키지의 <code>brick()</code><strong>함수를 사용</strong>해서 spDataLarge 패키지에 들어있는 <strong>landsat.tif</strong> <strong>의 다층 레스터 파일</strong>을 <code>RasterBrick</code>클래스 객체로 불러온 것
+<ul>
+<li><code>nlayers()</code> : the number of layers stored in a&nbsp;<code>Raster*</code> &nbsp;object</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>multi_raster_file <span class="ot">=</span> <span class="fu">system.file</span>(<span class="st">"raster/landsat.tif"</span>, <span class="at">package =</span> <span class="st">"spDataLarge"</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>r_brick <span class="ot">=</span> <span class="fu">brick</span>(multi_raster_file)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>r_brick</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fu">nlayers</span>(r_brick)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r_brick) <span class="co">#plotting RasterBrick object with 4 layers</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> r_brick</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>class      <span class="sc">:</span> RasterBrick </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>dimensions <span class="sc">:</span> <span class="dv">1428</span>, <span class="dv">1128</span>, <span class="dv">1610784</span>, <span class="dv">4</span>  (nrow, ncol, ncell, nlayers)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>resolution <span class="sc">:</span> <span class="dv">30</span>, <span class="dv">30</span>  (x, y)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>extent     <span class="sc">:</span> <span class="dv">301905</span>, <span class="dv">335745</span>, <span class="dv">4111245</span>, <span class="dv">4154085</span>  (xmin, xmax, ymin, ymax)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>crs        <span class="sc">:</span> <span class="sc">+</span>proj<span class="ot">=</span>utm <span class="sc">+</span>zone<span class="ot">=</span><span class="dv">12</span> <span class="sc">+</span>datum<span class="ot">=</span>WGS84 <span class="sc">+</span>units<span class="ot">=</span>m <span class="sc">+</span>no_defs </span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>source     <span class="sc">:</span> landsat.tif </span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>names      <span class="sc">:</span> landsat<span class="fl">.1</span>, landsat<span class="fl">.2</span>, landsat<span class="fl">.3</span>, landsat<span class="fl">.4</span> </span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>min values <span class="sc">:</span>      <span class="dv">7550</span>,      <span class="dv">6404</span>,      <span class="dv">5678</span>,      <span class="dv">5252</span> </span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>max values <span class="sc">:</span>     <span class="dv">19071</span>,     <span class="dv">22051</span>,     <span class="dv">25780</span>,     <span class="dv">31961</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">nlayers</span>(r_brick)</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+</ul>
+<p><img src="4.png" class="img-fluid"></p>
+</section>
+<section id="rasterstack-class" class="level3">
+<h3 class="anchored" data-anchor-id="rasterstack-class">3. RasterStack class</h3>
+<ul>
+<li><strong>다 층 (multi-layers) 레스터 객체</strong>로 구성</li>
+<li><strong>같은 범위와 해상도</strong>를 가진 <strong>여러개의 <code>RasterLayer</code> 클래스 객체</strong>들을 <strong>리스트</strong>로 묶어서 <code>RasterStack</code> 클래스 객체를 만듬</li>
+<li><code>RasterBrick</code>클래스가 동일한 복수개의 <code>RasterLayer</code>층으로 구성되는 반면에, <code>RasterStack</code>클래스는 여러개의 <code>RasterLayer</code>와<code>RasterBrick</code> 클래스 객체가 혼합되어서 구성할 수 있음</li>
+<li>연산 속도면에서 보면 일반적으로 <code>RasterBrick</code> 클래스가 <code>RasterStack</code> 클래스보다 빠름</li>
+<li>아래 예시
+<ul>
+<li><ol type="a">
+<li>raster(raster_brick, layer = 1) 함수를 사용해서 위에서 불러왔던 RasterBrick 클래스 객체의 1번째 층만 가져다가 raster_on_disk 라는 이름으로 레스터 객체를 하나 만듬</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li>raster() 함수로 동일한 범위와 해상도, 좌표 참조 시스템(CRS)를 가지고 난수로 셀의 값을 채운 raster_in_memory 라는 이름의 메모리에 있는 RasterLayer 클래스 객체를 만듬</li>
+</ol>
+<ul>
+<li>seq_len(n) : 1부터 n까지 입력(1씩 커짐)</li>
+</ul></li>
+<li>다음에&nbsp;stac() 함수로 raster_stack = stack(raster_in_memory, raster_on_disk) 처럼 (a) + (b) 하여 쌓아서 raster_stack 라는 이름의 RasterStack 클래스 객체를 만듬</li>
+<li>마지막으로&nbsp;<strong>plot() 함수</strong>로 RasterStack 클래스 객체에 쌓여 있는 2개의 객체를 시각화 (raster_in_memory 는 난수를 발생시켜 셀 값을 채웠기 때문에 시각화했을 때 아무런 패턴이 없음)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>raster_on_disk <span class="ot">=</span> <span class="fu">raster</span>(r_brick, <span class="at">layer =</span> <span class="dv">1</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>raster_in_memory <span class="ot">=</span> <span class="fu">raster</span>(<span class="at">xmn =</span> <span class="dv">301905</span>, <span class="at">xmx =</span> <span class="dv">335745</span>,</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">ymn =</span> <span class="dv">4111245</span>, <span class="at">ymx =</span> <span class="dv">4154085</span>, </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">res =</span> <span class="dv">30</span>)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">values</span>(raster_in_memory) <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">seq_len</span>(<span class="fu">ncell</span>(raster_in_memory)))</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="fu">crs</span>(raster_in_memory) <span class="ot">=</span> <span class="fu">crs</span>(raster_on_disk) <span class="co">#같은 좌표 입력</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>r_stack <span class="ot">=</span> <span class="fu">stack</span>(raster_in_memory, raster_on_disk)</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>r_stack</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r_stack)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+</ul>
+<p><img src="2.png" class="img-fluid"></p>
+<section id="언제-어떤-래스터-클래스를-사용하는-것이-좋은가" class="level4">
+<h4 class="anchored" data-anchor-id="언제-어떤-래스터-클래스를-사용하는-것이-좋은가">언제 어떤 래스터 클래스를 사용하는 것이 좋은가?</h4>
+<ul>
+<li><strong>하나의 다층 레스터 파일이나 객체</strong>(a single multilayer file or object)를 처리하는 것이라면 <strong>RasterBrick 이 적합</strong></li>
+<li>반면에,&nbsp;<strong>여러개의 래스터 파일들(many files)</strong>이나 <strong>여러 종류의 레스터 클래스</strong>를 한꺼번에 연결해서 연산하고 처리해야 하는 경우라면 <strong>RasterStack Class 가 적합</strong></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="coordinate-reference-systems" class="level2">
+<h2 class="anchored" data-anchor-id="coordinate-reference-systems">2.4 <strong>Coordinate Reference Systems</strong></h2>
+</section>
+<section id="crscoordinate-reference-systems" class="level2">
+<h2 class="anchored" data-anchor-id="crscoordinate-reference-systems">CRS(Coordinate Reference Systems)</h2>
+<ul>
+<li>지리 공간 데이터 분석에서 가장 기본이 되고 또 처음에 확인을 해보아야 하는 좌표계, <strong>좌표 참조 시스템(CRS, Coordinate Reference Systems</strong>)에 대한 소개
+<ul>
+<li><strong>지리 좌표계</strong> (Geographic Coordinate Reference Systems)</li>
+<li><strong>투영(투사) 좌표계</strong> (Projected Coordinate Reference Systems) <img src="https://branch-fly-0f0.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F48cc5978-e7e1-46a0-97b8-06016b17c19e%2FUntitled.png?id=2bc80914-5714-45ea-930a-8c1573c3d4fb&amp;table=block&amp;spaceId=61857863-5095-4207-bdf6-98c218ee62d8&amp;width=1250&amp;userId=&amp;cache=v2" class="img-fluid"></li>
+</ul></li>
+</ul>
+</section>
+<section id="crs-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="crs-in-r">CRS in R</h2>
+<ul>
+<li>R에서 좌표계를 표현할 때는 (a) <strong>epsg 코드 (epsg code)</strong>나 또는 (b)<strong>proj4string 정의 (proj4string definition)</strong>를 사용</li>
+<li>R에서 CRS를 설명하는 두 가지 주요 방법은(a)&nbsp;<code>epsg</code>코드 또는(b)<code>proj4string</code>정의</li>
+<li><code>epsg</code>코드
+<ul>
+<li>일반적으로 더 짧으므로 기억하기 쉬움</li>
+<li>또한 이 코드는 잘 정의된 좌표 참조 시스템을 하나만 참조</li>
+</ul></li>
+<li><code>proj4string</code>정의
+<ul>
+<li>투영 유형, 데이텀 및 타원체와 같은 다양한 매개변수를 지정할 때 <strong>더 많은 유연성</strong>을 얻을 수 있음</li>
+<li>다양한 투영을 지정하고 기존 투영을 수정할 수 있음 (이것은 또한&nbsp;<code>proj4string</code>접근 방식을 더 복잡하게 만듬)</li>
+</ul></li>
+<li>벡터 데이터의 좌표계
+<ul>
+<li>벡터 지리 데이터에 대해서는&nbsp;sf 패키지의 ****<code>st_crs()</code><strong>함수</strong>를 사용해서 좌표계를 확인</li>
+<li>spDataLarge 패키지에 들어있는 Zion 국립 공원의 경계를 다각형면(Polygon)으로 나타내는 zion.gpkg 벡터 데이터를 <strong>st_read() 함수</strong>로 불러와서, <code>st_crs()</code><strong>함수로 좌표계를 조회</strong></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>vector_filepath <span class="ot">=</span> <span class="fu">system.file</span>(<span class="st">"vector/zion.gpkg"</span>, <span class="at">package =</span> <span class="st">"spDataLarge"</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>new_vector <span class="ot">=</span> <span class="fu">st_read</span>(vector_filepath)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="do">## st_read() : read vector dataset in R sf package</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(new_vector) <span class="co"># get CRS</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>좌표계가 비어있거나 잘못 입력되어 있는 경우 <code>**st_set_crs(vector_object,EPSG code)</code>** 구문으로 <strong>좌표계를 설정</strong>할수 있음</li>
+<li><code>**st_set_crs()**</code> 함수는 좌표계를 변경하는 것이 투영 데이터를 변환하는 것은 아니며, <strong>투영 데이터 변환을 하려면&nbsp;st_transform()&nbsp;함수</strong>를 이용</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="do">## -- st_set_crs() : setting a CRS (coordinate reference system) </span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>new_vector_2 <span class="ot">=</span> <span class="fu">st_set_crs</span>(new_vector, <span class="dv">4326</span>) <span class="co"># set CRS with EPSG 4326 code </span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Warning message: </span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># st_crs&lt;- : replacing crs does not reproject data; use st_transform for that</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li>래스터 데이터에서 좌표계
+<ul>
+<li><p>레스터 모델의 객체에 대해서는 raster 패키지의&nbsp;<code>projection()</code> <strong>함수를 사용</strong>해서 좌표계를 확인하거나 설정</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="do">## -- raster::projection() : get or set CRS in raster* objects </span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(raster) </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>raster_filepath <span class="ot">=</span> <span class="fu">system.file</span>(<span class="st">"raster/srtm.tif"</span>, <span class="at">package =</span> <span class="st">"spDataLarge"</span>) </span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>new_raster <span class="ot">=</span> <span class="fu">raster</span>(raster_filepath) </span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="fu">projection</span>(new_raster) <span class="co"># get CRS in raster objects # [1] "+proj=longlat +datum=WGS84 +no_defs"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p>레스터 데이터에 대해서 좌표계를 새로 설정할 때도 역시&nbsp;projection()함수를 사용</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>new_raster3  <span class="ot">&lt;-</span>  new_raster</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">projection</span>(new_raster3) <span class="ot">&lt;-</span>  <span class="st">"+proj=utm +zone=12 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 </span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="st">                        +units=m +no_defs"</span> <span class="co"># set CRS</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p>벡터 데이터의 경우 좌표계를 설정할 때 ‘EPSG 코드’나 ’Proj4string 정의’ 모두 사용 가능한 반면에, 레스터 데이터는 <strong>’Proj4string 정의</strong>’만 사용</p></li>
+<li><p>중요한 것은&nbsp;<code>st_crs()</code>및&nbsp;<code>projection()</code>함수는 <strong>좌표의 값이나 지오메트리를 변경하지 않음</strong></p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>new_raster3 <span class="ot">=</span> new_raster</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">projection</span>(new_raster3) <span class="ot">=</span> <span class="st">"+proj=utm +zone=12 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 </span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="st">                          +units=m +no_defs"</span> <span class="co"># set CRS</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+</ul>
+</section>
+<section id="unit단위" class="level2">
+<h2 class="anchored" data-anchor-id="unit단위">Unit(단위)</h2>
+<ul>
+<li>좌표계 (CRS) 정보 안에 들어있는 <strong>공간의 단위 (Spatial Units)</strong></li>
+<li>지도를 제작하거나 볼 때 측정 단위 (measurement units)가 <strong>미터(meters) 인지 혹은 피트(feets)</strong> 인지 명시적으로 표현하고 정확하게 확인할 필요</li>
+<li><strong>벡터의 지리적 데이터나 레스터의 픽셀에서 측정되는 단위</strong>라는 맥락(context)를 알 수 있고, 실제 지표면과 지도 표현 간의 관계, 거리를 알 수 있고, 또 거리나 면적 등을 계산할 수 있음</li>
+</ul>
+<ol type="1">
+<li>지리공간 벡터 데이터의 측정 단위(Units in Vector data)</li>
+</ol>
+<ul>
+<li>sf 객체의 지리공간 벡터 데이터는 단위에 대해서 native support 이여서, 다른 외부 모듈이나 확장 프로그램을 설치하지 않아도 <strong>sf 객체 내에 단위가 들어가 있음</strong></li>
+<li>그래서 sf 객체 벡터 데이터에 대해서 연산을 하게 되면 units 패키지에 의해 정의된 “단위 속성”도 같이 반환해주어서 단위로 인한 혼란을 미연에 방지할 수 있음(대부분의 좌표계는 미터(meters)를 사용하지만, 일부는 피트(feets)를 사용하기 때문에 단위가 혼란스러울 수 있음. raster 패키지는 단위가 native support가 아님.)
+<ul>
+<li>R의 spData 패키지에 들어있는 “world” 데이터셋을 활용하여 Luxembourgd와 대한민국의 벡터 데이터를 가져와서, st_area()함수로 면적을 계산</li>
+<li>sf 패키지의 <strong>st_area() 함수로 벡터 데이터의 면적으로 계산</strong> 하면, 결과값의 뒤에 <strong>[m^2]</strong> 이라고 해서 2차원 공간 상의 <strong>“제곱미터” 단위</strong>가 같이 반환</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spData)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(world)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>luxembourg <span class="ot">=</span> world[world<span class="sc">$</span>name_long <span class="sc">==</span> <span class="st">"Luxembourg"</span>, ]</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>luxembourg</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>south_korea <span class="ot">=</span> world[world<span class="sc">$</span>name_long <span class="sc">==</span> <span class="st">"Republic of Korea"</span>, ] </span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>south_korea</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(south_korea)</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(south_korea[<span class="dv">1</span>])</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="fu">st_area</span>(luxembourg) </span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="fu">st_area</span>(south_korea)</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">st_area</span>(luxembourg) </span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a><span class="dv">2408817306</span> [m<span class="sc">^</span><span class="dv">2</span>]</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">st_area</span>(south_korea)</span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a><span class="dv">99020196082</span> [m<span class="sc">^</span><span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+</ul>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="l.png" class="img-fluid"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="k.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<ul>
+<li>면적 단위가 [m^2] 이다보니 결과값의 자리수가 너무 길게 표현됨</li>
+<li>계산의 단위를 “제곱킬로미터[km^2]로 변경하려면 units 패키지의 <code>set_units(st_object, units)</code> 함수로 단위를 설정할 수 있음</li>
+<li>기존의 면적 단위인 ‘제곱미터(m^2)’ 로 계산된 결과값을 1,000,000 으로 나누게 되면 결과값은 맞더라도 단위가 ‘제곱미터(m^2)’ 로 그대로여서, 우리가 원하던 단위인 ‘제곱킬로미터(km^2)’ 가 아니게 되므로 주의가 필요</li>
+</ul>
+<ol start="2" type="1">
+<li>지리공간 래스터 데이터의 측정 단위(Units in Raster data)</li>
+</ol>
+<ul>
+<li>벡터 데이터를 다루는 sf 패키지는 단위가 native support 여서 조회나 계산 결과를 반환할 때 단위(units)를 속성으로 반환</li>
+<li>하지만 레스터 데이터를 다루는 <strong>raster 패키지</strong>는 단위에 대해서 native support 가 아니므로, <strong>단위에 대해서 혼란스러울 수 있으므로 조심</strong>해야 함
+<ul>
+<li>spDataLarge 패키지에 들어있는 strm.tif 파일을 raster() 함수로 읽어옴</li>
+<li>이 데이터는 st_crs() 함수로 좌표계를 확인해보면 “WGS84 투영”을 사용하므로, 십진수 각도 (decimal degrees as units) 를 단위로 사용</li>
+<li>res() 함수로 해상도를 확인해보면, 단지 숫자형 벡터 (numeric vector) 만 반환할 뿐,&nbsp;단위에 대한 속성 정보는 없음 (no units attributes)</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>ㄹ<span class="do">## -- units in raster data library(raster) </span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spDataLarge) </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>raster_filepath <span class="ot">=</span> <span class="fu">system.file</span>(<span class="st">"raster/srtm.tif"</span>, <span class="at">package =</span> <span class="st">"spDataLarge"</span>) </span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>new_raster <span class="ot">=</span> <span class="fu">raster</span>(raster_filepath)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="do">## -- getting CRS </span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(new_raster) </span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(new_raster)</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="fu">res</span>(new_raster)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>UTM 투영을 사용한다면, 이에 따라서 단위가 바뀌지만, res()로 해상도를 살펴보면 역시 단지 숫자형 벡터만 반환할 뿐, 단위 속성 정보는 없음</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="do">## -- if we used the UTM projection, the units would change. </span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>repr <span class="ot">=</span> <span class="fu">projectRaster</span>(new_raster, <span class="at">crs =</span> <span class="st">"+init=epsg:26912"</span>) </span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="do">## -- no units attributes, just only returns numeric vector </span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="fu">res</span>(repr) <span class="co"># [1] 73.8 92.5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
 </section>
 
 </main> <!-- /main -->

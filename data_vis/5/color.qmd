@@ -13,25 +13,25 @@ editor: visual
 knitr::opts_chunk$set(error = TRUE)
 ```
 
-```{r, results = 'hide', message = FALSE, eval = FALSE}
+```{r, results = 'hide', results = 'hide', message = FALSE, eval = FALSE}
 # 패키지 로드
 library(ggplot2)
 library(dplyr)
 library(colorspace)
 ```
 
-```{r, results = 'hide', message = FALSE, eval = FALSE}
+```{r, results = 'hide', results = 'hide', message = FALSE, eval = FALSE}
 ### ColorBrewer palettes
 RColorBrewer::display.brewer.all()
 ```
 ![](color.png){width="2000"}
-```{r, results = 'hide', message = FALSE, eval = FALSE}
+```{r, results = 'hide', results = 'hide', message = FALSE, eval = FALSE}
 # 데이터 로드
 US_census <- read.csv("/Users/jungwoolee/Desktop/college/Data Visualization/data/US_census.csv")
 US_regions <- read.csv("/Users/jungwoolee/Desktop/college/Data Visualization/data/US_regions.csv")
 ```
 
-```{r, results = 'hide', message = FALSE, eval = FALSE}
+```{r, results = 'hide', results = 'hide', message = FALSE, eval = FALSE}
 popgrowth_df <- US_census %>% left_join(US_regions) %>% 
   group_by(region, division, state) %>% 
   summarise(pop2000 = sum(pop2000, na.rm = T),
@@ -44,7 +44,7 @@ popgrowth_df <- US_census %>% left_join(US_regions) %>%
            region = factor(region, levels = c("West", "South", "Midwest", "Northeast")))
 ```
 
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 # ggplot 그리기
 region_colors <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442")
 ggplot(popgrowth_df, aes(x = state, y = 100*popgrowth, fill = region)) +
@@ -65,7 +65,7 @@ ggplot(popgrowth_df, aes(x = state, y = 100*popgrowth, fill = region)) +
 ```
 ![](popplot.png){width="2000"}
 
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 ### 주민등록 인구 및 세대현황 데이터
 kor_202202 <- read.csv('/Users/jungwoolee/Desktop/college/Data Visualization/data/202202_주민등록인구및세대현황.csv')
 kor_202202 %>% head()          
@@ -73,7 +73,7 @@ kor_202202 %>% sapply(class)
 kor_202202$행정구역_코드 <- kor_202202$행정구역_코드 %>% format()
 ```
 
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 kor_202202_use <- kor_202202 %>% 
   filter(substr(행정구역,1,2)%in% c("서울","대전","대구","부산")) %>% 
   filter(substr(행정구역_코드,3,4)!="00") %>% 
@@ -86,7 +86,7 @@ kor_202202_use$시도 = factor(kor_202202_use$시도,
                          levels = c("서울특별시", "대전광역시", "대구광역시", "부산광역시"))
 ```
 
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 #4개 지방의 색 지정
 region_colors <- c("#E69F00","#56B4E9","#009E73","#F0E442")
 
@@ -105,7 +105,7 @@ ggplot(kor_202202_use,aes(x = reorder(행정구역, 총인구수),y = 총인구�
 ```
 ![](nr.png){width="1000"}
 
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 region_colors <- c("#E69F00","#56B4E9","#009E73","#F0E442") %>% 
   lighten(0.4) %>% desaturate(0.8)
 
@@ -115,7 +115,7 @@ popgrowth_df <- popgrowth_df %>%
 popgrowth_df %>% head()
 ```
 
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 # ggplot 그리기
 ggplot(popgrowth_df, aes(x = state, y = 100*popgrowth, fill = region_highlight)) +
   geom_col() +
@@ -136,14 +136,14 @@ ggplot(popgrowth_df, aes(x = state, y = 100*popgrowth, fill = region_highlight))
 ```
 ![](popplot2.png){width="2000"}
 
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 region_colors <- c("#E69F00","#56B4E9","#009E73","#F0E442") %>% 
   lighten(0.4) %>% desaturate(0.8)
 
 region_colors[2] <- "#56B4E9" %>% darken(0.5)
 ```
 
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 ggplot(kor_202202_use, aes(x = reorder(행정구역, 총인구수),y = 총인구수 ,fill = 시도)) +
   geom_col() +
   scale_y_continuous(name="총인구수, 2022년 2월", labels = scales::comma) +
@@ -159,13 +159,13 @@ ggplot(kor_202202_use, aes(x = reorder(행정구역, 총인구수),y = 총인구
 ```
 ![](popplot3.png)
 
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 ### 총인구
 library(geojsonsf)
 library(sf)
 ```
 
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 ### 지도
 kor_sido <- geojson_sf('/Users/jungwoolee/Desktop/college/Data Visualization/data/KOR_SIDO.json')
 kor_sigu <- geojson_sf('/Users/jungwoolee/Desktop/college/Data Visualization/data/KOR_SIGU.json')
@@ -175,7 +175,7 @@ use_map$행정구역_코드 <- paste(use_map$SIG_CD, "00000", sep = "")
 use_map <- use_map %>% merge(kor_202202, by = "행정구역_코드", all.x = T)
 ```
 
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 use_map %>% ggplot(aes(fill = 총인구수)) + 
   geom_sf(color = "gray90") +
   coord_sf(datum = NA) +
@@ -193,7 +193,7 @@ use_map %>% ggplot(aes(fill = 총인구수)) +
 ```
 ![](kormap.png){width="700"}
 
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 # 남녀 비율
 use_map %>% 
   ggplot(aes(fill = 남여_비율)) +

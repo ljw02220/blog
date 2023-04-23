@@ -16,7 +16,7 @@ knitr::opts_chunk$set(error = TRUE)
 - `raster`: 지리 공간 레스터 데이터(raster data)를 처리 및 분석하는데 사용
 - `spData`: 37개의 지리공간 데이터셋이 내장
 - `spDataLarge`: 지리 공간 데이터 샘플을 내장
-```{r, results = 'hide', message = FALSE, eval = FALSE}
+```{r, results = 'hide', results = 'hide', message = FALSE, eval = FALSE}
 # 패키지 설치
 install.packages("sf")  #지리공간 벡터 데이터 분석을 위핸 패키지
 install.packages("raster") #지리공간 레스터 데이터를 처리 및 분석하는데 사용
@@ -49,20 +49,20 @@ library(spDataLarge)
   + 대부분의 연산에서 sf 객체는 DataFrame 처럼 처리가 가능함
   + sf 함수들은 '%>%' 연산자 (chain operator) 와 함께 사용할 수 있고, R의 tidyverse 패키지들과도 잘 작동함(sp 패키지도 spdplyr 패키지를 설치하면 dplyr의 %>% 체인 연산자와 기능을 사용할 수 있음)
   + sf 함수이름은 `st_` 로 시작하여 상대적으로 일관성이 있고 직관적임
-```{r, results = 'hide', message = FALSE, eval = FALSE}
+```{r, results = 'hide', results = 'hide', message = FALSE, eval = FALSE}
 # sf패키지 확인
 vignette(package = "sf") # vignetee(package = ""): 비니에트 함수는 설치된 모든 패키지에 대한 이용가능한 모든 목록을 출력 
 vignette("sf1") # 패키지에 대한 소개
 ```
 
 - `world`데이터셋은 spData에 의해 제공된
-```{r, results = 'hide', message = FALSE, eval = FALSE}
+```{r, results = 'hide', results = 'hide', message = FALSE, eval = FALSE}
 > names(world)
   [1] "iso_a2"    "name_long" "continent" "region_un" "subregion" "type"      "area_km2"  "pop"       "lifeExp"   "gdpPercap" "geom" 
 > plot(world)
 ```
 ![](w.png){width="100%"}
-```{r, results = 'hide', message = FALSE, eval = FALSE}
+```{r, results = 'hide', results = 'hide', message = FALSE, eval = FALSE}
 > world_mini = world[1:2,1:3]
 > world_mini
 Simple feature collection with 2 features and 3 fields
@@ -79,7 +79,7 @@ Geodetic CRS:  WGS 84
 
 - 기존의 sp에 사용되는 공간 데이터는 sf로 변환을 통해 사용 가능
   + `st_as_sf()`: sf로 변환 하는 함수
-```{r, message = FALSE, eval = FALSE}
+```{r, esults = 'hide', results = 'hide', results = 'hide', message = FALSE, eval = FALSE}
 library(sp)
 world_sp = as(world, Class = "Sptial")
 world_sf = st_as_sf(world_sp)
@@ -87,7 +87,7 @@ world_sf = st_as_sf(world_sp)
 ![](t.png){width="100%"}
 
 - plot 함수를 이용해서 기본 지도 만들기
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 plot(world[3:6])
 plot(world["pop"])
 ```
@@ -100,7 +100,7 @@ plot(world["pop"])
 - 다른 지도층을 추가하기
   + plot() 함수 내에 `add = TRUE` 매개변수를 사용하면 나중에 그 위에 다른 지도를 겹쳐서, 즉 층을 추가하여 지도를 덮어쓰기로 그릴 수 있음
   + 단, 첫번째 지도 그래프에 키(key)가 있을 경우에는 `reset = FALSE` 매개변수를 꼭 설정해준 다음에, 이후에 다음번 plot(add = TRUE)를 사용
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 world_aisa = world[world$continent == "Asia",] #국가에서 아시아만 뽑은 후
 asia = st_union(world_aisa) #아시아 이름으로 하나의 좌표로 합침
 
@@ -119,7 +119,7 @@ plot(asia,add=TRUE,col = "red")  #add=TRUE : 기존에 있는거 유지 후 그 
   + [st_centroid()](https://www.rdocumentation.org/packages/sf/versions/1.0-6/topics/geos_unary): 폴리곤의 중심점을 계산하는 함수
   + of_largest = TRUE : if `TRUE`, return centroid of the largest (sub)polygon of a `MULTIPOLYGON` rather than of the whole `MULTIPOLYGON`
 
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 plot(world["continent"],reset = FALSE)  #국가를 표시 하고 무언갈 더 추가할수 있게 FALSE로 해 놓기
 cex = sqrt(world$pop)/10000 # pop변수에 제곱근을 취하고 1000으로 나누어성 지도 시각화를 위해 크기를 맞춤
 world_cents = st_centroid(world, of_largest = TRUE) # 다각형(국가별) 중앙점 계산
@@ -128,7 +128,7 @@ plot(st_geometry(world_cents),add = TRUE,cex = cex) # 인구크기에 따라 대
 ![](w-2.png){width="100%"}
 
 - 특정 나라를 중심으로 확장하여 주변 나라 표시하기
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 india = world[world$name_long == "India", ]
 plot(st_geometry(india),expandBB=c(0, 0.2, 0.1, 1),col = "gray",lwd = 3)
 plot(world_aisa[0],add=TRUE)
@@ -170,7 +170,7 @@ plot(world_aisa[0],add=TRUE)
 3. **A list:** a collection of objects such as matrices, multilinestrings or geometry collections
 
 - st_point()
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 st_point(c(5, 2))                 # XY point
 #> POINT (5 2)
 st_point(c(5, 2, 3))              # XYZ point
@@ -182,7 +182,7 @@ st_point(c(5, 2, 3, 1))           # XYZM point
 ```
 
 - multipoint (`st_multipoint()`) and linestring (`st_linestring()`)
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 # the rbind function simplifies the creation of matrices
 ## MULTIPOINT
 multipoint_matrix = rbind(c(5, 2), c(1, 3), c(3, 4), c(3, 2))
@@ -195,7 +195,7 @@ st_linestring(linestring_matrix)
 ```
 
 - ist를 사용 : multilinestrings, (multi-)polygons and geometry collections
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 ## POLYGON
 polygon_list = list(rbind(c(1, 5), c(2, 2), c(4, 1), c(4, 4), c(1, 5)))
 st_polygon(polygon_list)
@@ -247,7 +247,7 @@ st_geometrycollection(gemetrycollection_list)
     + **단순 지리특성 기하 점과 면**을 합쳐서 한 개의 단순 지리특성 칼럼(1 sfc) 객체로 만들기
 
     1. 두개의 단순 지리특성 기하 점(2 sfg points)를 st_sfc() 함수로 한개의 단순 지리특성 칼럼(1 sfc) 객체로 합치기
-    ```{r, message = FALSE, eval = FALSE}
+    ```{r, results = 'hide', message = FALSE, eval = FALSE}
     # sfc POINT
     point1 = st_point(c(5, 2))
     point2 = st_point(c(1, 3))
@@ -264,7 +264,7 @@ st_geometrycollection(gemetrycollection_list)
 
     2. 두개의 단순 지리특성 기하 면(2 sfg polygons)를 st_sfc() 함수로 한개의 단순 지리특성 칼럼(1 sfc) 객체로 합치기
     - `st_geometry_type()`: 기하유형을 확인
-    ```{r, message = FALSE, eval = FALSE}
+    ```{r, results = 'hide', message = FALSE, eval = FALSE}
     # sfc POLYGON
     polygon_list1 = list(rbind(c(1, 5), c(2, 2), c(4, 1), c(4, 4), c(1, 5)))
     polygon1 = st_polygon(polygon_list1)
@@ -289,7 +289,7 @@ st_geometrycollection(gemetrycollection_list)
     ```
 
     3. 단순 지리특성 기하 점과 면을 st_sfc() 함수로 합쳐서 한개의 단순 지리특성 칼럼(1 sfc) 객체로 만들기
-    ```{r, message = FALSE, eval = FALSE}
+    ```{r, results = 'hide', message = FALSE, eval = FALSE}
     # sfc GEOMETRY
     point_multilinestring_sfc = st_sfc(point1, multilinestring1)
     st_geometry_type(point_multilinestring_sfc)
@@ -299,7 +299,7 @@ st_geometrycollection(gemetrycollection_list)
 
   - sfc 객체는 CRS(coordinate reference systems, 좌표계시스템) 에 대한 정보를 추가로 저장할 수 있음
     + 특정 CRS를 지정하기 위해 (a)`epsg (SRID)`또는 (b)`proj4string`속성을 사용할수 있음
-    ```{r, message = FALSE, eval = FALSE}
+    ```{r, results = 'hide', message = FALSE, eval = FALSE}
     st_crs(points_sfc)
     #> Coordinate Reference System: NA
     ```
@@ -316,7 +316,7 @@ a. **epsg 코드를 입력**
   - 서비스: 구글 지구(Google Earth)   
   - 단위: 소수점 (decimal degrees)   
   - `+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs`   
-    ```{r, message = FALSE, eval = FALSE}
+    ```{r, results = 'hide', message = FALSE, eval = FALSE}
         # EPSG definition
     points_sfc_wgs = st_sfc(point1, point2, crs = 4326)
     st_crs(points_sfc_wgs)
@@ -353,7 +353,7 @@ b. PROJ.4 문자열을 직접 입력
     - **`proj4string`**을 변경하면 공간 데이터를 다른 좌표계로 변환 가능
 
 + **`st_transform()`** **함수를 사용하여 다른 좌표계로 변환가능**
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 # PROJ4STRING definition
 st_sfc(point1, point2, crs = "+proj=longlat +datum=WGS84 +no_defs")
 ```
@@ -366,7 +366,7 @@ st_sfc(point1, point2, crs = "+proj=longlat +datum=WGS84 +no_defs")
 - simple feature geometry column (`sfc` )에 속성(data.frame)을 나타내는 sf(simple features)의 calss를 합침
 - `st_sf()` 를 이용하여 sfc와 class sf의 객체들을 하나로 통합할 수 있음
 
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 lnd_point = st_point(c(0.1, 51.5))                 # sfg object
 lnd_geom = st_sfc(lnd_point, crs = 4326)           # sfc object
 lnd_attrib = data.frame(                           # data.frame object
@@ -381,7 +381,7 @@ lnd_sf = st_sf(lnd_attrib, geometry = lnd_geom)    # sf object
 3. `st_sf()` 를 이용하여`data.frame` 에 저장된 속성 정보와 `sfc` 를 통합
 
 1. `sf` object 완성
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 > lnd_sf
 Simple feature collection with 1 feature and 3 fields
 Geometry type: POINT
@@ -413,7 +413,7 @@ Geodetic CRS:  WGS 84
 - 래스터 개념을 설명하기 위해 **spDataLarge** 의 데이터 세트를 사용
 - Zion National Park(미국 유타) 지역을 덮는 몇 개의 래스터 개체와 하나의 벡터 개체로 구성
 - `srtm.tif`은 이 지역의 디지털 표고 모델
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 install.packages("rgdal") 
 library(rgdal)
 
@@ -429,7 +429,7 @@ new_raster = raster(raster_filepath)
 ```
 - **raster header (extent, dimensions, resolution, CRS)** and **some additional information (class, data source name, summary of the raster values)**
     + 클래스(class) 차원(dimentions), 해상도(resolution), 범위(extent), 좌표 참조 시스템 (Coordinates Reference System), 출처(Source), 이름(names), 최소/최대 값(min, max values) 속성 정보
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 > new_raster
 class      : RasterLayer 
 dimensions : 457, 465, 212505  (nrow, ncol, ncell)
@@ -447,7 +447,7 @@ values     : 1024, 2892  (min, max)
   + `extent()`:  공간적 범위
   + `crs()`: 좌표 참조 시스템
   + `inMemory()`:  레스터 데이터가 메모리(기본값) 또는 디스크에 저장되는지 여부를 보고
-  ```{r, message = FALSE, eval = FALSE}
+  ```{r, results = 'hide', message = FALSE, eval = FALSE}
   > dim(new_raster)
   [1] 457 465   1
   > ncell(new_raster)
@@ -485,7 +485,7 @@ values     : 1024, 2892  (min, max)
 
 ## **Basic map making**
 - **sf** package와 같이 **raster 역시** `plot()`함수 사용 가능
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 plot(new_raster)
 ```
 ![](rst.png){width="1000"}
@@ -501,7 +501,7 @@ plot(new_raster)
 - RasterLayer Class 객체를 만드는 가장 쉬운 방법은 기존의 RasterLayer Class 객체 파일을 읽어오는 것
   + 아래 예에서는 raster 패키지의 raster() 함수를 사용해서 spDataLarge 패키지에 내장되어 있는 srtm.tif 레스터 층 클래스 객체를 읽어와서 raster_layer 라는 이름의 단 한개의 층만을 가진 RasterLayer Class 객체를 만듬
   + nlayers() 함수로 층의 개수를 살펴보면 '1'개 인 것을 확인할 수 있습니다.
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 raster_filepath = system.file("raster/srtm.tif", package = "spDataLarge")
 new_raster = raster(raster_filepath)
 
@@ -513,9 +513,202 @@ nlayers(new_raster)
   + 레스터 객체의 좌표 참조 시스템(CRS, Coordinates Reference System)은 **WGS84 가 기본 설정값(해상도(resolution)의 단위가 도 (in degrees))**
   + res = 0.5 로서 해상도를 0.5도로 설정
   + 각 셀의 값은 왼쪽 상단부터 시작하여, 행 방향(row-wise)으로 왼쪽에서 오른쪽으로 채워짐
-```{r, message = FALSE, eval = FALSE}
+```{r, results = 'hide', message = FALSE, eval = FALSE}
 my_raster = raster(nrows = 8, ncols = 8, res = 0.5, xmn = -2.0, xmx = 2.0, ymn = -2.0, ymx = 2.0, vals = 1:64)
 my_raster
 ## plotting 
 plot(my_raster, main = "my raster (64 cells = 8 rows * 8 cols)")           
+```
+![](my_raster.png)
+
+### 2. RasterBrick class
+- `RasterBrick` and `RasterStack` 클래스는 **여러 개의 층(multiple layers)**을 가질 수 있음
+- 특히, `RasterBrick`클래스는 단일 **스펙드럼 위성 파일(a single multispectral satellite file)** 이나 또는 **메모리의 단일 다층 객체(a single multilayer object in memory)**의 형태로 **다층의 레스터 객체**를 구성
+- 아래의 예는 raster 패키지의 `brick()`**함수를 사용**해서 spDataLarge 패키지에 들어있는 **landsat.tif** **의 다층 레스터 파일**을 `RasterBrick`클래스 객체로 불러온 것
+    - `nlayers()` : the number of layers stored in a `Raster*`  object
+  ```{r, results = 'hide', message = FALSE, eval = FALSE}
+  multi_raster_file = system.file("raster/landsat.tif", package = "spDataLarge")
+  r_brick = brick(multi_raster_file)
+
+  r_brick
+  nlayers(r_brick)
+
+  plot(r_brick) #plotting RasterBrick object with 4 layers
+  ```
+
+  ```{r, results = 'hide', message = FALSE, eval = FALSE}
+  > r_brick
+  class      : RasterBrick 
+  dimensions : 1428, 1128, 1610784, 4  (nrow, ncol, ncell, nlayers)
+  resolution : 30, 30  (x, y)
+  extent     : 301905, 335745, 4111245, 4154085  (xmin, xmax, ymin, ymax)
+  crs        : +proj=utm +zone=12 +datum=WGS84 +units=m +no_defs 
+  source     : landsat.tif 
+  names      : landsat.1, landsat.2, landsat.3, landsat.4 
+  min values :      7550,      6404,      5678,      5252 
+  max values :     19071,     22051,     25780,     31961
+
+  > nlayers(r_brick)
+  [1] 4
+  ```
+![](4.png)
+
+### 3. RasterStack class
+- **다 층 (multi-layers) 레스터 객체**로 구성
+- **같은 범위와 해상도**를 가진 **여러개의 `RasterLayer` 클래스 객체**들을 **리스트**로 묶어서 `RasterStack` 클래스 객체를 만듬
+- `RasterBrick`클래스가 동일한 복수개의  `RasterLayer`층으로 구성되는 반면에, `RasterStack`클래스는 여러개의  `RasterLayer`와`RasterBrick` 클래스 객체가 혼합되어서 구성할 수 있음
+- 연산 속도면에서 보면 일반적으로 `RasterBrick`  클래스가 `RasterStack` 클래스보다 빠름
+- 아래 예시
+  - (a) raster(raster_brick, layer = 1) 함수를 사용해서 위에서 불러왔던 RasterBrick 클래스 객체의 1번째 층만 가져다가 raster_on_disk 라는 이름으로 레스터 객체를 하나 만듬
+  - (b) raster() 함수로 동일한 범위와 해상도, 좌표 참조 시스템(CRS)를 가지고 난수로 셀의 값을 채운 raster_in_memory 라는 이름의 메모리에 있는 RasterLayer 클래스 객체를 만듬
+    - seq_len(n) : 1부터 n까지 입력(1씩 커짐)
+  - 다음에 stac() 함수로 raster_stack = stack(raster_in_memory, raster_on_disk) 처럼 (a) + (b) 하여 쌓아서 raster_stack 라는 이름의 RasterStack 클래스 객체를 만듬
+  - 마지막으로 **plot() 함수**로 RasterStack 클래스 객체에 쌓여 있는 2개의 객체를 시각화 (raster_in_memory 는 난수를 발생시켜 셀 값을 채웠기 때문에 시각화했을 때 아무런 패턴이 없음)
+  ```{r, results = 'hide', message = FALSE, eval = FALSE}
+  raster_on_disk = raster(r_brick, layer = 1)
+  raster_in_memory = raster(xmn = 301905, xmx = 335745,
+                            ymn = 4111245, ymx = 4154085, 
+                            res = 30)
+  values(raster_in_memory) = sample(seq_len(ncell(raster_in_memory)))
+  crs(raster_in_memory) = crs(raster_on_disk) #같은 좌표 입력
+
+  r_stack = stack(raster_in_memory, raster_on_disk)
+  r_stack
+
+  plot(r_stack)
+  ```
+![](2.png)
+
+#### 언제 어떤 래스터 클래스를 사용하는 것이 좋은가?   
+  - **하나의 다층 레스터 파일이나 객체**(a single multilayer file or object)를 처리하는 것이라면 **RasterBrick 이 적합**
+  - 반면에, **여러개의 래스터 파일들(many files)**이나 **여러 종류의 레스터 클래스**를 한꺼번에 연결해서 연산하고 처리해야 하는 경우라면 **RasterStack Class 가 적합**
+
+## 2.4 **Coordinate Reference Systems**
+
+## CRS(Coordinate Reference Systems)
+
+- 지리 공간 데이터 분석에서 가장 기본이 되고 또 처음에 확인을 해보아야 하는 좌표계, **좌표 참조 시스템(CRS, Coordinate Reference Systems**)에 대한 소개
+    - **지리 좌표계** (Geographic Coordinate Reference Systems)
+    - **투영(투사) 좌표계** (Projected Coordinate Reference Systems)
+    ![](https://branch-fly-0f0.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F48cc5978-e7e1-46a0-97b8-06016b17c19e%2FUntitled.png?id=2bc80914-5714-45ea-930a-8c1573c3d4fb&table=block&spaceId=61857863-5095-4207-bdf6-98c218ee62d8&width=1250&userId=&cache=v2)
+
+## CRS in R
+
+- R에서 좌표계를 표현할 때는 (a) **epsg 코드 (epsg code)**나 또는 (b)**proj4string 정의 (proj4string definition)**를 사용
+- R에서 CRS를 설명하는 두 가지 주요 방법은(a) `epsg`코드 또는(b)`proj4string`정의
+- `epsg`코드
+    - 일반적으로 더 짧으므로 기억하기 쉬움
+    - 또한 이 코드는 잘 정의된 좌표 참조 시스템을 하나만 참조
+- `proj4string`정의
+    - 투영 유형, 데이텀 및 타원체와 같은 다양한 매개변수를 지정할 때 **더 많은 유연성**을 얻을 수 있음
+    - 다양한 투영을 지정하고 기존 투영을 수정할 수 있음 (이것은 또한 `proj4string`접근 방식을 더 복잡하게 만듬)
+    
+- 벡터 데이터의 좌표계
+    - 벡터 지리 데이터에 대해서는 sf 패키지의 ****`st_crs()`**함수**를 사용해서 좌표계를 확인
+    - spDataLarge 패키지에 들어있는 Zion 국립 공원의 경계를 다각형면(Polygon)으로 나타내는 zion.gpkg 벡터 데이터를 **st_read() 함수**로 불러와서, `st_crs()`**함수로 좌표계를 조회**
+  ```{r, results = 'hide', message = FALSE, eval = FALSE}
+  library(sf)
+  vector_filepath = system.file("vector/zion.gpkg", package = "spDataLarge")
+  new_vector = st_read(vector_filepath)
+  ## st_read() : read vector dataset in R sf package
+
+  st_crs(new_vector) # get CRS
+    ```
+    - 좌표계가 비어있거나 잘못 입력되어 있는 경우 `**st_set_crs(vector_object,EPSG code)`** 구문으로 **좌표계를 설정**할수 있음
+    - `**st_set_crs()**` 함수는 좌표계를 변경하는 것이 투영 데이터를 변환하는 것은 아니며, **투영 데이터 변환을 하려면 st_transform() 함수**를 이용
+  ```{r, results = 'hide', message = FALSE, eval = FALSE}
+  ## -- st_set_crs() : setting a CRS (coordinate reference system) 
+  new_vector_2 = st_set_crs(new_vector, 4326) # set CRS with EPSG 4326 code 
+  # Warning message: 
+  # st_crs<- : replacing crs does not reproject data; use st_transform for that
+  ```
+
+- 래스터 데이터에서 좌표계
+  - 레스터 모델의 객체에 대해서는 raster 패키지의 `projection()` **함수를 사용**해서 좌표계를 확인하거나 설정
+    ```{r, results = 'hide', message = FALSE, eval = FALSE}
+    ## -- raster::projection() : get or set CRS in raster* objects 
+    library(raster) 
+    raster_filepath = system.file("raster/srtm.tif", package = "spDataLarge") 
+    new_raster = raster(raster_filepath) 
+    projection(new_raster) # get CRS in raster objects # [1] "+proj=longlat +datum=WGS84 +no_defs"
+    ```
+  - 레스터 데이터에 대해서 좌표계를 새로 설정할 때도 역시 projection()함수를 사용
+    ```{r, results = 'hide', message = FALSE, eval = FALSE}
+    new_raster3  <-  new_raster
+    projection(new_raster3) <-  "+proj=utm +zone=12 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 
+                            +units=m +no_defs" # set CRS
+    ```
+  - 벡터 데이터의 경우 좌표계를 설정할 때 'EPSG 코드'나 'Proj4string 정의' 모두 사용 가능한 반면에, 레스터 데이터는 **'Proj4string 정의**'만 사용
+  - 중요한 것은 `st_crs()`및 `projection()`함수는 **좌표의 값이나 지오메트리를 변경하지 않음**
+  ```{r, results = 'hide', message = FALSE, eval = FALSE}
+  new_raster3 = new_raster
+  projection(new_raster3) = "+proj=utm +zone=12 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 
+                            +units=m +no_defs" # set CRS
+  ```
+
+## Unit(단위)
+
+- 좌표계 (CRS) 정보 안에 들어있는 **공간의 단위 (Spatial Units)**
+- 지도를 제작하거나 볼 때 측정 단위 (measurement units)가 **미터(meters) 인지 혹은 피트(feets)** 인지 명시적으로 표현하고 정확하게 확인할 필요
+- **벡터의 지리적 데이터나 레스터의 픽셀에서 측정되는 단위**라는 맥락(context)를 알 수 있고, 실제 지표면과 지도 표현 간의 관계, 거리를 알 수 있고, 또 거리나 면적 등을 계산할 수 있음
+
+(1) 지리공간 벡터 데이터의 측정 단위(Units in Vector data)
+
+- sf 객체의 지리공간 벡터 데이터는 단위에 대해서 native support 이여서, 다른 외부 모듈이나 확장 프로그램을 설치하지 않아도 **sf 객체 내에 단위가 들어가 있음**
+- 그래서 sf 객체 벡터 데이터에 대해서 연산을 하게 되면 units 패키지에 의해 정의된 "단위 속성"도 같이 반환해주어서 단위로 인한 혼란을 미연에 방지할 수 있음(대부분의 좌표계는 미터(meters)를 사용하지만, 일부는 피트(feets)를 사용하기 때문에 단위가 혼란스러울 수 있음. raster 패키지는 단위가 native support가 아님.)
+    - R의 spData 패키지에 들어있는 "world" 데이터셋을 활용하여 Luxembourgd와 대한민국의 벡터 데이터를 가져와서, st_area()함수로 면적을 계산
+    - sf 패키지의 **st_area() 함수로 벡터 데이터의 면적으로 계산** 하면, 결과값의 뒤에 **[m^2]** 이라고 해서 2차원 공간 상의 **"제곱미터" 단위**가 같이 반환
+  ```{r, results = 'hide', message = FALSE, eval = FALSE}
+  library(spData)
+  names(world)
+  luxembourg = world[world$name_long == "Luxembourg", ]
+  luxembourg
+
+  south_korea = world[world$name_long == "Republic of Korea", ] 
+  south_korea
+  plot(south_korea)
+  plot(south_korea[1])
+
+  st_area(luxembourg) 
+  st_area(south_korea)
+
+  > st_area(luxembourg) 
+  2408817306 [m^2]
+  > st_area(south_korea)
+  99020196082 [m^2]
+  ```
+::: {layout-ncol=2}
+![](l.png)
+
+![](k.png)
+:::
+
+- 면적 단위가 [m^2] 이다보니 결과값의 자리수가 너무 길게 표현됨
+- 계산의 단위를 “제곱킬로미터[km^2]로 변경하려면 units 패키지의 `set_units(st_object, units)` 함수로 단위를 설정할 수 있음
+- 기존의 면적 단위인 '제곱미터(m^2)' 로 계산된 결과값을 1,000,000 으로 나누게 되면 결과값은 맞더라도 단위가 '제곱미터(m^2)' 로 그대로여서, 우리가 원하던 단위인 '제곱킬로미터(km^2)' 가 아니게 되므로 주의가 필요
+
+(2) 지리공간 래스터 데이터의 측정 단위(Units in Raster data)
+
+- 벡터 데이터를 다루는 sf 패키지는 단위가 native support 여서 조회나 계산 결과를 반환할 때 단위(units)를 속성으로 반환
+- 하지만 레스터 데이터를 다루는 **raster 패키지**는 단위에 대해서 native support 가 아니므로, **단위에 대해서 혼란스러울 수 있으므로 조심**해야 함
+  - spDataLarge 패키지에 들어있는 strm.tif 파일을 raster() 함수로 읽어옴
+  - 이 데이터는 st_crs() 함수로 좌표계를 확인해보면 "WGS84 투영"을 사용하므로, 십진수 각도 (decimal degrees as units) 를 단위로 사용
+  - res() 함수로 해상도를 확인해보면, 단지 숫자형 벡터 (numeric vector) 만 반환할 뿐, 단위에 대한 속성 정보는 없음 (no units attributes)
+```{r, results = 'hide', message = FALSE, eval = FALSE}
+ㄹ## -- units in raster data library(raster) 
+library(spDataLarge) 
+raster_filepath = system.file("raster/srtm.tif", package = "spDataLarge") 
+new_raster = raster(raster_filepath)
+## -- getting CRS 
+st_crs(new_raster) 
+plot(new_raster)
+
+res(new_raster)
+  ```
+- UTM 투영을 사용한다면, 이에 따라서 단위가 바뀌지만, res()로 해상도를 살펴보면 역시 단지 숫자형 벡터만 반환할 뿐, 단위 속성 정보는 없음
+```{r, results = 'hide', message = FALSE, eval = FALSE}
+## -- if we used the UTM projection, the units would change. 
+repr = projectRaster(new_raster, crs = "+init=epsg:26912") 
+## -- no units attributes, just only returns numeric vector 
+res(repr) # [1] 73.8 92.5
 ```
