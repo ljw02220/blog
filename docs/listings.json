@@ -26,6 +26,7 @@
   {
     "listing": "/data_mining.html",
     "items": [
+      "/data_mining/kiva/kiva.html",
       "/data_mining/geopandas/geopandas.html",
       "/data_mining/seaborn & matplotlib/seaborn and matplotlib.html",
       "/data_mining/pandas/week_1b_pandas.html",
