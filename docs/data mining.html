@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Blog - Data Mining</title>
+<title>Blog - 수소 충전소 입지 선정</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -70,9 +70,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
+      searchColumns: ["listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -157,7 +157,7 @@ ul.task-list li input[type="checkbox"] {
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Data Mining</h1>
+      <h1 class="quarto-secondary-nav-title">수소 충전소 입지 선정</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -168,7 +168,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title d-none d-lg-block">Data Mining</h1>
+      <h1 class="title d-none d-lg-block">수소 충전소 입지 선정</h1>
                       </div>
   </div>
     
@@ -216,7 +216,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data_mining.html" class="sidebar-item-text sidebar-link active">Data Mining</a>
+  <a href="./data_mining.html" class="sidebar-item-text sidebar-link">Data Mining</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -245,8 +245,10 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </li>
           <li class="sidebar-item">
-  data mining.qmd
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="./data mining.html" class="sidebar-item-text sidebar-link active">수소 충전소 입지 선정</a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -255,7 +257,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(8)</span></div><div class="category" data-category="Jupyter">Jupyter <span class="quarto-category-count">(2)</span></div><div class="category" data-category="code">code <span class="quarto-category-count">(7)</span></div><div class="category" data-category="jupyter">jupyter <span class="quarto-category-count">(1)</span></div><div class="category" data-category="python">python <span class="quarto-category-count">(7)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(0)</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-body" id="quarto-document-content">
 
@@ -267,331 +269,8 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="listing-actions-group">
-   <div class="input-group input-group-sm quarto-listing-sort">
-     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
-     <select id="listing-listing-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
-       <option value="" disabled="" selected="" hidden="">Order By</option>
-       <option value="index" data-direction="asc">Default</option>
-         <option value="listing-title" data-direction="asc">
-          Title
-        </option>
-         <option value="listing-date-sort" data-direction="asc">
-          Date - Oldest
-        </option>
-         <option value="listing-date-sort" data-direction="desc">
-          Date - Newest
-        </option>
-         <option value="listing-author" data-direction="asc">
-          Author
-        </option>
-     </select>
-  </div>
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
-    </div>
-</div>
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1684652949497" data-listing-reading-time-sort="0">
-<div class="thumbnail">
-<a href="./data_mining/japan earthequake/Untitled.html">
-<div class="thumbnail-image">
 
-</div>
-</a><p><a href="./data_mining/japan earthequake/Untitled.html"></a></p>
-</div>
-<div class="body">
-<a href="./data_mining/japan earthequake/Untitled.html">
-<h3 class="no-anchor listing-title">
-</h3>
-<div class="listing-subtitle">
-
-</div>
-<div class="listing-description">
-
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./data_mining/japan earthequake/Untitled.html"> </a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="code,python" data-listing-date-sort="1684594800000" data-listing-file-modified-sort="1684653402624" data-listing-reading-time-sort="1.93">
-<div class="thumbnail">
-<p><a href="./data_mining/japan earthequake/japan earthquake.html"> <img src="https://i.imgur.com/Kuh9gPj.png" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./data_mining/japan earthequake/japan earthquake.html">
-<h3 class="no-anchor listing-title">
-Interactive Maps (Japan earthequake)
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('code'); return false;">
-code
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('python'); return false;">
-python
-</div>
-</div>
-<a href="./data_mining/japan earthequake/japan earthquake.html">
-<div class="listing-description">
-Interactive Maps Exercise, Kaggle
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./data_mining/japan earthequake/japan earthquake.html">
-<div class="listing-date">
-May 21, 2023
-</div>
-<div class="listing-author">
-Jungwoo Lee
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="code,python" data-listing-date-sort="1684422000000" data-listing-file-modified-sort="1684653454564" data-listing-reading-time-sort="2.915">
-<div class="thumbnail">
-<p><a href="./data_mining/purple martins/purple martins.html"> <img src="https://storage.googleapis.com/kaggle-media/learn/images/qQcS0KM.png" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./data_mining/purple martins/purple martins.html">
-<h3 class="no-anchor listing-title">
-Coordinate Reference Systems (purple martins)
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('code'); return false;">
-code
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('python'); return false;">
-python
-</div>
-</div>
-<a href="./data_mining/purple martins/purple martins.html">
-<div class="listing-description">
-Coordinate Reference System Exercise, Kaggle
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./data_mining/purple martins/purple martins.html">
-<div class="listing-date">
-May 19, 2023
-</div>
-<div class="listing-author">
-Jungwoo Lee
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="code,python" data-listing-date-sort="1683126000000" data-listing-file-modified-sort="1683161138238" data-listing-reading-time-sort="1.035">
-<div class="thumbnail">
-<p><a href="./data_mining/kiva/kiva.html"> <img src="./data_mining/kiva/kiva.png" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./data_mining/kiva/kiva.html">
-<h3 class="no-anchor listing-title">
-Your First Map (kiva)
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('code'); return false;">
-code
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('python'); return false;">
-python
-</div>
-</div>
-<a href="./data_mining/kiva/kiva.html">
-<div class="listing-description">
-Your First Map Exercise, Kaggle
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./data_mining/kiva/kiva.html">
-<div class="listing-date">
-May 4, 2023
-</div>
-<div class="listing-author">
-Jungwoo Lee
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="code,python" data-listing-date-sort="1682521200000" data-listing-file-modified-sort="1683161146965" data-listing-reading-time-sort="1.75">
-<div class="thumbnail">
-<p><a href="./data_mining/geopandas/geopandas.html"> <img src="./data_mining/geopandas/geopandas.png" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./data_mining/geopandas/geopandas.html">
-<h3 class="no-anchor listing-title">
-geopandas
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('code'); return false;">
-code
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('python'); return false;">
-python
-</div>
-</div>
-<a href="./data_mining/geopandas/geopandas.html">
-<div class="listing-description">
-Your First Map, Kaggle
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./data_mining/geopandas/geopandas.html">
-<div class="listing-date">
-Apr 27, 2023
-</div>
-<div class="listing-author">
-Jungwoo Lee
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="code,Jupyter,python" data-listing-date-sort="1682348400000" data-listing-file-modified-sort="1682745197847" data-listing-reading-time-sort="1.435">
-<div class="thumbnail">
-<p><a href="./data_mining/seaborn &amp; matplotlib/seaborn and matplotlib.html"> <img src="./data_mining/seaborn &amp; matplotlib/sea.png" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./data_mining/seaborn &amp; matplotlib/seaborn and matplotlib.html">
-<h3 class="no-anchor listing-title">
-seaborn and matplotlib
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('code'); return false;">
-code
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Jupyter'); return false;">
-Jupyter
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('python'); return false;">
-python
-</div>
-</div>
-<a href="./data_mining/seaborn &amp; matplotlib/seaborn and matplotlib.html">
-<div class="listing-description">
-seaborn and matplotlib 기본 코드
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./data_mining/seaborn &amp; matplotlib/seaborn and matplotlib.html">
-<div class="listing-date">
-Apr 25, 2023
-</div>
-<div class="listing-author">
-Jungwoo Lee
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="6" data-categories="code,jupyter,python" data-listing-date-sort="1681138800000" data-listing-file-modified-sort="1682745532111" data-listing-reading-time-sort="14.04">
-<div class="thumbnail">
-<p><a href="./data_mining/pandas/week_1b_pandas.html"> <img src="./data_mining/pandas/pandas.png" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./data_mining/pandas/week_1b_pandas.html">
-<h3 class="no-anchor listing-title">
-Pandas
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('code'); return false;">
-code
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('jupyter'); return false;">
-jupyter
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('python'); return false;">
-python
-</div>
-</div>
-<a href="./data_mining/pandas/week_1b_pandas.html">
-<div class="listing-description">
-“pandas 기본 코드 실습(한글)”
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./data_mining/pandas/week_1b_pandas.html">
-<div class="listing-date">
-Apr 11, 2023
-</div>
-<div class="listing-author">
-Jungwoo Lee
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="7" data-categories="code,Jupyter,python" data-listing-date-sort="1680620400000" data-listing-file-modified-sort="1681803576123" data-listing-reading-time-sort="10.915">
-<div class="thumbnail">
-<p><a href="./data_mining/numpy/numpy.html"> <img src="./data_mining/numpy/numpy.png" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./data_mining/numpy/numpy.html">
-<h3 class="no-anchor listing-title">
-Numpy
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('code'); return false;">
-code
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Jupyter'); return false;">
-Jupyter
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('python'); return false;">
-python
-</div>
-</div>
-<a href="./data_mining/numpy/numpy.html">
-<div class="listing-description">
-“numpy 기본 코드 실습(한글)”
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./data_mining/numpy/numpy.html">
-<div class="listing-date">
-Apr 5, 2023
-</div>
-<div class="listing-author">
-Jungwoo Lee
-</div>
-</a>
-</div>
-</div>
 </div>
 <div class="listing-no-matching d-none">
 No matching items

@@ -40,6 +40,7 @@ website:
       - section: "Project"
         contents: 
           - machine learning.qmd
+          - hc.qmd
 format:
   html: 
     theme: yeti
