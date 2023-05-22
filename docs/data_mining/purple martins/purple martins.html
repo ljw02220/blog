@@ -264,6 +264,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="../../machine learning.html" class="sidebar-item-text sidebar-link">제주도 교통량 예측 ai 만들기</a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../hc.html" class="sidebar-item-text sidebar-link">수소 충전소 입지 선정</a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -321,7 +326,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="reading-package" class="level1">
 <h1>Reading package</h1>
-<div class="cell" data-execution_count="2">
+<div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -337,7 +342,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="load-the-data." class="level3">
 <h3 class="anchored" data-anchor-id="load-the-data.">1) Load the data.</h3>
 <p>다음 코드 셀(변경 사항 없음)을 실행하여 GPS 데이터를 pandas DataFrame <code>birds_df</code>로 로드합니다.</p>
-<div class="cell" data-execution_count="3">
+<div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the data and print the first 5 rows</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>birds_df <span class="op">=</span> pd.read_csv(<span class="st">"/Users/jungwoolee/Desktop/college/data mining/geo_data/purple_martin.csv"</span>, parse_dates<span class="op">=</span>[<span class="st">'timestamp'</span>])</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"There are </span><span class="sc">{}</span><span class="st"> different birds in the dataset."</span>.<span class="bu">format</span>(birds_df[<span class="st">"tag-local-identifier"</span>].nunique()))</span>
@@ -345,7 +350,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell-output cell-output-stdout">
 <pre><code>There are 11 different birds in the dataset.</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="2">
 
 <div>
 
@@ -402,13 +407,74 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>데이터 세트에는 11마리의 새가 있으며 각 새는 “tag-local-identifier” 열의 고유한 값으로 식별됩니다. 각 새는 일년 중 서로 다른 시간에 수집된 몇 가지 측정값을 가지고 있습니다.</p>
 <p>다음 코드 셀을 사용하여 GeoDataFrame ’birds’를 만듭니다. - <code>birds</code>에는 (경도, 위도) 위치가 있는 Point 객체를 포함하는 “도형” 열과 함께 <code>birds_df</code>의 모든 열이 있어야 합니다. - <code>birds</code>의 CRS를 <code>{'init': 'epsg:4326'}</code>로 설정합니다.</p>
-<div class="cell" data-execution_count="4">
+<div class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>birds <span class="op">=</span> gpd.GeoDataFrame(birds_df, geometry<span class="op">=</span>gpd.points_from_xy(birds_df[<span class="st">"location-long"</span>], birds_df[<span class="st">"location-lat"</span>]))</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>birds.crs <span class="op">=</span> {<span class="st">'init'</span> :<span class="st">'epsg:4326'</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>birds.crs <span class="op">=</span> {<span class="st">'init'</span> :<span class="st">'epsg:4326'</span>}</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>birds.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>/Users/jungwoolee/opt/anaconda3/lib/python3.9/site-packages/pyproj/crs/crs.py:141: FutureWarning: '+init=&lt;authority&gt;:&lt;code&gt;' syntax is deprecated. '&lt;authority&gt;:&lt;code&gt;' is the preferred initialization method. When making the change, be mindful of axis order changes: https://pyproj4.github.io/pyproj/stable/gotchas.html#axis-order-changes-in-proj-6
   in_crs_string = _prepare_from_proj_string(in_crs_string)</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>timestamp</th>
+      <th>location-long</th>
+      <th>location-lat</th>
+      <th>tag-local-identifier</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2014-08-15 05:56:00</td>
+      <td>-88.146014</td>
+      <td>17.513049</td>
+      <td>30448</td>
+      <td>POINT (-88.14601 17.51305)</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2014-09-01 05:59:00</td>
+      <td>-85.243501</td>
+      <td>13.095782</td>
+      <td>30448</td>
+      <td>POINT (-85.24350 13.09578)</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2014-10-30 23:58:00</td>
+      <td>-62.906089</td>
+      <td>-7.852436</td>
+      <td>30448</td>
+      <td>POINT (-62.90609 -7.85244)</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2014-11-15 04:59:00</td>
+      <td>-61.776826</td>
+      <td>-11.723898</td>
+      <td>30448</td>
+      <td>POINT (-61.77683 -11.72390)</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2014-11-30 09:59:00</td>
+      <td>-61.241538</td>
+      <td>-11.612237</td>
+      <td>30448</td>
+      <td>POINT (-61.24154 -11.61224)</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 </div>
 </div>
 </section>
