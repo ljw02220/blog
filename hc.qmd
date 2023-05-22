@@ -3,7 +3,6 @@ title: "수소 충전소 입지 선정"
 listing:
   contents: data mining
   sort: "date desc"
-  type: default
   sort-ui: false
   filter-ui: false
 page-layout: full
