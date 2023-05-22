@@ -37,19 +37,11 @@
     ]
   },
   {
-    "listing": "/machine learning.html",
-    "items": []
-  },
-  {
-    "listing": "/data miming.html",
-    "items": []
-  },
-  {
-    "listing": "/data mining.html",
-    "items": []
-  },
-  {
     "listing": "/hc.html",
+    "items": []
+  },
+  {
+    "listing": "/machine learning.html",
     "items": []
   }
 ]
