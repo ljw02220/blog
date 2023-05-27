@@ -1,0 +1,2329 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Blog – pydeck-example</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Blog</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../about.html" aria-current="page">
+ <span class="menu-text">Profile</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-college" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">College</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-college">    
+        <li>
+    <a class="dropdown-item" href="../../data_mining.html">
+ <span class="dropdown-text">Data mining</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../data_vis.html">
+ <span class="dropdown-text">Data Visualization</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../geo.html">
+ <span class="dropdown-text">Geocomputation</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../new index.html">
+ <span class="menu-text">about</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/ljw02220"><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com"><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Profile</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../about.html" class="sidebar-item-text sidebar-link">Jungwoo Lee</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">College</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../data_mining.html" class="sidebar-item-text sidebar-link">Data Mining</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../data_vis.html" class="sidebar-item-text sidebar-link">Data Visualization</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../geo.html" class="sidebar-item-text sidebar-link">Geocomputation</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Project</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../machine learning.html" class="sidebar-item-text sidebar-link">제주도 교통량 예측 ai 만들기</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../hc.html" class="sidebar-item-text sidebar-link">수소충전소 입지 선정</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="install" class="level3">
+<h3 class="anchored" data-anchor-id="install">Install</h3>
+<p>pydeck 설치 가이드 - https://deckgl.readthedocs.io/en/latest/installation.html<br>
+강의자료 출처 - https://zzsza.github.io/data/2019/11/24/pydeck/</p>
+</section>
+<section id="pip3-install-pydeck" class="level1">
+<h1>!pip3 install pydeck</h1>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># !jupyter nbextension install --sys-prefix --symlink --overwrite --py pydeck</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># !jupyter nbextension enable --sys-prefix --py pydeck</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Installing /Users/jihoyeo/miniforge3/envs/base2/lib/python3.11/site-packages/pydeck/nbextension/static -&gt; pydeck
+Removing: /Users/jihoyeo/miniforge3/envs/base2/share/jupyter/nbextensions/pydeck
+Symlinking: /Users/jihoyeo/miniforge3/envs/base2/share/jupyter/nbextensions/pydeck -&gt; /Users/jihoyeo/miniforge3/envs/base2/lib/python3.11/site-packages/pydeck/nbextension/static
+- Validating: OK
+
+    To initialize this nbextension in the browser every time the notebook (or other app) loads:
+    
+          jupyter nbextension enable pydeck --py --sys-prefix
+    
+Enabling notebook extension pydeck/extensionRequires...
+      - Validating: OK</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># !pip install 'pydeck[jupyter]'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>MAPBOX_API_KEY<span class="op">=</span><span class="st">"pk.eyJ1Ijoic3BlYXI1MzA2IiwiYSI6ImNremN5Z2FrOTI0ZGgycm45Mzh3dDV6OWQifQ.kXGWHPRjnVAEHgVgLzXn2g"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="공식-홈페이지-예시" class="level3">
+<h3 class="anchored" data-anchor-id="공식-홈페이지-예시">공식 홈페이지 예시</h3>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pydeck</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>UK_ACCIDENTS_DATA <span class="op">=</span> <span class="st">'https://raw.githubusercontent.com/uber-common/deck.gl-data/master/examples/3d-heatmap/heatmap-data.csv'</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>pd.read_csv(UK_ACCIDENTS_DATA).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>lng</th>
+      <th>lat</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-0.198465</td>
+      <td>51.505538</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-0.178838</td>
+      <td>51.491836</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-0.205590</td>
+      <td>51.514910</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-0.208327</td>
+      <td>51.514952</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>-0.206022</td>
+      <td>51.496572</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>UK_ACCIDENTS_DATA</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>'https://raw.githubusercontent.com/uber-common/deck.gl-data/master/examples/3d-heatmap/heatmap-data.csv'</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Hexagon 레이어 생성</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>layer <span class="op">=</span> pydeck.Layer(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'HexagonLayer'</span>, <span class="co"># HexagonLayer를 생성하는 레이어 타입</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    UK_ACCIDENTS_DATA, <span class="co"># 교통사고 데이터</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    get_position<span class="op">=</span><span class="st">'[lng,lat]'</span>, <span class="co"># 위치 정보를 가져오는 열 지정</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    auto_highlight<span class="op">=</span><span class="va">True</span>, <span class="co"># 마우스 오버시 자동으로 강조 표시 활성화</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    elevation_scale<span class="op">=</span><span class="dv">50</span>, <span class="co"># 육각형의 높이 스케일</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    pickable<span class="op">=</span><span class="va">True</span>, <span class="co"># 육각형 선택 가능</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    elevation_range<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">3000</span>], <span class="co"># 육각형의 높이 범위</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    extruded<span class="op">=</span><span class="va">True</span>,  <span class="co"># 입체적으로 육각형 표현       </span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    coverage<span class="op">=</span><span class="dv">1</span>) <span class="co"># hexagonLayer의 크기를 키워줌</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># radius=3000) </span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 뷰포트 위치 설정</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>view_state <span class="op">=</span> pydeck.ViewState(</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    longitude<span class="op">=-</span><span class="fl">1.415</span>,  <span class="co"># 초기 중심 위치의 경도</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    latitude<span class="op">=</span><span class="fl">52.2323</span>,  <span class="co"># 초기 중심 위치의 위도</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    zoom<span class="op">=</span><span class="dv">6</span>,  <span class="co"># 초기 줌 레벨</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    min_zoom<span class="op">=</span><span class="dv">5</span>,  <span class="co"># 최소 줌 레벨</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    max_zoom<span class="op">=</span><span class="dv">15</span>,  <span class="co"># 최대 줌 레벨</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    pitch<span class="op">=</span><span class="fl">40.5</span>,  <span class="co"># 뷰포트의 기울기</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    bearing<span class="op">=-</span><span class="fl">27.36</span>)  <span class="co"># 뷰포트의 방향</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 모든 설정을 결합하고 뷰포트 렌더링</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> pydeck.Deck(layers<span class="op">=</span>[layer], initial_view_state<span class="op">=</span>view_state)</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>r.show()</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 결과를 HTML 파일로 저장 (선택 사항)</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="co"># r.to_html('demo.html')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"0ab0b16ea1534eabb410a54789e3fd03","version_major":2,"version_minor":0}
+</script>
+</div>
+</div>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>layer.elevation_range <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">500</span>]</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>r.update()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pydeck <span class="im">as</span> pdk</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>pdk.Deck?</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Init signature:
+pdk.Deck(
+    layers=None,
+    views=[{
+  "@@type": "MapView",
+  "controller": true
+}],
+    map_style='dark',
+    api_keys=None,
+    initial_view_state={
+  "latitude": 0,
+  "longitude": 0,
+  "zoom": 1
+},
+    width='100%',
+    height=500,
+    tooltip=True,
+    description=None,
+    effects=None,
+    map_provider='carto',
+    parameters=None,
+)
+Docstring:      &lt;no docstring&gt;
+Init docstring:
+This is the renderer and configuration for a deck.gl visualization, similar to the
+`Deck &lt;https://deck.gl/docs/api-reference/core/deck&gt;`_ class from deck.gl.
+Pass `Deck` a Mapbox API token to display a basemap; see the notes below.
+
+Parameters
+----------
+
+layers : pydeck.Layer or list of pydeck.Layer, default None
+    List of :class:`pydeck.bindings.layer.Layer` layers to render.
+views : list of pydeck.View, default ``[pydeck.View(type="MapView", controller=True)]``
+    List of :class:`pydeck.bindings.view.View` objects to render.
+api_keys : dict, default None
+    Dictionary of geospatial API service providers, where the keys are ``mapbox``, ``google_maps``, or ``carto``
+    and the values are the API key. Defaults to None if not set. Any of the environment variables
+    ``MAPBOX_API_KEY``, ``GOOGLE_MAPS_API_KEY``, and ``CARTO_API_KEY`` can be set instead of hardcoding the key here.
+map_provider : str, default 'carto'
+    If multiple API keys are set (e.g., both Mapbox and Google Maps), inform pydeck which basemap provider to prefer.
+    Values can be ``carto``, ``mapbox`` or ``google_maps``
+map_style : str or dict, default 'dark'
+    One of 'light', 'dark', 'road', 'satellite', 'dark_no_labels', and 'light_no_labels', a URI for a basemap
+    style, which varies by provider, or a dict that follows the Mapbox style `specification &lt;https://docs.mapbox.com/mapbox-gl-js/style-spec/&gt;`.
+    The default is Carto's Dark Matter map. For Mapbox examples, see  Mapbox's `gallery &lt;https://www.mapbox.com/gallery/&gt;`.
+    If not using a basemap, set ``map_provider=None``.
+initial_view_state : pydeck.ViewState, default ``pydeck.ViewState(latitude=0, longitude=0, zoom=1)``
+    Initial camera angle relative to the map, defaults to a fully zoomed out 0, 0-centered map
+    To compute a viewport from data, see :func:`pydeck.data_utils.viewport_helpers.compute_view`
+height : int, default 500
+    Height of Jupyter notebook cell, in pixels.
+width : int` or string, default '100%'
+    Width of visualization, in pixels (if a number) or as a CSS value string.
+tooltip : bool or dict of {str: str}, default True
+    If ``True``/``False``, toggles a default tooltip on visualization hover.
+    Layers must have ``pickable=True`` set in order to display a tooltip.
+    For more advanced usage, the user can pass a dict to configure more custom tooltip features.
+    Further documentation is `here &lt;tooltip.html&gt;`_.
+
+.. _Deck:
+    https://deck.gl/docs/api-reference/core/deck
+.. _gallery:
+    https://www.mapbox.com/gallery/
+File:           ~/opt/anaconda3/lib/python3.9/site-packages/pydeck/bindings/deck.py
+Type:           type
+Subclasses:     </code></pre>
+</div>
+</div>
+</section>
+<section id="scatter-plots" class="level3">
+<h3 class="anchored" data-anchor-id="scatter-plots">Scatter Plots</h3>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pydeck <span class="im">import</span> (</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    data_utils,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    Deck,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    Layer</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># First, let's use Pandas to download our data</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>URL <span class="op">=</span> <span class="st">'https://raw.githubusercontent.com/ajduberstein/data_sets/master/beijing_subway_station.csv'</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(URL)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>lat</th>
+      <th>lng</th>
+      <th>osm_id</th>
+      <th>station_name</th>
+      <th>chinese_name</th>
+      <th>opening_date</th>
+      <th>color</th>
+      <th>line_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>39.940249</td>
+      <td>116.456359</td>
+      <td>1351272524</td>
+      <td>Agricultural Exhibition Center</td>
+      <td>农业展览馆</td>
+      <td>2008-07-19</td>
+      <td>[0, 146, 188, 255]</td>
+      <td>Line 10</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>39.955570</td>
+      <td>116.388507</td>
+      <td>5057476994</td>
+      <td>Andelibeijie</td>
+      <td>安德里北街</td>
+      <td>2015-12-26</td>
+      <td>[0, 155, 119, 255]</td>
+      <td>Line 8 (North section)</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>39.947729</td>
+      <td>116.402067</td>
+      <td>339088654</td>
+      <td>Andingmen</td>
+      <td>安定门</td>
+      <td>1984-09-20</td>
+      <td>[0, 75, 135, 255]</td>
+      <td>Line 2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>40.011026</td>
+      <td>116.263981</td>
+      <td>1362259113</td>
+      <td>Anheqiao North</td>
+      <td>安河桥北</td>
+      <td>2009-09-28</td>
+      <td>[0, 140, 149, 255]</td>
+      <td>Line 4</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>39.967112</td>
+      <td>116.388398</td>
+      <td>5305505996</td>
+      <td>Anhuaqiao</td>
+      <td>安华桥</td>
+      <td>2012-12-30</td>
+      <td>[0, 155, 119, 255]</td>
+      <td>Line 8 (North section)</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ast <span class="im">import</span> literal_eval</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># We have to re-code position to be one field in a list, so we'll do that here:</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># The CSV encodes the [R, G, B, A] color values listed in it as a string</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'color'</span>] <span class="op">=</span> df.<span class="bu">apply</span>(<span class="kw">lambda</span> x: literal_eval(x[<span class="st">'color'</span>]), axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># color[R,G,B,A] A = Alpha</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>lat</th>
+      <th>lng</th>
+      <th>osm_id</th>
+      <th>station_name</th>
+      <th>chinese_name</th>
+      <th>opening_date</th>
+      <th>color</th>
+      <th>line_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>39.940249</td>
+      <td>116.456359</td>
+      <td>1351272524</td>
+      <td>Agricultural Exhibition Center</td>
+      <td>农业展览馆</td>
+      <td>2008-07-19</td>
+      <td>[0, 146, 188, 255]</td>
+      <td>Line 10</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>39.955570</td>
+      <td>116.388507</td>
+      <td>5057476994</td>
+      <td>Andelibeijie</td>
+      <td>安德里北街</td>
+      <td>2015-12-26</td>
+      <td>[0, 155, 119, 255]</td>
+      <td>Line 8 (North section)</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>39.947729</td>
+      <td>116.402067</td>
+      <td>339088654</td>
+      <td>Andingmen</td>
+      <td>安定门</td>
+      <td>1984-09-20</td>
+      <td>[0, 75, 135, 255]</td>
+      <td>Line 2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>40.011026</td>
+      <td>116.263981</td>
+      <td>1362259113</td>
+      <td>Anheqiao North</td>
+      <td>安河桥北</td>
+      <td>2009-09-28</td>
+      <td>[0, 140, 149, 255]</td>
+      <td>Line 4</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>39.967112</td>
+      <td>116.388398</td>
+      <td>5305505996</td>
+      <td>Anhuaqiao</td>
+      <td>安华桥</td>
+      <td>2012-12-30</td>
+      <td>[0, 155, 119, 255]</td>
+      <td>Line 8 (North section)</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use pydeck's data_utils module to fit a viewport to the central 90% of the data</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>viewport <span class="op">=</span> data_utils.compute_view(points<span class="op">=</span>df[[<span class="st">'lng'</span>, <span class="st">'lat'</span>]], view_proportion<span class="op">=</span><span class="fl">0.9</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>auto_zoom_map <span class="op">=</span> Deck(layers<span class="op">=</span><span class="va">None</span>, initial_view_state<span class="op">=</span>viewport)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>auto_zoom_map.show()</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># auto_zoom_map.to_html('demo.html')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"45d262dc8140434cafd39cc7ef5f82f7","version_major":2,"version_minor":0}
+</script>
+</div>
+</div>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.core.display <span class="im">import</span> display</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> ipywidgets</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>year <span class="op">=</span> <span class="dv">2019</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>scatterplot <span class="op">=</span> Layer(</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'ScatterplotLayer'</span>,</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    df,</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">id</span> <span class="op">=</span> <span class="st">'scatterplot-layer'</span>,</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    get_radius <span class="op">=</span> <span class="dv">500</span>,</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    get_fill_color <span class="op">=</span> <span class="st">'color'</span>,</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    get_position <span class="op">=</span> <span class="st">'[lng, lat]'</span>)</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> Deck(layers <span class="op">=</span> [scatterplot], initial_view_state <span class="op">=</span> viewport)</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an HTML header to display the year</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>display_el <span class="op">=</span> ipywidgets.HTML(<span class="st">'&lt;h1&gt;</span><span class="sc">{}</span><span class="st">&lt;/h1&gt;'</span>.<span class="bu">format</span>(year))</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>display(display_el)</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the current visualization</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>r.show()</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="co"># r.to_html('demo.html')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"9e2430d38a8d4e87be6c158e76d5df24","version_major":2,"version_minor":0}
+</script>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"d54723f97e0448c8a9514dc9c3d9c482","version_major":2,"version_minor":0}
+</script>
+</div>
+</div>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> y <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1971</span>, <span class="dv">2020</span>):</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    scatterplot.data <span class="op">=</span> df[df[<span class="st">'opening_date'</span>] <span class="op">&lt;=</span> <span class="bu">str</span>(y)]</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    year <span class="op">=</span> y</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Reset the header to display the year</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    display_el.value <span class="op">=</span> <span class="st">'&lt;h1&gt;</span><span class="sc">{}</span><span class="st">&lt;/h1&gt;'</span>.<span class="bu">format</span>(year)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    r.update()</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="fl">0.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="using-pydeck-to-manipulate-data" class="level3">
+<h3 class="anchored" data-anchor-id="using-pydeck-to-manipulate-data">Using pydeck to manipulate data</h3>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pydeck <span class="im">as</span> pdk</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>DATA_URL <span class="op">=</span> <span class="st">'https://api.data.gov.sg/v1/transport/taxi-availability'</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>COLOR_RANGE <span class="op">=</span> [</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">255</span>, <span class="dv">255</span>, <span class="dv">178</span>, <span class="dv">25</span>],</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">254</span>, <span class="dv">217</span>, <span class="dv">118</span>, <span class="dv">85</span>],</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">254</span>, <span class="dv">178</span>, <span class="dv">76</span>, <span class="dv">127</span>],</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">253</span>, <span class="dv">141</span>, <span class="dv">60</span>, <span class="dv">170</span>],</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">240</span>, <span class="dv">59</span>, <span class="dv">32</span>, <span class="dv">212</span>],</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">189</span>, <span class="dv">0</span>, <span class="dv">38</span>, <span class="dv">255</span>]</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>json <span class="op">=</span> requests.get(DATA_URL).json()</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(json[<span class="st">"features"</span>][<span class="dv">0</span>][<span class="st">"geometry"</span>][<span class="st">"coordinates"</span>])</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>df.columns <span class="op">=</span> [<span class="st">'lng'</span>, <span class="st">'lat'</span>]</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>viewport <span class="op">=</span> pdk.data_utils.compute_view(df[[<span class="st">'lng'</span>, <span class="st">'lat'</span>]])</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>layer <span class="op">=</span> pdk.Layer(</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'ScreenGridLayer'</span>,</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    df,</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    cell_size_pixels<span class="op">=</span><span class="dv">20</span>,</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    color_range<span class="op">=</span>COLOR_RANGE,</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    get_position<span class="op">=</span><span class="st">'[lng, lat]'</span>,</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    pickable<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    auto_highlight<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> pdk.Deck(layers<span class="op">=</span>[layer], initial_view_state<span class="op">=</span>viewport)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>r.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"f01291317fc547b1a577d4764385cdbc","version_major":2,"version_minor":0}
+</script>
+</div>
+</div>
+<div class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>pd.DataFrame([r.deck_widget.selected_data])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="35">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="plotting-massive-data-sets.ipynb" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-massive-data-sets.ipynb">Plotting massive data sets.ipynb</h3>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>all_lidar <span class="op">=</span> pd.concat([</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    pd.read_csv(<span class="st">'https://raw.githubusercontent.com/ajduberstein/kitti_subset/master/kitti_1.csv'</span>),</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    pd.read_csv(<span class="st">'https://raw.githubusercontent.com/ajduberstein/kitti_subset/master/kitti_2.csv'</span>),</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    pd.read_csv(<span class="st">'https://raw.githubusercontent.com/ajduberstein/kitti_subset/master/kitti_3.csv'</span>),</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    pd.read_csv(<span class="st">'https://raw.githubusercontent.com/ajduberstein/kitti_subset/master/kitti_4.csv'</span>),</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter to one frame of data</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>lidar <span class="op">=</span> all_lidar[all_lidar[<span class="st">'source'</span>] <span class="op">==</span> <span class="dv">136</span>]</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>lidar.loc[: , [<span class="st">'x'</span>, <span class="st">'y'</span>]] <span class="op">=</span> lidar[[<span class="st">'x'</span>, <span class="st">'y'</span>]] <span class="op">/</span> <span class="dv">10000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/j_/rjw7swvx2qgcnk92k3tvvmyr0000gn/T/ipykernel_20147/2343270151.py:11: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  lidar.loc[: , ['x', 'y']] = lidar[['x', 'y']] / 10000</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pydeck <span class="im">as</span> pdk</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>point_cloud <span class="op">=</span> pdk.Layer(</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'PointCloudLayer'</span>,</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    lidar[[<span class="st">'x'</span>, <span class="st">'y'</span>, <span class="st">'z'</span>]],</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    get_position<span class="op">=</span><span class="st">'[x, y, z * 10]'</span>,</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    get_normal<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>],</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    get_color<span class="op">=</span>[<span class="dv">255</span>, <span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">200</span>],</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    pickable<span class="op">=</span><span class="va">True</span>,  </span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    auto_highlight<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    point_size<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>view_state <span class="op">=</span> pdk.data_utils.compute_view(lidar[[<span class="st">'x'</span>, <span class="st">'y'</span>]], <span class="fl">0.9</span>)</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>view_state.max_pitch <span class="op">=</span> <span class="dv">360</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>view_state.pitch <span class="op">=</span> <span class="dv">80</span></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>view_state.bearing <span class="op">=</span> <span class="dv">120</span></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> pdk.Deck(</span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>    point_cloud,</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>    initial_view_state<span class="op">=</span>view_state,</span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>    map_style<span class="op">=</span><span class="st">''</span>)</span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>r.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"100c8f21dc2843db8ee73c27afade8c2","version_major":2,"version_minor":0}
+</script>
+</div>
+</div>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> deque</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Choose a handful of frames to loop through</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>frame_buffer <span class="op">=</span> deque([<span class="dv">42</span>, <span class="dv">56</span>, <span class="dv">81</span>, <span class="dv">95</span>])</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Press the stop icon to exit'</span>)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    current_frame <span class="op">=</span> frame_buffer[<span class="dv">0</span>]</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    lidar <span class="op">=</span> all_lidar[all_lidar[<span class="st">'source'</span>] <span class="op">==</span> current_frame]</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    r.layers[<span class="dv">0</span>].get_position <span class="op">=</span> <span class="st">'[x, y, z * 10]'</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>    r.layers[<span class="dv">0</span>].data <span class="op">=</span> lidar.to_dict(orient<span class="op">=</span><span class="st">'records'</span>)</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>    frame_buffer.rotate()</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>    r.update()</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Press the stop icon to exit</code></pre>
+</div>
+<div class="cell-output cell-output-error">
+<pre><code>KeyboardInterrupt: </code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> deque</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>frame_buffer <span class="op">=</span> deque([<span class="dv">42</span>, <span class="dv">56</span>, <span class="dv">81</span>, <span class="dv">95</span>])</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Press the stop icon to exit'</span>)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    current_frame <span class="op">=</span> frame_buffer[<span class="dv">0</span>]</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    lidar <span class="op">=</span> all_lidar[all_lidar[<span class="st">'source'</span>] <span class="op">==</span> current_frame]</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    r.layers[<span class="dv">0</span>].get_position <span class="op">=</span> <span class="st">'[x, y, z * 10]'</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    r.layers[<span class="dv">0</span>].data <span class="op">=</span> lidar.to_dict(orient<span class="op">=</span><span class="st">'records'</span>)</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    frame_buffer.rotate()</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>    r.update()</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Press the stop icon to exit</code></pre>
+</div>
+<div class="cell-output cell-output-error">
+<pre><code>KeyboardInterrupt: </code></pre>
+</div>
+</div>
+</section>
+<section id="interacting-with-other-jupyter-widgets.ipynb" class="level3">
+<h3 class="anchored" data-anchor-id="interacting-with-other-jupyter-widgets.ipynb">Interacting with other Jupyter widgets.ipynb</h3>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>LIGHTS_URL <span class="op">=</span> <span class="st">'https://raw.githubusercontent.com/ajduberstein/lights_at_night/master/chengdu_lights_at_night.csv'</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(LIGHTS_URL)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>year</th>
+      <th>lng</th>
+      <th>lat</th>
+      <th>brightness</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1993</td>
+      <td>104.575</td>
+      <td>31.808</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1993</td>
+      <td>104.583</td>
+      <td>31.808</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1993</td>
+      <td>104.592</td>
+      <td>31.808</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1993</td>
+      <td>104.600</td>
+      <td>31.808</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1993</td>
+      <td>104.675</td>
+      <td>31.808</td>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'color'</span>] <span class="op">=</span> df[<span class="st">'brightness'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> val: [<span class="dv">255</span>, val <span class="op">*</span> <span class="dv">4</span>,  <span class="dv">255</span>, <span class="dv">255</span>])</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>df.sample(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>year</th>
+      <th>lng</th>
+      <th>lat</th>
+      <th>brightness</th>
+      <th>color</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>53316</th>
+      <td>1995</td>
+      <td>104.042</td>
+      <td>29.642</td>
+      <td>5</td>
+      <td>[255, 20, 255, 255]</td>
+    </tr>
+    <tr>
+      <th>147990</th>
+      <td>2003</td>
+      <td>103.458</td>
+      <td>29.542</td>
+      <td>6</td>
+      <td>[255, 24, 255, 255]</td>
+    </tr>
+    <tr>
+      <th>84839</th>
+      <td>2009</td>
+      <td>103.825</td>
+      <td>29.542</td>
+      <td>5</td>
+      <td>[255, 20, 255, 255]</td>
+    </tr>
+    <tr>
+      <th>218170</th>
+      <td>2011</td>
+      <td>104.892</td>
+      <td>31.792</td>
+      <td>5</td>
+      <td>[255, 20, 255, 255]</td>
+    </tr>
+    <tr>
+      <th>250157</th>
+      <td>2011</td>
+      <td>103.908</td>
+      <td>30.025</td>
+      <td>8</td>
+      <td>[255, 32, 255, 255]</td>
+    </tr>
+    <tr>
+      <th>99349</th>
+      <td>2001</td>
+      <td>103.842</td>
+      <td>30.750</td>
+      <td>9</td>
+      <td>[255, 36, 255, 255]</td>
+    </tr>
+    <tr>
+      <th>183178</th>
+      <td>2007</td>
+      <td>104.717</td>
+      <td>31.558</td>
+      <td>14</td>
+      <td>[255, 56, 255, 255]</td>
+    </tr>
+    <tr>
+      <th>152990</th>
+      <td>2013</td>
+      <td>104.808</td>
+      <td>31.383</td>
+      <td>49</td>
+      <td>[255, 196, 255, 255]</td>
+    </tr>
+    <tr>
+      <th>169530</th>
+      <td>2013</td>
+      <td>104.317</td>
+      <td>30.375</td>
+      <td>6</td>
+      <td>[255, 24, 255, 255]</td>
+    </tr>
+    <tr>
+      <th>17464</th>
+      <td>1997</td>
+      <td>104.283</td>
+      <td>31.308</td>
+      <td>5</td>
+      <td>[255, 20, 255, 255]</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>plottable <span class="op">=</span> df[df[<span class="st">'year'</span>] <span class="op">==</span> <span class="dv">1993</span>].to_dict(orient<span class="op">=</span><span class="st">'records'</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>view_state <span class="op">=</span> pdk.ViewState(</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    latitude<span class="op">=</span><span class="fl">31.0</span>,</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    longitude<span class="op">=</span><span class="fl">104.5</span>,</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    zoom<span class="op">=</span><span class="dv">8</span>,</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    max_zoom<span class="op">=</span><span class="dv">8</span>,</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>    min_zoom<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>scatterplot <span class="op">=</span> pdk.Layer(</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'HeatmapLayer'</span>,</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>plottable,</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>    get_position<span class="op">=</span><span class="st">'[lng, lat]'</span>,</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>    get_weight<span class="op">=</span><span class="st">'brightness'</span>,</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>    opacity<span class="op">=</span><span class="fl">0.5</span>,</span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>    pickable<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>    get_radius<span class="op">=</span><span class="dv">800</span>)</span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> pdk.Deck(</span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>    layers<span class="op">=</span>[scatterplot],</span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>    initial_view_state<span class="op">=</span>view_state,</span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>    views<span class="op">=</span>[pdk.View(<span class="bu">type</span><span class="op">=</span><span class="st">'MapView'</span>, controller<span class="op">=</span><span class="va">None</span>)])</span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>r.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"ba845cb8437240bc95df582c5ddea98b","version_major":2,"version_minor":0}
+</script>
+</div>
+</div>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> ipywidgets <span class="im">as</span> widgets</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>slider <span class="op">=</span> widgets.IntSlider(<span class="dv">1992</span>, <span class="bu">min</span><span class="op">=</span><span class="dv">1993</span>, <span class="bu">max</span><span class="op">=</span><span class="dv">2013</span>, step<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> on_change(v):</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> df[df[<span class="st">'year'</span>] <span class="op">==</span> slider.value].to_dict(orient<span class="op">=</span><span class="st">'records'</span>)</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    scatterplot.data <span class="op">=</span> results</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    r.update()</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>slider.observe(on_change, names<span class="op">=</span><span class="st">'value'</span>)</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>display(slider)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"13fb50f3af0c41f990ca7e42713fbbdd","version_major":2,"version_minor":0}
+</script>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>tooltip <span class="op">=</span> {</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>   <span class="st">"html"</span>: <span class="st">"&lt;b&gt;Elevation Value:&lt;/b&gt; </span><span class="sc">{elevationValue}</span><span class="st">"</span>,</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>   <span class="st">"style"</span>: {</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"backgroundColor"</span>: <span class="st">"steelblue"</span>,</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"color"</span>: <span class="st">"white"</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>   }</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="tooltip" class="level3">
+<h3 class="anchored" data-anchor-id="tooltip">Tooltip</h3>
+<div class="cell" data-execution_count="55">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pydeck <span class="im">as</span> pdk</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>layer <span class="op">=</span> pdk.Layer(</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'HexagonLayer'</span>,</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    UK_ACCIDENTS_DATA,</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    get_position<span class="op">=</span><span class="st">'[lng, lat]'</span>,</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>    auto_highlight<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>    elevation_scale<span class="op">=</span><span class="dv">50</span>,</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>    pickable<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>    elevation_range<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">3000</span>],</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>    extruded<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>    coverage<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the viewport location</span></span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>view_state <span class="op">=</span> pdk.ViewState(</span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>    longitude<span class="op">=-</span><span class="fl">1.415</span>,</span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>    latitude<span class="op">=</span><span class="fl">52.2323</span>,</span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>    zoom<span class="op">=</span><span class="dv">6</span>,</span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a>    min_zoom<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a>    max_zoom<span class="op">=</span><span class="dv">15</span>,</span>
+<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a>    pitch<span class="op">=</span><span class="fl">40.5</span>,</span>
+<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a>    bearing<span class="op">=-</span><span class="fl">27.36</span>)</span>
+<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Combined all of it and render a viewport</span></span>
+<span id="cb37-25"><a href="#cb37-25" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> pdk.Deck(</span>
+<span id="cb37-26"><a href="#cb37-26" aria-hidden="true" tabindex="-1"></a>    layers<span class="op">=</span>[layer],</span>
+<span id="cb37-27"><a href="#cb37-27" aria-hidden="true" tabindex="-1"></a>    initial_view_state<span class="op">=</span>view_state,</span>
+<span id="cb37-28"><a href="#cb37-28" aria-hidden="true" tabindex="-1"></a>    tooltip<span class="op">=</span>{</span>
+<span id="cb37-29"><a href="#cb37-29" aria-hidden="true" tabindex="-1"></a>        <span class="st">'html'</span>: <span class="st">'&lt;b&gt;Elevation Value:&lt;/b&gt; </span><span class="sc">{elevationValue}</span><span class="st">'</span>,</span>
+<span id="cb37-30"><a href="#cb37-30" aria-hidden="true" tabindex="-1"></a>        <span class="st">'style'</span>: {</span>
+<span id="cb37-31"><a href="#cb37-31" aria-hidden="true" tabindex="-1"></a>            <span class="st">'color'</span>: <span class="st">'white'</span></span>
+<span id="cb37-32"><a href="#cb37-32" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb37-33"><a href="#cb37-33" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb37-34"><a href="#cb37-34" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb37-35"><a href="#cb37-35" aria-hidden="true" tabindex="-1"></a>r.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"86b24465303d4bf087445c1d6071d96d","version_major":2,"version_minor":0}
+</script>
+</div>
+</div>
+<ul>
+<li>그냥 텍스트로 하기</li>
+</ul>
+<div class="cell" data-execution_count="54">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pydeck <span class="im">as</span> pdk</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>layer <span class="op">=</span> pdk.Layer(</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'HexagonLayer'</span>,</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    UK_ACCIDENTS_DATA,</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    get_position<span class="op">=</span><span class="st">'[lng, lat]'</span>,</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    auto_highlight<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>    elevation_scale<span class="op">=</span><span class="dv">50</span>,</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>    pickable<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>    elevation_range<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">3000</span>],</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>    extruded<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>    coverage<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the viewport location</span></span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>view_state <span class="op">=</span> pdk.ViewState(</span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>    longitude<span class="op">=-</span><span class="fl">1.415</span>,</span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>    latitude<span class="op">=</span><span class="fl">52.2323</span>,</span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>    zoom<span class="op">=</span><span class="dv">6</span>,</span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>    min_zoom<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>    max_zoom<span class="op">=</span><span class="dv">15</span>,</span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a>    pitch<span class="op">=</span><span class="fl">40.5</span>,</span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a>    bearing<span class="op">=-</span><span class="fl">27.36</span>)</span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Combined all of it and render a viewport</span></span>
+<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> pdk.Deck(</span>
+<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a>    layers<span class="op">=</span>[layer],</span>
+<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a>    initial_view_state<span class="op">=</span>view_state,</span>
+<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a>    tooltip <span class="op">=</span> {</span>
+<span id="cb38-29"><a href="#cb38-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">"text"</span>: <span class="st">"Elevation: </span><span class="sc">{elevationValue}</span><span class="st">"</span></span>
+<span id="cb38-30"><a href="#cb38-30" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb38-31"><a href="#cb38-31" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb38-32"><a href="#cb38-32" aria-hidden="true" tabindex="-1"></a>r.show()</span>
+<span id="cb38-33"><a href="#cb38-33" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"7cb21c045ebb49b3b2cd86dcadd929ae","version_major":2,"version_minor":0}
+</script>
+</div>
+</div>
+<ul>
+<li>Tooltip을 그냥 True값만 주기</li>
+</ul>
+<div class="cell" data-execution_count="56">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pydeck <span class="im">as</span> pdk</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>layer <span class="op">=</span> pdk.Layer(</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'HexagonLayer'</span>,</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    UK_ACCIDENTS_DATA,</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    get_position<span class="op">=</span><span class="st">'[lng, lat]'</span>,</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    auto_highlight<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>    elevation_scale<span class="op">=</span><span class="dv">50</span>,</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>    pickable<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>    elevation_range<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">3000</span>],</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>    extruded<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>    coverage<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the viewport location</span></span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>view_state <span class="op">=</span> pdk.ViewState(</span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>    longitude<span class="op">=-</span><span class="fl">1.415</span>,</span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>    latitude<span class="op">=</span><span class="fl">52.2323</span>,</span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>    zoom<span class="op">=</span><span class="dv">6</span>,</span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>    min_zoom<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>    max_zoom<span class="op">=</span><span class="dv">15</span>,</span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>    pitch<span class="op">=</span><span class="fl">40.5</span>,</span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>    bearing<span class="op">=-</span><span class="fl">27.36</span>)</span>
+<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Combined all of it and render a viewport</span></span>
+<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> pdk.Deck(</span>
+<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a>    layers<span class="op">=</span>[layer],</span>
+<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a>    initial_view_state<span class="op">=</span>view_state,</span>
+<span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a>    tooltip<span class="op">=</span><span class="va">True</span></span>
+<span id="cb39-29"><a href="#cb39-29" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb39-30"><a href="#cb39-30" aria-hidden="true" tabindex="-1"></a>r.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"0c3ea9240e814cefbfa393482288e114","version_major":2,"version_minor":0}
+</script>
+</div>
+</div>
+<div class="cell" data-execution_count="57">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>UK_ACCIDENTS_DATA <span class="op">=</span> <span class="st">'https://raw.githubusercontent.com/uber-common/deck.gl-data/master/examples/3d-heatmap/heatmap-data.csv'</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>uk_data <span class="op">=</span> pd.read_csv(UK_ACCIDENTS_DATA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="58">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>uk_data.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="58">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>lng</th>
+      <th>lat</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-0.198465</td>
+      <td>51.505538</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-0.178838</td>
+      <td>51.491836</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-0.205590</td>
+      <td>51.514910</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-0.208327</td>
+      <td>51.514952</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>-0.206022</td>
+      <td>51.496572</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="미국-택시-데이터-시각화" class="level3">
+<h3 class="anchored" data-anchor-id="미국-택시-데이터-시각화">미국 택시 데이터 시각화</h3>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pydata_google_auth</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>SCOPES <span class="op">=</span> [</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">'https://www.googleapis.com/auth/cloud-platform'</span>,</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">'https://www.googleapis.com/auth/drive'</span>,</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">'https://www.googleapis.com/auth/bigquery'</span></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>credentials <span class="op">=</span> pydata_google_auth.get_user_credentials(</span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>SCOPES, auth_local_webserver<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Please visit this URL to authorize this application: https://accounts.google.com/o/oauth2/auth?response_type=code&amp;client_id=262006177488-3425ks60hkk80fssi9vpohv88g6q1iqd.apps.googleusercontent.com&amp;redirect_uri=http%3A%2F%2Flocalhost%3A8080%2F&amp;scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloud-platform+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fbigquery&amp;state=nBqF6ahyPkhkaoQ2K7VzjRNwdyBHJM&amp;access_type=offline</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT </span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="st">    *</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="st">FROM `bigquery-public-data.new_york_taxi_trips.tlc_yellow_trips_2015` </span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE EXTRACT(MONTH from pickup_datetime) = 1</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="st">LIMIT 10000</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>taxi_df <span class="op">=</span> pd.read_gbq(query<span class="op">=</span>query, dialect<span class="op">=</span><span class="st">'standard'</span>, project_id<span class="op">=</span><span class="st">'persuasive-zoo-147513'</span>, credentials<span class="op">=</span>credentials)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>GenericGBQException: Reason: 403 POST https://bigquery.googleapis.com/bigquery/v2/projects/persuasive-zoo-147513/jobs?prettyPrint=false: Access Denied: Project persuasive-zoo-147513: User does not have bigquery.jobs.create permission in project persuasive-zoo-147513.
+
+Location: None
+Job ID: 4306492b-bebb-40cd-98d9-be0110b9aba3</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="49">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>taxi_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="49">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>vendor_id</th>
+      <th>pickup_datetime</th>
+      <th>dropoff_datetime</th>
+      <th>passenger_count</th>
+      <th>trip_distance</th>
+      <th>pickup_longitude</th>
+      <th>pickup_latitude</th>
+      <th>rate_code</th>
+      <th>store_and_fwd_flag</th>
+      <th>dropoff_longitude</th>
+      <th>dropoff_latitude</th>
+      <th>payment_type</th>
+      <th>fare_amount</th>
+      <th>extra</th>
+      <th>mta_tax</th>
+      <th>tip_amount</th>
+      <th>tolls_amount</th>
+      <th>imp_surcharge</th>
+      <th>total_amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2015-01-02 16:26:22</td>
+      <td>2015-01-02 16:51:10</td>
+      <td>2</td>
+      <td>2.50</td>
+      <td>-73.993172</td>
+      <td>40.762901</td>
+      <td>&lt;NA&gt;</td>
+      <td>N</td>
+      <td>-73.962097</td>
+      <td>40.763584</td>
+      <td>1</td>
+      <td>15.7</td>
+      <td>1.0</td>
+      <td>0.5</td>
+      <td>3.50</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>21.00</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>2015-01-16 17:13:00</td>
+      <td>2015-01-16 17:16:10</td>
+      <td>1</td>
+      <td>0.40</td>
+      <td>-73.961601</td>
+      <td>40.771229</td>
+      <td>&lt;NA&gt;</td>
+      <td>N</td>
+      <td>-73.959419</td>
+      <td>40.775253</td>
+      <td>1</td>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>0.5</td>
+      <td>1.15</td>
+      <td>0.0</td>
+      <td>0.3</td>
+      <td>6.95</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>2015-01-24 04:25:01</td>
+      <td>2015-01-24 04:41:43</td>
+      <td>2</td>
+      <td>4.64</td>
+      <td>-74.000595</td>
+      <td>40.737167</td>
+      <td>&lt;NA&gt;</td>
+      <td>N</td>
+      <td>-73.995499</td>
+      <td>40.680763</td>
+      <td>1</td>
+      <td>16.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>19.50</td>
+      <td>0.0</td>
+      <td>0.3</td>
+      <td>36.80</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2</td>
+      <td>2015-01-30 14:29:58</td>
+      <td>2015-01-30 15:27:13</td>
+      <td>1</td>
+      <td>18.39</td>
+      <td>-73.989914</td>
+      <td>40.729706</td>
+      <td>&lt;NA&gt;</td>
+      <td>N</td>
+      <td>-73.782310</td>
+      <td>40.644180</td>
+      <td>1</td>
+      <td>52.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>5.50</td>
+      <td>0.0</td>
+      <td>0.3</td>
+      <td>58.30</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>2015-01-14 21:24:13</td>
+      <td>2015-01-14 21:25:55</td>
+      <td>1</td>
+      <td>0.50</td>
+      <td>-73.954849</td>
+      <td>40.773220</td>
+      <td>&lt;NA&gt;</td>
+      <td>N</td>
+      <td>-73.959801</td>
+      <td>40.769432</td>
+      <td>1</td>
+      <td>3.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.96</td>
+      <td>0.0</td>
+      <td>0.3</td>
+      <td>5.76</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>9995</th>
+      <td>1</td>
+      <td>2015-01-24 22:49:17</td>
+      <td>2015-01-24 22:56:20</td>
+      <td>2</td>
+      <td>0.70</td>
+      <td>-74.004578</td>
+      <td>40.724056</td>
+      <td>&lt;NA&gt;</td>
+      <td>N</td>
+      <td>-74.006958</td>
+      <td>40.732971</td>
+      <td>1</td>
+      <td>6.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>1.80</td>
+      <td>0.0</td>
+      <td>0.3</td>
+      <td>9.10</td>
+    </tr>
+    <tr>
+      <th>9996</th>
+      <td>2</td>
+      <td>2015-01-21 18:20:27</td>
+      <td>2015-01-21 18:30:16</td>
+      <td>6</td>
+      <td>1.14</td>
+      <td>-74.000038</td>
+      <td>40.748291</td>
+      <td>&lt;NA&gt;</td>
+      <td>N</td>
+      <td>-73.990608</td>
+      <td>40.738071</td>
+      <td>1</td>
+      <td>8.0</td>
+      <td>1.0</td>
+      <td>0.5</td>
+      <td>1.80</td>
+      <td>0.0</td>
+      <td>0.3</td>
+      <td>11.60</td>
+    </tr>
+    <tr>
+      <th>9997</th>
+      <td>2</td>
+      <td>2015-01-09 20:35:23</td>
+      <td>2015-01-09 20:43:55</td>
+      <td>1</td>
+      <td>2.00</td>
+      <td>-73.974876</td>
+      <td>40.748661</td>
+      <td>&lt;NA&gt;</td>
+      <td>N</td>
+      <td>-73.980530</td>
+      <td>40.768021</td>
+      <td>1</td>
+      <td>8.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>1.80</td>
+      <td>0.0</td>
+      <td>0.3</td>
+      <td>11.60</td>
+    </tr>
+    <tr>
+      <th>9998</th>
+      <td>2</td>
+      <td>2015-01-31 22:01:33</td>
+      <td>2015-01-31 22:11:22</td>
+      <td>1</td>
+      <td>1.42</td>
+      <td>-73.984718</td>
+      <td>40.728447</td>
+      <td>&lt;NA&gt;</td>
+      <td>N</td>
+      <td>-73.975380</td>
+      <td>40.745564</td>
+      <td>1</td>
+      <td>8.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>1.80</td>
+      <td>0.0</td>
+      <td>0.3</td>
+      <td>11.60</td>
+    </tr>
+    <tr>
+      <th>9999</th>
+      <td>2</td>
+      <td>2015-01-13 13:40:14</td>
+      <td>2015-01-13 13:51:28</td>
+      <td>5</td>
+      <td>1.57</td>
+      <td>-73.981232</td>
+      <td>40.747498</td>
+      <td>&lt;NA&gt;</td>
+      <td>N</td>
+      <td>-73.998116</td>
+      <td>40.733883</td>
+      <td>1</td>
+      <td>9.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>1.80</td>
+      <td>0.0</td>
+      <td>0.3</td>
+      <td>11.60</td>
+    </tr>
+  </tbody>
+</table>
+<p>10000 rows × 19 columns</p>
+</div>
+</div>
+</div>
+</section>
+<section id="gridlayer" class="level3">
+<h3 class="anchored" data-anchor-id="gridlayer">GridLayer</h3>
+<ul>
+<li>10만개 데이터</li>
+</ul>
+<div class="cell" data-execution_count="50">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>arc_layer <span class="op">=</span> pdk.Layer(</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'GridLayer'</span>,</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    taxi_df,</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    get_position<span class="op">=</span><span class="st">'[pickup_longitude, pickup_latitude]'</span>,</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>    pickable<span class="op">=</span><span class="va">True</span>, </span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>    auto_highlight<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>    tooltip<span class="op">=</span><span class="va">True</span></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>nyc_center <span class="op">=</span> [<span class="op">-</span><span class="fl">73.9808</span>, <span class="fl">40.7648</span>] </span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>view_state <span class="op">=</span> pdk.ViewState(longitude<span class="op">=</span>nyc_center[<span class="dv">0</span>], latitude<span class="op">=</span>nyc_center[<span class="dv">1</span>], zoom<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> pdk.Deck(layers<span class="op">=</span>[arc_layer], initial_view_state<span class="op">=</span>view_state)</span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>r.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"460e38d1c91046c0822cff36f4ce22eb","version_major":2,"version_minor":0}
+</script>
+</div>
+</div>
+</section>
+<section id="arc-layer" class="level3">
+<h3 class="anchored" data-anchor-id="arc-layer">Arc Layer</h3>
+<div class="cell" data-execution_count="51">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>zip_code_query <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="st">WITH base_data AS </span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="st">(</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="st">  SELECT </span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="st">    nyc_taxi.*, </span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="st">    pickup.zip_code as pickup_zip_code,</span></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="st">    pickup.internal_point_lat as pickup_zip_code_lat,</span></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a><span class="st">    pickup.internal_point_lon as pickup_zip_code_lon,</span></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a><span class="st">    dropoff.zip_code as dropoff_zip_code,</span></span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a><span class="st">    dropoff.internal_point_lat as dropoff_zip_code_lat,</span></span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a><span class="st">    dropoff.internal_point_lon as dropoff_zip_code_lon</span></span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a><span class="st">  FROM (</span></span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a><span class="st">    SELECT *</span></span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a><span class="st">    FROM `bigquery-public-data.new_york_taxi_trips.tlc_yellow_trips_2015`</span></span>
+<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a><span class="st">    WHERE </span></span>
+<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a><span class="st">        EXTRACT(MONTH from pickup_datetime) = 1</span></span>
+<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a><span class="st">        and pickup_latitude &lt;= 90 and pickup_latitude &gt;= -90</span></span>
+<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a><span class="st">        and dropoff_latitude &lt;= 90 and dropoff_latitude &gt;= -90</span></span>
+<span id="cb49-19"><a href="#cb49-19" aria-hidden="true" tabindex="-1"></a><span class="st">    ) AS nyc_taxi</span></span>
+<span id="cb49-20"><a href="#cb49-20" aria-hidden="true" tabindex="-1"></a><span class="st">  JOIN (</span></span>
+<span id="cb49-21"><a href="#cb49-21" aria-hidden="true" tabindex="-1"></a><span class="st">    SELECT zip_code, state_code, state_name, city, county, zip_code_geom, internal_point_lat, internal_point_lon </span></span>
+<span id="cb49-22"><a href="#cb49-22" aria-hidden="true" tabindex="-1"></a><span class="st">    FROM `bigquery-public-data.geo_us_boundaries.zip_codes`</span></span>
+<span id="cb49-23"><a href="#cb49-23" aria-hidden="true" tabindex="-1"></a><span class="st">    WHERE state_code='NY'</span></span>
+<span id="cb49-24"><a href="#cb49-24" aria-hidden="true" tabindex="-1"></a><span class="st">    ) AS pickup </span></span>
+<span id="cb49-25"><a href="#cb49-25" aria-hidden="true" tabindex="-1"></a><span class="st">  ON ST_CONTAINS(pickup.zip_code_geom, st_geogpoint(pickup_longitude, pickup_latitude))</span></span>
+<span id="cb49-26"><a href="#cb49-26" aria-hidden="true" tabindex="-1"></a><span class="st">  JOIN (</span></span>
+<span id="cb49-27"><a href="#cb49-27" aria-hidden="true" tabindex="-1"></a><span class="st">    SELECT zip_code, state_code, state_name, city, county, zip_code_geom, internal_point_lat, internal_point_lon </span></span>
+<span id="cb49-28"><a href="#cb49-28" aria-hidden="true" tabindex="-1"></a><span class="st">    FROM `bigquery-public-data.geo_us_boundaries.zip_codes`</span></span>
+<span id="cb49-29"><a href="#cb49-29" aria-hidden="true" tabindex="-1"></a><span class="st">    WHERE state_code='NY' </span></span>
+<span id="cb49-30"><a href="#cb49-30" aria-hidden="true" tabindex="-1"></a><span class="st">    ) AS dropoff</span></span>
+<span id="cb49-31"><a href="#cb49-31" aria-hidden="true" tabindex="-1"></a><span class="st">  ON ST_CONTAINS(dropoff.zip_code_geom, st_geogpoint(dropoff_longitude, dropoff_latitude))</span></span>
+<span id="cb49-32"><a href="#cb49-32" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb49-33"><a href="#cb49-33" aria-hidden="true" tabindex="-1"></a><span class="st">)</span></span>
+<span id="cb49-34"><a href="#cb49-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-35"><a href="#cb49-35" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT </span></span>
+<span id="cb49-36"><a href="#cb49-36" aria-hidden="true" tabindex="-1"></a><span class="st">  *</span></span>
+<span id="cb49-37"><a href="#cb49-37" aria-hidden="true" tabindex="-1"></a><span class="st">FROM base_data </span></span>
+<span id="cb49-38"><a href="#cb49-38" aria-hidden="true" tabindex="-1"></a><span class="st">limit 10000</span></span>
+<span id="cb49-39"><a href="#cb49-39" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="52">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>taxi_df_by_zipcode <span class="op">=</span> pd.read_gbq(query<span class="op">=</span>zip_code_query, dialect<span class="op">=</span><span class="st">'standard'</span>, project_id<span class="op">=</span><span class="st">'persuasive-zoo-147513'</span>, credentials<span class="op">=</span>credentials)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Wall time: 36.5 s</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="53">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>taxi_df_by_zipcode.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="53">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>vendor_id</th>
+      <th>pickup_datetime</th>
+      <th>dropoff_datetime</th>
+      <th>passenger_count</th>
+      <th>trip_distance</th>
+      <th>pickup_longitude</th>
+      <th>pickup_latitude</th>
+      <th>rate_code</th>
+      <th>store_and_fwd_flag</th>
+      <th>dropoff_longitude</th>
+      <th>...</th>
+      <th>tip_amount</th>
+      <th>tolls_amount</th>
+      <th>imp_surcharge</th>
+      <th>total_amount</th>
+      <th>pickup_zip_code</th>
+      <th>pickup_zip_code_lat</th>
+      <th>pickup_zip_code_lon</th>
+      <th>dropoff_zip_code</th>
+      <th>dropoff_zip_code_lat</th>
+      <th>dropoff_zip_code_lon</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2</td>
+      <td>2015-01-20 09:57:47</td>
+      <td>2015-01-20 10:14:24</td>
+      <td>1</td>
+      <td>2.54</td>
+      <td>-74.014793</td>
+      <td>40.714111</td>
+      <td>&lt;NA&gt;</td>
+      <td>N</td>
+      <td>-73.991997</td>
+      <td>...</td>
+      <td>2.5</td>
+      <td>0.0</td>
+      <td>0.3</td>
+      <td>15.8</td>
+      <td>10280</td>
+      <td>40.709073</td>
+      <td>-74.016423</td>
+      <td>10003</td>
+      <td>40.731829</td>
+      <td>-73.989181</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>2015-01-15 04:50:46</td>
+      <td>2015-01-15 05:01:29</td>
+      <td>1</td>
+      <td>2.30</td>
+      <td>-74.015938</td>
+      <td>40.710976</td>
+      <td>&lt;NA&gt;</td>
+      <td>N</td>
+      <td>-73.996552</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.3</td>
+      <td>11.3</td>
+      <td>10280</td>
+      <td>40.709073</td>
+      <td>-74.016423</td>
+      <td>10011</td>
+      <td>40.742043</td>
+      <td>-74.000620</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>2015-01-22 09:31:00</td>
+      <td>2015-01-22 09:50:42</td>
+      <td>1</td>
+      <td>4.13</td>
+      <td>-73.989738</td>
+      <td>40.701981</td>
+      <td>&lt;NA&gt;</td>
+      <td>N</td>
+      <td>-74.007828</td>
+      <td>...</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>0.3</td>
+      <td>19.8</td>
+      <td>11201</td>
+      <td>40.693700</td>
+      <td>-73.989859</td>
+      <td>10011</td>
+      <td>40.742043</td>
+      <td>-74.000620</td>
+    </tr>
+  </tbody>
+</table>
+<p>3 rows × 25 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="54">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>arc_layer <span class="op">=</span> pdk.Layer(</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'ArcLayer'</span>,</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>    taxi_df_by_zipcode,</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>    get_source_position<span class="op">=</span><span class="st">'[pickup_zip_code_lon, pickup_zip_code_lat]'</span>,</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>    get_target_position<span class="op">=</span><span class="st">'[dropoff_zip_code_lon, dropoff_zip_code_lat]'</span>,</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>    get_source_color<span class="op">=</span><span class="st">'[255, 255, 120]'</span>, </span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>    get_target_color<span class="op">=</span><span class="st">'[255, 0, 0]'</span>,</span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>    get_widht<span class="op">=</span><span class="st">'elevationValue'</span>,</span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>    pickable<span class="op">=</span><span class="va">True</span>, </span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>    auto_highlight<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a>nyc_center <span class="op">=</span> [<span class="op">-</span><span class="fl">73.9808</span>, <span class="fl">40.7648</span>] </span>
+<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>view_state <span class="op">=</span> pdk.ViewState(longitude<span class="op">=</span>nyc_center[<span class="dv">0</span>], latitude<span class="op">=</span>nyc_center[<span class="dv">1</span>], zoom<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> pdk.Deck(layers<span class="op">=</span>[arc_layer], initial_view_state<span class="op">=</span>view_state)</span>
+<span id="cb53-18"><a href="#cb53-18" aria-hidden="true" tabindex="-1"></a>r.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"db1feb764ce94399924ae7b7108ff77c","version_major":2,"version_minor":0}
+</script>
+</div>
+</div>
+</section>
+<section id="aggregate" class="level3">
+<h3 class="anchored" data-anchor-id="aggregate">Aggregate</h3>
+<div class="cell" data-execution_count="55">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>agg_query <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="st">WITH base_data AS </span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="st">(</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="st">  SELECT </span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="st">    nyc_taxi.*, </span></span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a><span class="st">    pickup.zip_code as pickup_zip_code,</span></span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a><span class="st">    pickup.internal_point_lat as pickup_zip_code_lat,</span></span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a><span class="st">    pickup.internal_point_lon as pickup_zip_code_lon,</span></span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a><span class="st">    dropoff.zip_code as dropoff_zip_code,</span></span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a><span class="st">    dropoff.internal_point_lat as dropoff_zip_code_lat,</span></span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a><span class="st">    dropoff.internal_point_lon as dropoff_zip_code_lon</span></span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a><span class="st">  FROM (</span></span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a><span class="st">    SELECT *</span></span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a><span class="st">    FROM `bigquery-public-data.new_york_taxi_trips.tlc_yellow_trips_2015`</span></span>
+<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a><span class="st">    WHERE </span></span>
+<span id="cb54-16"><a href="#cb54-16" aria-hidden="true" tabindex="-1"></a><span class="st">        EXTRACT(MONTH from pickup_datetime) = 1</span></span>
+<span id="cb54-17"><a href="#cb54-17" aria-hidden="true" tabindex="-1"></a><span class="st">        and pickup_latitude &lt;= 90 and pickup_latitude &gt;= -90</span></span>
+<span id="cb54-18"><a href="#cb54-18" aria-hidden="true" tabindex="-1"></a><span class="st">        and dropoff_latitude &lt;= 90 and dropoff_latitude &gt;= -90</span></span>
+<span id="cb54-19"><a href="#cb54-19" aria-hidden="true" tabindex="-1"></a><span class="st">    ) AS nyc_taxi</span></span>
+<span id="cb54-20"><a href="#cb54-20" aria-hidden="true" tabindex="-1"></a><span class="st">  JOIN (</span></span>
+<span id="cb54-21"><a href="#cb54-21" aria-hidden="true" tabindex="-1"></a><span class="st">    SELECT zip_code, state_code, state_name, city, county, zip_code_geom, internal_point_lat, internal_point_lon </span></span>
+<span id="cb54-22"><a href="#cb54-22" aria-hidden="true" tabindex="-1"></a><span class="st">    FROM `bigquery-public-data.geo_us_boundaries.zip_codes`</span></span>
+<span id="cb54-23"><a href="#cb54-23" aria-hidden="true" tabindex="-1"></a><span class="st">    WHERE state_code='NY'</span></span>
+<span id="cb54-24"><a href="#cb54-24" aria-hidden="true" tabindex="-1"></a><span class="st">    ) AS pickup </span></span>
+<span id="cb54-25"><a href="#cb54-25" aria-hidden="true" tabindex="-1"></a><span class="st">  ON ST_CONTAINS(pickup.zip_code_geom, st_geogpoint(pickup_longitude, pickup_latitude))</span></span>
+<span id="cb54-26"><a href="#cb54-26" aria-hidden="true" tabindex="-1"></a><span class="st">  JOIN (</span></span>
+<span id="cb54-27"><a href="#cb54-27" aria-hidden="true" tabindex="-1"></a><span class="st">    SELECT zip_code, state_code, state_name, city, county, zip_code_geom, internal_point_lat, internal_point_lon </span></span>
+<span id="cb54-28"><a href="#cb54-28" aria-hidden="true" tabindex="-1"></a><span class="st">    FROM `bigquery-public-data.geo_us_boundaries.zip_codes`</span></span>
+<span id="cb54-29"><a href="#cb54-29" aria-hidden="true" tabindex="-1"></a><span class="st">    WHERE state_code='NY' </span></span>
+<span id="cb54-30"><a href="#cb54-30" aria-hidden="true" tabindex="-1"></a><span class="st">    ) AS dropoff</span></span>
+<span id="cb54-31"><a href="#cb54-31" aria-hidden="true" tabindex="-1"></a><span class="st">  ON ST_CONTAINS(dropoff.zip_code_geom, st_geogpoint(dropoff_longitude, dropoff_latitude))</span></span>
+<span id="cb54-32"><a href="#cb54-32" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb54-33"><a href="#cb54-33" aria-hidden="true" tabindex="-1"></a><span class="st">)</span></span>
+<span id="cb54-34"><a href="#cb54-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-35"><a href="#cb54-35" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT </span></span>
+<span id="cb54-36"><a href="#cb54-36" aria-hidden="true" tabindex="-1"></a><span class="st">  pickup_zip_code,</span></span>
+<span id="cb54-37"><a href="#cb54-37" aria-hidden="true" tabindex="-1"></a><span class="st">  pickup_zip_code_lat,</span></span>
+<span id="cb54-38"><a href="#cb54-38" aria-hidden="true" tabindex="-1"></a><span class="st">  pickup_zip_code_lon,</span></span>
+<span id="cb54-39"><a href="#cb54-39" aria-hidden="true" tabindex="-1"></a><span class="st">  dropoff_zip_code,</span></span>
+<span id="cb54-40"><a href="#cb54-40" aria-hidden="true" tabindex="-1"></a><span class="st">  dropoff_zip_code_lat,</span></span>
+<span id="cb54-41"><a href="#cb54-41" aria-hidden="true" tabindex="-1"></a><span class="st">  dropoff_zip_code_lon,</span></span>
+<span id="cb54-42"><a href="#cb54-42" aria-hidden="true" tabindex="-1"></a><span class="st">  COUNT(*) AS cnt</span></span>
+<span id="cb54-43"><a href="#cb54-43" aria-hidden="true" tabindex="-1"></a><span class="st">FROM base_data </span></span>
+<span id="cb54-44"><a href="#cb54-44" aria-hidden="true" tabindex="-1"></a><span class="st">GROUP BY 1,2,3,4,5,6</span></span>
+<span id="cb54-45"><a href="#cb54-45" aria-hidden="true" tabindex="-1"></a><span class="st">limit 10000</span></span>
+<span id="cb54-46"><a href="#cb54-46" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="56">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>agg_df <span class="op">=</span> pd.read_gbq(query<span class="op">=</span>agg_query, dialect<span class="op">=</span><span class="st">'standard'</span>, project_id<span class="op">=</span><span class="st">'persuasive-zoo-147513'</span>, credentials<span class="op">=</span>credentials)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Wall time: 15.9 s</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="57">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>agg_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="57">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>pickup_zip_code</th>
+      <th>pickup_zip_code_lat</th>
+      <th>pickup_zip_code_lon</th>
+      <th>dropoff_zip_code</th>
+      <th>dropoff_zip_code_lat</th>
+      <th>dropoff_zip_code_lon</th>
+      <th>cnt</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>11693</td>
+      <td>40.590916</td>
+      <td>-73.809715</td>
+      <td>11414</td>
+      <td>40.657604</td>
+      <td>-73.844804</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>10040</td>
+      <td>40.858314</td>
+      <td>-73.930494</td>
+      <td>10040</td>
+      <td>40.858314</td>
+      <td>-73.930494</td>
+      <td>139</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>10473</td>
+      <td>40.818690</td>
+      <td>-73.858474</td>
+      <td>10030</td>
+      <td>40.818267</td>
+      <td>-73.942856</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>10451</td>
+      <td>40.820454</td>
+      <td>-73.925066</td>
+      <td>10031</td>
+      <td>40.825288</td>
+      <td>-73.950045</td>
+      <td>93</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>11209</td>
+      <td>40.621993</td>
+      <td>-74.030134</td>
+      <td>11228</td>
+      <td>40.616698</td>
+      <td>-74.013066</td>
+      <td>28</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="58">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>agg_df <span class="op">=</span> agg_df.sort_values(<span class="st">'cnt'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="59">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>agg_df <span class="op">=</span> agg_df[:<span class="dv">100</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="60">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>arc_layer <span class="op">=</span> pdk.Layer(</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'ArcLayer'</span>,</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>    agg_df,</span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>    get_source_position<span class="op">=</span><span class="st">'[pickup_zip_code_lon, pickup_zip_code_lat]'</span>,</span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>    get_target_position<span class="op">=</span><span class="st">'[dropoff_zip_code_lon, dropoff_zip_code_lat]'</span>,</span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>    get_source_color<span class="op">=</span><span class="st">'[255, 255, 120]'</span>, </span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>    get_target_color<span class="op">=</span><span class="st">'[255, 0, 0]'</span>,</span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>    width_units<span class="op">=</span><span class="st">'meters'</span>,</span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>    get_width<span class="op">=</span><span class="st">"1+10*cnt/500"</span>,</span>
+<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>    pickable<span class="op">=</span><span class="va">True</span>, </span>
+<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>    auto_highlight<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a>nyc_center <span class="op">=</span> [<span class="op">-</span><span class="fl">73.9808</span>, <span class="fl">40.7648</span>] </span>
+<span id="cb60-16"><a href="#cb60-16" aria-hidden="true" tabindex="-1"></a>view_state <span class="op">=</span> pdk.ViewState(longitude<span class="op">=</span>nyc_center[<span class="dv">0</span>], latitude<span class="op">=</span>nyc_center[<span class="dv">1</span>], zoom<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb60-17"><a href="#cb60-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-18"><a href="#cb60-18" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> pdk.Deck(layers<span class="op">=</span>[arc_layer], initial_view_state<span class="op">=</span>view_state,</span>
+<span id="cb60-19"><a href="#cb60-19" aria-hidden="true" tabindex="-1"></a>             tooltip<span class="op">=</span>{</span>
+<span id="cb60-20"><a href="#cb60-20" aria-hidden="true" tabindex="-1"></a>                 <span class="st">'html'</span>: <span class="st">'&lt;b&gt;count:&lt;/b&gt; </span><span class="sc">{cnt}</span><span class="st">'</span>,</span>
+<span id="cb60-21"><a href="#cb60-21" aria-hidden="true" tabindex="-1"></a>                 <span class="st">'style'</span>: {</span>
+<span id="cb60-22"><a href="#cb60-22" aria-hidden="true" tabindex="-1"></a>                     <span class="st">'color'</span>: <span class="st">'white'</span></span>
+<span id="cb60-23"><a href="#cb60-23" aria-hidden="true" tabindex="-1"></a>                 }</span>
+<span id="cb60-24"><a href="#cb60-24" aria-hidden="true" tabindex="-1"></a>             }</span>
+<span id="cb60-25"><a href="#cb60-25" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb60-26"><a href="#cb60-26" aria-hidden="true" tabindex="-1"></a>r.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"fdda1fb58d214d9ea1bc5f5b9616677b","version_major":2,"version_minor":0}
+</script>
+</div>
+</div>
+</section>
+<section id="요일별-위젯" class="level3">
+<h3 class="anchored" data-anchor-id="요일별-위젯">요일별 위젯</h3>
+<div class="cell" data-execution_count="61">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>agg_query2 <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="st">WITH base_data AS </span></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="st">(</span></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="st">  SELECT </span></span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a><span class="st">    nyc_taxi.*, </span></span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a><span class="st">    pickup.zip_code as pickup_zip_code,</span></span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a><span class="st">    pickup.internal_point_lat as pickup_zip_code_lat,</span></span>
+<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a><span class="st">    pickup.internal_point_lon as pickup_zip_code_lon,</span></span>
+<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a><span class="st">    dropoff.zip_code as dropoff_zip_code,</span></span>
+<span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a><span class="st">    dropoff.internal_point_lat as dropoff_zip_code_lat,</span></span>
+<span id="cb61-11"><a href="#cb61-11" aria-hidden="true" tabindex="-1"></a><span class="st">    dropoff.internal_point_lon as dropoff_zip_code_lon</span></span>
+<span id="cb61-12"><a href="#cb61-12" aria-hidden="true" tabindex="-1"></a><span class="st">  FROM (</span></span>
+<span id="cb61-13"><a href="#cb61-13" aria-hidden="true" tabindex="-1"></a><span class="st">    SELECT *</span></span>
+<span id="cb61-14"><a href="#cb61-14" aria-hidden="true" tabindex="-1"></a><span class="st">    FROM `bigquery-public-data.new_york_taxi_trips.tlc_yellow_trips_2015`</span></span>
+<span id="cb61-15"><a href="#cb61-15" aria-hidden="true" tabindex="-1"></a><span class="st">    WHERE </span></span>
+<span id="cb61-16"><a href="#cb61-16" aria-hidden="true" tabindex="-1"></a><span class="st">        EXTRACT(MONTH from pickup_datetime) = 1</span></span>
+<span id="cb61-17"><a href="#cb61-17" aria-hidden="true" tabindex="-1"></a><span class="st">        and pickup_latitude &lt;= 90 and pickup_latitude &gt;= -90</span></span>
+<span id="cb61-18"><a href="#cb61-18" aria-hidden="true" tabindex="-1"></a><span class="st">        and dropoff_latitude &lt;= 90 and dropoff_latitude &gt;= -90</span></span>
+<span id="cb61-19"><a href="#cb61-19" aria-hidden="true" tabindex="-1"></a><span class="st">    LIMIT 100000</span></span>
+<span id="cb61-20"><a href="#cb61-20" aria-hidden="true" tabindex="-1"></a><span class="st">    ) AS nyc_taxi</span></span>
+<span id="cb61-21"><a href="#cb61-21" aria-hidden="true" tabindex="-1"></a><span class="st">  JOIN (</span></span>
+<span id="cb61-22"><a href="#cb61-22" aria-hidden="true" tabindex="-1"></a><span class="st">    SELECT zip_code, state_code, state_name, city, county, zip_code_geom, internal_point_lat, internal_point_lon </span></span>
+<span id="cb61-23"><a href="#cb61-23" aria-hidden="true" tabindex="-1"></a><span class="st">    FROM `bigquery-public-data.geo_us_boundaries.zip_codes`</span></span>
+<span id="cb61-24"><a href="#cb61-24" aria-hidden="true" tabindex="-1"></a><span class="st">    WHERE state_code='NY'</span></span>
+<span id="cb61-25"><a href="#cb61-25" aria-hidden="true" tabindex="-1"></a><span class="st">    ) AS pickup </span></span>
+<span id="cb61-26"><a href="#cb61-26" aria-hidden="true" tabindex="-1"></a><span class="st">  ON ST_CONTAINS(pickup.zip_code_geom, st_geogpoint(pickup_longitude, pickup_latitude))</span></span>
+<span id="cb61-27"><a href="#cb61-27" aria-hidden="true" tabindex="-1"></a><span class="st">  JOIN (</span></span>
+<span id="cb61-28"><a href="#cb61-28" aria-hidden="true" tabindex="-1"></a><span class="st">    SELECT zip_code, state_code, state_name, city, county, zip_code_geom, internal_point_lat, internal_point_lon </span></span>
+<span id="cb61-29"><a href="#cb61-29" aria-hidden="true" tabindex="-1"></a><span class="st">    FROM `bigquery-public-data.geo_us_boundaries.zip_codes`</span></span>
+<span id="cb61-30"><a href="#cb61-30" aria-hidden="true" tabindex="-1"></a><span class="st">    WHERE state_code='NY' </span></span>
+<span id="cb61-31"><a href="#cb61-31" aria-hidden="true" tabindex="-1"></a><span class="st">    ) AS dropoff</span></span>
+<span id="cb61-32"><a href="#cb61-32" aria-hidden="true" tabindex="-1"></a><span class="st">  ON ST_CONTAINS(dropoff.zip_code_geom, st_geogpoint(dropoff_longitude, dropoff_latitude))</span></span>
+<span id="cb61-33"><a href="#cb61-33" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb61-34"><a href="#cb61-34" aria-hidden="true" tabindex="-1"></a><span class="st">)</span></span>
+<span id="cb61-35"><a href="#cb61-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-36"><a href="#cb61-36" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT </span></span>
+<span id="cb61-37"><a href="#cb61-37" aria-hidden="true" tabindex="-1"></a><span class="st">  CAST(format_datetime('</span><span class="sc">%u</span><span class="st">', pickup_datetime) AS INT64) -1 AS weekday,</span></span>
+<span id="cb61-38"><a href="#cb61-38" aria-hidden="true" tabindex="-1"></a><span class="st">  pickup_zip_code,</span></span>
+<span id="cb61-39"><a href="#cb61-39" aria-hidden="true" tabindex="-1"></a><span class="st">  pickup_zip_code_lat,</span></span>
+<span id="cb61-40"><a href="#cb61-40" aria-hidden="true" tabindex="-1"></a><span class="st">  pickup_zip_code_lon,</span></span>
+<span id="cb61-41"><a href="#cb61-41" aria-hidden="true" tabindex="-1"></a><span class="st">  dropoff_zip_code,</span></span>
+<span id="cb61-42"><a href="#cb61-42" aria-hidden="true" tabindex="-1"></a><span class="st">  dropoff_zip_code_lat,</span></span>
+<span id="cb61-43"><a href="#cb61-43" aria-hidden="true" tabindex="-1"></a><span class="st">  dropoff_zip_code_lon,</span></span>
+<span id="cb61-44"><a href="#cb61-44" aria-hidden="true" tabindex="-1"></a><span class="st">  COUNT(*) AS cnt</span></span>
+<span id="cb61-45"><a href="#cb61-45" aria-hidden="true" tabindex="-1"></a><span class="st">FROM base_data </span></span>
+<span id="cb61-46"><a href="#cb61-46" aria-hidden="true" tabindex="-1"></a><span class="st">GROUP BY 1,2,3,4,5,6,7</span></span>
+<span id="cb61-47"><a href="#cb61-47" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="62">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>agg_df2 <span class="op">=</span> pd.read_gbq(query<span class="op">=</span>agg_query2, dialect<span class="op">=</span><span class="st">'standard'</span>, project_id<span class="op">=</span><span class="st">'persuasive-zoo-147513'</span>, credentials<span class="op">=</span>credentials)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Wall time: 7.41 s</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="63">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>agg_df2.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="63">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>weekday</th>
+      <th>pickup_zip_code</th>
+      <th>pickup_zip_code_lat</th>
+      <th>pickup_zip_code_lon</th>
+      <th>dropoff_zip_code</th>
+      <th>dropoff_zip_code_lat</th>
+      <th>dropoff_zip_code_lon</th>
+      <th>cnt</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>4</td>
+      <td>11214</td>
+      <td>40.599148</td>
+      <td>-73.996090</td>
+      <td>10035</td>
+      <td>40.795458</td>
+      <td>-73.929570</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>6</td>
+      <td>10171</td>
+      <td>40.755899</td>
+      <td>-73.973858</td>
+      <td>11430</td>
+      <td>40.646809</td>
+      <td>-73.786169</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>5</td>
+      <td>10461</td>
+      <td>40.847394</td>
+      <td>-73.840583</td>
+      <td>10475</td>
+      <td>40.874375</td>
+      <td>-73.823656</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0</td>
+      <td>10172</td>
+      <td>40.755273</td>
+      <td>-73.974315</td>
+      <td>10065</td>
+      <td>40.764628</td>
+      <td>-73.963144</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>6</td>
+      <td>10162</td>
+      <td>40.769308</td>
+      <td>-73.949924</td>
+      <td>11430</td>
+      <td>40.646809</td>
+      <td>-73.786169</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="64">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>default_data <span class="op">=</span> agg_df2[agg_df2[<span class="st">'weekday'</span>] <span class="op">==</span> <span class="dv">0</span>].to_dict(orient<span class="op">=</span><span class="st">'records'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="65">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>arc_layer <span class="op">=</span> pdk.Layer(</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'ArcLayer'</span>,</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>    default_data,</span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>    get_source_position<span class="op">=</span><span class="st">'[pickup_zip_code_lon, pickup_zip_code_lat]'</span>,</span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>    get_target_position<span class="op">=</span><span class="st">'[dropoff_zip_code_lon, dropoff_zip_code_lat]'</span>,</span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a>    get_source_color<span class="op">=</span><span class="st">'[255, 255, 120]'</span>, </span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a>    get_target_color<span class="op">=</span><span class="st">'[255, 0, 0]'</span>,</span>
+<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a>    width_units<span class="op">=</span><span class="st">'meters'</span>,</span>
+<span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a>    get_width<span class="op">=</span><span class="st">"1+10*cnt/500"</span>,</span>
+<span id="cb66-10"><a href="#cb66-10" aria-hidden="true" tabindex="-1"></a>    pickable<span class="op">=</span><span class="va">True</span>, </span>
+<span id="cb66-11"><a href="#cb66-11" aria-hidden="true" tabindex="-1"></a>    auto_highlight<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb66-12"><a href="#cb66-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb66-13"><a href="#cb66-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-14"><a href="#cb66-14" aria-hidden="true" tabindex="-1"></a>nyc_center <span class="op">=</span> [<span class="op">-</span><span class="fl">73.9808</span>, <span class="fl">40.7648</span>] </span>
+<span id="cb66-15"><a href="#cb66-15" aria-hidden="true" tabindex="-1"></a>view_state <span class="op">=</span> pdk.ViewState(longitude<span class="op">=</span>nyc_center[<span class="dv">0</span>], latitude<span class="op">=</span>nyc_center[<span class="dv">1</span>], zoom<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb66-16"><a href="#cb66-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-17"><a href="#cb66-17" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> pdk.Deck(layers<span class="op">=</span>[arc_layer], initial_view_state<span class="op">=</span>view_state,</span>
+<span id="cb66-18"><a href="#cb66-18" aria-hidden="true" tabindex="-1"></a>             tooltip<span class="op">=</span>{</span>
+<span id="cb66-19"><a href="#cb66-19" aria-hidden="true" tabindex="-1"></a>                 <span class="st">'html'</span>: <span class="st">'&lt;b&gt;count:&lt;/b&gt; </span><span class="sc">{cnt}</span><span class="st">'</span>,</span>
+<span id="cb66-20"><a href="#cb66-20" aria-hidden="true" tabindex="-1"></a>                 <span class="st">'style'</span>: {</span>
+<span id="cb66-21"><a href="#cb66-21" aria-hidden="true" tabindex="-1"></a>                     <span class="st">'color'</span>: <span class="st">'white'</span></span>
+<span id="cb66-22"><a href="#cb66-22" aria-hidden="true" tabindex="-1"></a>                 }</span>
+<span id="cb66-23"><a href="#cb66-23" aria-hidden="true" tabindex="-1"></a>             }</span>
+<span id="cb66-24"><a href="#cb66-24" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb66-25"><a href="#cb66-25" aria-hidden="true" tabindex="-1"></a>r.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"0dcc93bc4da3421bbd899d81ef00c890","version_major":2,"version_minor":0}
+</script>
+</div>
+</div>
+<div class="cell" data-execution_count="67">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Widget 슬라이더 생성</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> ipywidgets <span class="im">as</span> widgets</span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display</span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>slider <span class="op">=</span> widgets.IntSlider(<span class="dv">0</span>, <span class="bu">min</span><span class="op">=</span><span class="dv">0</span>, <span class="bu">max</span><span class="op">=</span><span class="dv">6</span>, step<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Widget에서 사용할 함수 정의 </span></span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> on_change(v):</span>
+<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> agg_df2[agg_df2[<span class="st">'weekday'</span>] <span class="op">==</span> slider.value].to_dict(orient<span class="op">=</span><span class="st">'records'</span>)</span>
+<span id="cb67-9"><a href="#cb67-9" aria-hidden="true" tabindex="-1"></a>    arc_layer.data <span class="op">=</span> results</span>
+<span id="cb67-10"><a href="#cb67-10" aria-hidden="true" tabindex="-1"></a>    r.update()</span>
+<span id="cb67-11"><a href="#cb67-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-12"><a href="#cb67-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Deck과 슬라이더 연결</span></span>
+<span id="cb67-13"><a href="#cb67-13" aria-hidden="true" tabindex="-1"></a>slider.observe(on_change, names<span class="op">=</span><span class="st">'value'</span>)</span>
+<span id="cb67-14"><a href="#cb67-14" aria-hidden="true" tabindex="-1"></a>display(slider)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"3fbbbd2407434c94920407739b94c6fa","version_major":2,"version_minor":0}
+</script>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
