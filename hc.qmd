@@ -63,7 +63,7 @@ m
 이 데이터를 보면 부산광역시가 충전소당_충전차량이 660대로 전국에서 수소자동차 대비 충전소가 가장 부족한 상황인 것을 파악할 수 있다. 따라서 부산광역시에 수소충전소가 추가로 설치돼야 한다.
 
 ## 3. 분석 과정
-앞서 부산광역시에 수소충전소가 추가로 필요하다고 말했다. 그렇다면 부산광역시 어디에 설치해야 하는지 적절한 위치를 알아내 보려고 한다. 일단 부산광역시에 설치된 기존 수소충전소 위치와 구별 수소자동차 등록수를 파악해 
+앞서 부산광역시에 수소충전소가 추가로 필요하다고 말했다. 그렇다면 부산광역시 어디에 설치해야 하는지 적절한 위치를 알아내 보려고 한다. 일단 부산광역시에 설치된 기존 수소충전소 위치와 구별 수소자동차 등록수를 파악했다.
 
 ```{python}
 #| include: false
@@ -79,20 +79,105 @@ geo_data = gpd.read_file("/Users/jungwoolee/Downloads/LARD_ADM_SECT_SGG_부산/L
 ```
 
 ```{python}
-# 마커
-m_2 = folium.Map(location = [35.1796, 129.0750], tiles='cartodbpositron', zoom_start = 10)
+from folium.features import GeoJsonTooltip
 
-# 지도에 표시
-folium.Marker([35.113698, 128.843072], tooltip = "(주)엔케이텍 서부산").add_to(m_2)
-folium.Marker([35.145745, 128.988180], tooltip = "대도하이젠(주)수소복합충전소").add_to(m_2)
-folium.Marker([35.328968, 129.201549], tooltip = "하이넷 부산 정관 수소충전소").add_to(m_2)
+# 마커
+m = folium.Map(location = [35.1796, 129.0750], tiles='cartodbpositron', zoom_start = 10)
+
 Choropleth(geo_data = geo_data['geometry'],
            data = bs['수소차_등록수'],
            columns = [bs['SGG_NM'], bs['수소차_등록수']],
            key_on = "feature.id", 
-           fill_color = 'BuPu', 
-           legend_name = '부산광역시 구별 수소자동차 등록수').add_to(m_2)
+           fill_color = 'YlGnBu',
+           line_opacity = 0.2,
+           legend_name = '부산광역시 구별 수소자동차 등록수').add_to(m)
 
+bordersStyle = {
+    'color': '#696969',    # 라인의 색상을 '#696969'로 설정합니다.
+    'weight': 1            # 라인의 두께를 1로 설정합니다.
+}
+
+folium.GeoJson(
+    data=geo_data,
+    style_function=lambda x:bordersStyle,
+    popup=folium.GeoJsonPopup(
+        fields=['SGG_NM'],
+        aliases=['구'],
+    )
+).add_to(m)
+
+folium.Circle([35.113698, 128.843072], radius = 10, color = "#FF0000", tooltip = "(주)엔케이텍 서부산").add_to(m)
+folium.Circle([35.145745, 128.988180], radius = 10, color = "#FF0000", tooltip = "대도하이젠(주)수소복합충전소").add_to(m)
+folium.Circle([35.328968, 129.201549], radius = 10, color = "#FF0000", tooltip = "하이넷 부산 정관 수소충전소").add_to(m)
+
+m
+```
+
+```{python}
+#| include: false
+bs_pop = pd.read_csv('/Users/jungwoolee/Desktop/project/data mining/busan_popular.csv')
+bs_fire = pd.read_csv('/Users/jungwoolee/Desktop/project/data mining/부산시_화재.csv')
+```
+```{python}
+m_2 = folium.Map(location = [35.1796, 129.0750], tiles='CartoDB positron', zoom_start = 10)
+
+Choropleth(geo_data = geo_data['geometry'],
+           data = bs_pop['인구밀도 (명/㎢)'],
+           columns = [bs_pop['SGG_NM'], bs_pop['인구밀도 (명/㎢)']],
+           key_on = "feature.id", 
+           fill_color = 'YlGnBu',
+           line_opacity = 0.2,
+           legend_name = '부산광역시 구별 인구밀도 (명/㎢)').add_to(m_2)
+
+bordersStyle = {
+    'color': '#696969',    # 라인의 색상을 '#696969'로 설정합니다.
+    'weight': 1            # 라인의 두께를 1로 설정합니다.
+}
+
+folium.GeoJson(
+    data = geo_data,
+    style_function=lambda x:bordersStyle,
+    popup=folium.GeoJsonPopup(
+        fields=['SGG_NM'],
+        aliases=['구']
+    )
+).add_to(m_2)
+
+folium.Circle([35.113698, 128.843072], radius = 10, color = "#FF0000", tooltip = "(주)엔케이텍 서부산").add_to(m_2)
+folium.Circle([35.145745, 128.988180], radius = 10, color = "#FF0000", tooltip = "대도하이젠(주)수소복합충전소").add_to(m_2)
+folium.Circle([35.328968, 129.201549], radius = 10, color = "#FF0000", tooltip = "하이넷 부산 정관 수소충전소").add_to(m_2)
 
 m_2
+```
+
+```{python}
+m_3 = folium.Map(location = [35.1796, 129.0750], tiles='CartoDB positron', zoom_start = 10)
+
+Choropleth(geo_data = geo_data['geometry'],
+           data = bs_fire['화재발생'],
+           columns = [bs_fire['SGG_NM'], bs_fire['화재발생']],
+           key_on = "feature.id", 
+           fill_color = 'YlGnBu',
+           line_opacity = 0.2,
+           legend_name = '부산광역시 구별 화재발생 수 (개)').add_to(m_3)
+
+bordersStyle = {
+    'color': '#696969',    # 라인의 색상을 '#696969'로 설정합니다.
+    'weight': 1            # 라인의 두께를 1로 설정합니다.
+}
+
+folium.GeoJson(
+    data = geo_data,
+    style_function=lambda x:bordersStyle,
+    popup=folium.GeoJsonPopup(
+        fields=['SGG_NM'],
+        aliases=['구']
+    )
+).add_to(m_3)
+
+folium.Circle([35.113698, 128.843072], radius = 10, color = "#FF0000", tooltip = "(주)엔케이텍 서부산").add_to(m_3)
+folium.Circle([35.145745, 128.988180], radius = 10, color = "#FF0000", tooltip = "대도하이젠(주)수소복합충전소").add_to(m_3)
+folium.Circle([35.328968, 129.201549], radius = 10, color = "#FF0000", tooltip = "하이넷 부산 정관 수소충전소").add_to(m_3)
+
+m_3
 ```

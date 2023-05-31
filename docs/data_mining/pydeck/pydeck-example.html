@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Jungwoo Lee">
+<meta name="dcterms.date" content="2023-05-06">
 
-<title>Blog – pydeck-example</title>
+<title>Blog - pydeck</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -192,7 +194,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"></h1>
+      <h1 class="quarto-secondary-nav-title">pydeck</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -278,8 +280,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">pydeck</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">code</div>
+    <div class="quarto-category">python</div>
+  </div>
+  </div>
 
 
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jungwoo Lee </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 6, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<blockquote class="blockquote">
+<p>pydeck 기본코드</p>
+</blockquote>
 <section id="install" class="level3">
 <h3 class="anchored" data-anchor-id="install">Install</h3>
 <p>pydeck 설치 가이드 - https://deckgl.readthedocs.io/en/latest/installation.html<br>
@@ -312,14 +348,14 @@ Enabling notebook extension pydeck/extensionRequires...
 </div>
 <section id="공식-홈페이지-예시" class="level3">
 <h3 class="anchored" data-anchor-id="공식-홈페이지-예시">공식 홈페이지 예시</h3>
-<div class="cell" data-execution_count="1">
+<div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pydeck</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>UK_ACCIDENTS_DATA <span class="op">=</span> <span class="st">'https://raw.githubusercontent.com/uber-common/deck.gl-data/master/examples/3d-heatmap/heatmap-data.csv'</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>pd.read_csv(UK_ACCIDENTS_DATA).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="1">
+<div class="cell-output cell-output-display" data-execution_count="2">
 
 <div>
 
@@ -362,13 +398,13 @@ Enabling notebook extension pydeck/extensionRequires...
 </div>
 </div>
 </div>
-<div class="cell" data-execution_count="2">
+<div class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>UK_ACCIDENTS_DATA</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>'https://raw.githubusercontent.com/uber-common/deck.gl-data/master/examples/3d-heatmap/heatmap-data.csv'</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="3">
+<div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Hexagon 레이어 생성</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>layer <span class="op">=</span> pydeck.Layer(</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'HexagonLayer'</span>, <span class="co"># HexagonLayer를 생성하는 레이어 타입</span></span>
@@ -401,19 +437,19 @@ Enabling notebook extension pydeck/extensionRequires...
 <span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="co"># r.to_html('demo.html')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"0ab0b16ea1534eabb410a54789e3fd03","version_major":2,"version_minor":0}
+{"model_id":"8bf52704a6ea44b2825a4662e8029303","version_major":2,"version_minor":0}
 </script>
 </div>
 </div>
-<div class="cell" data-execution_count="4">
+<div class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>layer.elevation_range <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">500</span>]</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>r.update()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="8">
+<div class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pydeck <span class="im">as</span> pdk</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="6">
+<div class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>pdk.Deck?</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Init signature:
@@ -488,7 +524,7 @@ Subclasses:     </code></pre>
 </section>
 <section id="scatter-plots" class="level3">
 <h3 class="anchored" data-anchor-id="scatter-plots">Scatter Plots</h3>
-<div class="cell" data-execution_count="5">
+<div class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pydeck <span class="im">import</span> (</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    data_utils,</span>
@@ -500,7 +536,7 @@ Subclasses:     </code></pre>
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>URL <span class="op">=</span> <span class="st">'https://raw.githubusercontent.com/ajduberstein/data_sets/master/beijing_subway_station.csv'</span></span>
 <span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(URL)</span>
 <span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="5">
+<div class="cell-output cell-output-display" data-execution_count="9">
 
 <div>
 
@@ -579,16 +615,16 @@ Subclasses:     </code></pre>
 </div>
 </div>
 </div>
-<div class="cell" data-execution_count="6">
+<div class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ast <span class="im">import</span> literal_eval</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># We have to re-code position to be one field in a list, so we'll do that here:</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># The CSV encodes the [R, G, B, A] color values listed in it as a string</span></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'color'</span>] <span class="op">=</span> df.<span class="bu">apply</span>(<span class="kw">lambda</span> x: literal_eval(x[<span class="st">'color'</span>]), axis<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># color[R,G,B,A] A = Alpha</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="7">
+<div class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
+<div class="cell-output cell-output-display" data-execution_count="11">
 
 <div>
 
@@ -667,7 +703,7 @@ Subclasses:     </code></pre>
 </div>
 </div>
 </div>
-<div class="cell" data-execution_count="8">
+<div class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use pydeck's data_utils module to fit a viewport to the central 90% of the data</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>viewport <span class="op">=</span> data_utils.compute_view(points<span class="op">=</span>df[[<span class="st">'lng'</span>, <span class="st">'lat'</span>]], view_proportion<span class="op">=</span><span class="fl">0.9</span>)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>auto_zoom_map <span class="op">=</span> Deck(layers<span class="op">=</span><span class="va">None</span>, initial_view_state<span class="op">=</span>viewport)</span>
@@ -676,11 +712,11 @@ Subclasses:     </code></pre>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># auto_zoom_map.to_html('demo.html')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"45d262dc8140434cafd39cc7ef5f82f7","version_major":2,"version_minor":0}
+{"model_id":"ed4e681202984978b81d694a7f7e11d2","version_major":2,"version_minor":0}
 </script>
 </div>
 </div>
-<div class="cell" data-execution_count="9">
+<div class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.core.display <span class="im">import</span> display</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> ipywidgets</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -703,12 +739,12 @@ Subclasses:     </code></pre>
 <span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="co"># r.to_html('demo.html')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"9e2430d38a8d4e87be6c158e76d5df24","version_major":2,"version_minor":0}
+{"model_id":"0cce98c875ca4ef7980c654f31c56d66","version_major":2,"version_minor":0}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"d54723f97e0448c8a9514dc9c3d9c482","version_major":2,"version_minor":0}
+{"model_id":"8bc63296963346ca9b0ae0e7578c87d3","version_major":2,"version_minor":0}
 </script>
 </div>
 </div>
@@ -725,7 +761,7 @@ Subclasses:     </code></pre>
 </section>
 <section id="using-pydeck-to-manipulate-data" class="level3">
 <h3 class="anchored" data-anchor-id="using-pydeck-to-manipulate-data">Using pydeck to manipulate data</h3>
-<div class="cell" data-execution_count="11">
+<div class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pydeck <span class="im">as</span> pdk</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>DATA_URL <span class="op">=</span> <span class="st">'https://api.data.gov.sg/v1/transport/taxi-availability'</span></span>
@@ -738,7 +774,7 @@ Subclasses:     </code></pre>
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">189</span>, <span class="dv">0</span>, <span class="dv">38</span>, <span class="dv">255</span>]</span>
 <span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="12">
+<div class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -757,11 +793,11 @@ Subclasses:     </code></pre>
 <span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    auto_highlight<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> pdk.Deck(layers<span class="op">=</span>[layer], initial_view_state<span class="op">=</span>viewport)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="13">
+<div class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>r.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"f01291317fc547b1a577d4764385cdbc","version_major":2,"version_minor":0}
+{"model_id":"3fc4ad1b4b5a419ca3b1ec4c22d934c1","version_major":2,"version_minor":0}
 </script>
 </div>
 </div>
@@ -789,7 +825,7 @@ Subclasses:     </code></pre>
 </section>
 <section id="plotting-massive-data-sets.ipynb" class="level3">
 <h3 class="anchored" data-anchor-id="plotting-massive-data-sets.ipynb">Plotting massive data sets.ipynb</h3>
-<div class="cell" data-execution_count="13">
+<div class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>all_lidar <span class="op">=</span> pd.concat([</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    pd.read_csv(<span class="st">'https://raw.githubusercontent.com/ajduberstein/kitti_subset/master/kitti_1.csv'</span>),</span>
@@ -802,7 +838,7 @@ Subclasses:     </code></pre>
 <span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>lidar <span class="op">=</span> all_lidar[all_lidar[<span class="st">'source'</span>] <span class="op">==</span> <span class="dv">136</span>]</span>
 <span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>lidar.loc[: , [<span class="st">'x'</span>, <span class="st">'y'</span>]] <span class="op">=</span> lidar[[<span class="st">'x'</span>, <span class="st">'y'</span>]] <span class="op">/</span> <span class="dv">10000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/j_/rjw7swvx2qgcnk92k3tvvmyr0000gn/T/ipykernel_20147/2343270151.py:11: SettingWithCopyWarning: 
+<pre><code>/var/folders/j_/rjw7swvx2qgcnk92k3tvvmyr0000gn/T/ipykernel_5778/2343270151.py:11: SettingWithCopyWarning: 
 A value is trying to be set on a copy of a slice from a DataFrame.
 Try using .loc[row_indexer,col_indexer] = value instead
 
@@ -810,7 +846,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
   lidar.loc[: , ['x', 'y']] = lidar[['x', 'y']] / 10000</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="14">
+<div class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pydeck <span class="im">as</span> pdk</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -837,11 +873,11 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>r.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"100c8f21dc2843db8ee73c27afade8c2","version_major":2,"version_minor":0}
+{"model_id":"06a2d6b230e6402fb6cdcf4cdd2b9fd6","version_major":2,"version_minor":0}
 </script>
 </div>
 </div>
-<div class="cell" data-execution_count="21">
+<div class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> deque</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -863,7 +899,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <pre><code>KeyboardInterrupt: </code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="24">
+<div class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> deque</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -887,11 +923,11 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 </section>
 <section id="interacting-with-other-jupyter-widgets.ipynb" class="level3">
 <h3 class="anchored" data-anchor-id="interacting-with-other-jupyter-widgets.ipynb">Interacting with other Jupyter widgets.ipynb</h3>
-<div class="cell" data-execution_count="15">
+<div class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>LIGHTS_URL <span class="op">=</span> <span class="st">'https://raw.githubusercontent.com/ajduberstein/lights_at_night/master/chengdu_lights_at_night.csv'</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(LIGHTS_URL)</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="15">
+<div class="cell-output cell-output-display" data-execution_count="21">
 
 <div>
 
@@ -946,10 +982,10 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 </div>
 </div>
 </div>
-<div class="cell" data-execution_count="16">
+<div class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'color'</span>] <span class="op">=</span> df[<span class="st">'brightness'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> val: [<span class="dv">255</span>, val <span class="op">*</span> <span class="dv">4</span>,  <span class="dv">255</span>, <span class="dv">255</span>])</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>df.sample(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="16">
+<div class="cell-output cell-output-display" data-execution_count="22">
 
 <div>
 
@@ -966,91 +1002,91 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
   </thead>
   <tbody>
     <tr>
-      <th>53316</th>
-      <td>1995</td>
-      <td>104.042</td>
-      <td>29.642</td>
-      <td>5</td>
-      <td>[255, 20, 255, 255]</td>
-    </tr>
-    <tr>
-      <th>147990</th>
-      <td>2003</td>
-      <td>103.458</td>
-      <td>29.542</td>
-      <td>6</td>
-      <td>[255, 24, 255, 255]</td>
-    </tr>
-    <tr>
-      <th>84839</th>
-      <td>2009</td>
-      <td>103.825</td>
-      <td>29.542</td>
-      <td>5</td>
-      <td>[255, 20, 255, 255]</td>
-    </tr>
-    <tr>
-      <th>218170</th>
-      <td>2011</td>
-      <td>104.892</td>
-      <td>31.792</td>
-      <td>5</td>
-      <td>[255, 20, 255, 255]</td>
-    </tr>
-    <tr>
-      <th>250157</th>
-      <td>2011</td>
-      <td>103.908</td>
-      <td>30.025</td>
-      <td>8</td>
-      <td>[255, 32, 255, 255]</td>
-    </tr>
-    <tr>
-      <th>99349</th>
+      <th>101543</th>
       <td>2001</td>
-      <td>103.842</td>
-      <td>30.750</td>
-      <td>9</td>
-      <td>[255, 36, 255, 255]</td>
+      <td>103.725</td>
+      <td>30.625</td>
+      <td>7</td>
+      <td>[255, 28, 255, 255]</td>
     </tr>
     <tr>
-      <th>183178</th>
-      <td>2007</td>
-      <td>104.717</td>
-      <td>31.558</td>
-      <td>14</td>
-      <td>[255, 56, 255, 255]</td>
-    </tr>
-    <tr>
-      <th>152990</th>
-      <td>2013</td>
-      <td>104.808</td>
-      <td>31.383</td>
-      <td>49</td>
-      <td>[255, 196, 255, 255]</td>
-    </tr>
-    <tr>
-      <th>169530</th>
-      <td>2013</td>
-      <td>104.317</td>
-      <td>30.375</td>
-      <td>6</td>
-      <td>[255, 24, 255, 255]</td>
-    </tr>
-    <tr>
-      <th>17464</th>
-      <td>1997</td>
-      <td>104.283</td>
-      <td>31.308</td>
+      <th>290740</th>
+      <td>2005</td>
+      <td>103.717</td>
+      <td>29.942</td>
       <td>5</td>
       <td>[255, 20, 255, 255]</td>
+    </tr>
+    <tr>
+      <th>58387</th>
+      <td>2009</td>
+      <td>104.608</td>
+      <td>31.433</td>
+      <td>18</td>
+      <td>[255, 72, 255, 255]</td>
+    </tr>
+    <tr>
+      <th>52470</th>
+      <td>1995</td>
+      <td>102.825</td>
+      <td>29.750</td>
+      <td>4</td>
+      <td>[255, 16, 255, 255]</td>
+    </tr>
+    <tr>
+      <th>2817</th>
+      <td>1993</td>
+      <td>104.267</td>
+      <td>31.200</td>
+      <td>4</td>
+      <td>[255, 16, 255, 255]</td>
+    </tr>
+    <tr>
+      <th>116258</th>
+      <td>2003</td>
+      <td>104.658</td>
+      <td>31.733</td>
+      <td>4</td>
+      <td>[255, 16, 255, 255]</td>
+    </tr>
+    <tr>
+      <th>66532</th>
+      <td>2009</td>
+      <td>104.417</td>
+      <td>30.850</td>
+      <td>43</td>
+      <td>[255, 172, 255, 255]</td>
+    </tr>
+    <tr>
+      <th>248079</th>
+      <td>2011</td>
+      <td>102.925</td>
+      <td>30.125</td>
+      <td>5</td>
+      <td>[255, 20, 255, 255]</td>
+    </tr>
+    <tr>
+      <th>62347</th>
+      <td>2009</td>
+      <td>104.558</td>
+      <td>31.108</td>
+      <td>4</td>
+      <td>[255, 16, 255, 255]</td>
+    </tr>
+    <tr>
+      <th>24295</th>
+      <td>1997</td>
+      <td>105.417</td>
+      <td>30.783</td>
+      <td>4</td>
+      <td>[255, 16, 255, 255]</td>
     </tr>
   </tbody>
 </table>
 </div>
 </div>
 </div>
-<div class="cell" data-execution_count="17">
+<div class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>plottable <span class="op">=</span> df[df[<span class="st">'year'</span>] <span class="op">==</span> <span class="dv">1993</span>].to_dict(orient<span class="op">=</span><span class="st">'records'</span>)</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>view_state <span class="op">=</span> pdk.ViewState(</span>
@@ -1074,11 +1110,11 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>r.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"ba845cb8437240bc95df582c5ddea98b","version_major":2,"version_minor":0}
+{"model_id":"f4c8ae30ed4c40818adaad35d5784e2d","version_major":2,"version_minor":0}
 </script>
 </div>
 </div>
-<div class="cell" data-execution_count="18">
+<div class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> ipywidgets <span class="im">as</span> widgets</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>slider <span class="op">=</span> widgets.IntSlider(<span class="dv">1992</span>, <span class="bu">min</span><span class="op">=</span><span class="dv">1993</span>, <span class="bu">max</span><span class="op">=</span><span class="dv">2013</span>, step<span class="op">=</span><span class="dv">2</span>)</span>
@@ -1091,11 +1127,11 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>display(slider)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"13fb50f3af0c41f990ca7e42713fbbdd","version_major":2,"version_minor":0}
+{"model_id":"ee698ff6b081499286bc4d5a899787ba","version_major":2,"version_minor":0}
 </script>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>tooltip <span class="op">=</span> {</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>   <span class="st">"html"</span>: <span class="st">"&lt;b&gt;Elevation Value:&lt;/b&gt; </span><span class="sc">{elevationValue}</span><span class="st">"</span>,</span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>   <span class="st">"style"</span>: {</span>
@@ -1107,7 +1143,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 </section>
 <section id="tooltip" class="level3">
 <h3 class="anchored" data-anchor-id="tooltip">Tooltip</h3>
-<div class="cell" data-execution_count="55">
+<div class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pydeck <span class="im">as</span> pdk</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>layer <span class="op">=</span> pdk.Layer(</span>
@@ -1145,14 +1181,14 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <span id="cb37-35"><a href="#cb37-35" aria-hidden="true" tabindex="-1"></a>r.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"86b24465303d4bf087445c1d6071d96d","version_major":2,"version_minor":0}
+{"model_id":"7003c2253b2141568293f43844a6a89b","version_major":2,"version_minor":0}
 </script>
 </div>
 </div>
 <ul>
 <li>그냥 텍스트로 하기</li>
 </ul>
-<div class="cell" data-execution_count="54">
+<div class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pydeck <span class="im">as</span> pdk</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>layer <span class="op">=</span> pdk.Layer(</span>
@@ -1188,14 +1224,14 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <span id="cb38-33"><a href="#cb38-33" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"7cb21c045ebb49b3b2cd86dcadd929ae","version_major":2,"version_minor":0}
+{"model_id":"c0c07e95cdc64ded87df0f0ed93ab3fd","version_major":2,"version_minor":0}
 </script>
 </div>
 </div>
 <ul>
 <li>Tooltip을 그냥 True값만 주기</li>
 </ul>
-<div class="cell" data-execution_count="56">
+<div class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pydeck <span class="im">as</span> pdk</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>layer <span class="op">=</span> pdk.Layer(</span>
@@ -1228,7 +1264,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <span id="cb39-30"><a href="#cb39-30" aria-hidden="true" tabindex="-1"></a>r.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"0c3ea9240e814cefbfa393482288e114","version_major":2,"version_minor":0}
+{"model_id":"0dc09520e7774972add8c5bb14d0c588","version_major":2,"version_minor":0}
 </script>
 </div>
 </div>
