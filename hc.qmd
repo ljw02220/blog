@@ -63,7 +63,9 @@ m
 이 데이터를 보면 부산광역시가 충전소당_충전차량이 660대로 전국에서 수소자동차 대비 충전소가 가장 부족한 상황인 것을 파악할 수 있다. 따라서 부산광역시에 수소충전소가 추가로 설치돼야 한다.
 
 ## 3. 분석 과정
-앞서 부산광역시에 수소충전소가 추가로 필요하다고 말했다. 그렇다면 부산광역시 어디에 설치해야 하는지 적절한 위치를 알아내 보려고 한다. 일단 부산광역시에 설치된 기존 수소충전소 위치와 구별 수소자동차 등록수를 파악했다.
+**데이터 시각화**   
+입지선정변수 데이터가 수소충전소 입지 선정에 유의미한 영향을 미치는지 검토하기 위해 각각의 변수를 시각화하였다.
+아래는 수소차량수, 사무실밀집도, 통근통학인구, 생활인구, 전체교통량, 출근교통량, 퇴근교통량, 인구밀도, 건축물밀집도, 화재발생, 혼잡빈도, 혼잡시간, 공시지가 총 14개 입지선정변수이다.
 
 ```{python}
 #| include: false
@@ -76,9 +78,17 @@ bs = pd.read_csv("/Users/jungwoolee/Desktop/project/data mining/bs_hc.csv")
 
 ## geodata
 geo_data = gpd.read_file("/Users/jungwoolee/Downloads/LARD_ADM_SECT_SGG_부산/LARD_ADM_SECT_SGG_26.shp", encoding = 'euc-kr')
+
+#| include: false
+bs_pop = pd.read_csv('/Users/jungwoolee/Desktop/project/data mining/busan_popular.csv')
+bs_fire = pd.read_csv('/Users/jungwoolee/Desktop/project/data mining/부산시_화재.csv')
+school = pd.read_csv('/Users/jungwoolee/DemoProject/busan_school.csv')
 ```
+:::{layout-ncol=2}
 
 ```{python}
+#| echo: false
+#| fig-cap: '수소차량수'
 from folium.features import GeoJsonTooltip
 
 # 마커
@@ -112,13 +122,9 @@ folium.Circle([35.328968, 129.201549], radius = 10, color = "#FF0000", tooltip =
 
 m
 ```
-
 ```{python}
-#| include: false
-bs_pop = pd.read_csv('/Users/jungwoolee/Desktop/project/data mining/busan_popular.csv')
-bs_fire = pd.read_csv('/Users/jungwoolee/Desktop/project/data mining/부산시_화재.csv')
-```
-```{python}
+#| echo: false
+#| fig-cap: '인구밀도'
 m_2 = folium.Map(location = [35.1796, 129.0750], tiles='CartoDB positron', zoom_start = 10)
 
 Choropleth(geo_data = geo_data['geometry'],
@@ -149,8 +155,46 @@ folium.Circle([35.328968, 129.201549], radius = 10, color = "#FF0000", tooltip =
 
 m_2
 ```
+:::
+
+:::{layout-ncol=2}
+```{python}
+#| echo: false
+#| fig-cap: '생활인구'
+m_4 = folium.Map(location = [35.1796, 129.0750], tiles='CartoDB positron', zoom_start = 10)
+
+Choropleth(geo_data = geo_data['geometry'],
+           data = bs_pop['인구수 (명)'],
+           columns = [bs_pop['SGG_NM'], bs_pop['인구수 (명)']],
+           key_on = "feature.id", 
+           fill_color = 'YlGnBu',
+           line_opacity = 0.2,
+           legend_name = '부산광역시 구별 생활인구 (명)').add_to(m_4)
+
+bordersStyle = {
+    'color': '#696969',    # 라인의 색상을 '#696969'로 설정합니다.
+    'weight': 1            # 라인의 두께를 1로 설정합니다.
+}
+
+folium.GeoJson(
+    data = geo_data,
+    style_function=lambda x:bordersStyle,
+    popup=folium.GeoJsonPopup(
+        fields=['SGG_NM'],
+        aliases=['구']
+    )
+).add_to(m_4)
+
+folium.Circle([35.113698, 128.843072], radius = 10, color = "#FF0000", tooltip = "(주)엔케이텍 서부산").add_to(m_4)
+folium.Circle([35.145745, 128.988180], radius = 10, color = "#FF0000", tooltip = "대도하이젠(주)수소복합충전소").add_to(m_4)
+folium.Circle([35.328968, 129.201549], radius = 10, color = "#FF0000", tooltip = "하이넷 부산 정관 수소충전소").add_to(m_4)
+
+m_4
+```
 
 ```{python}
+#| echo: false
+#| fig-cap: '화재발생'
 m_3 = folium.Map(location = [35.1796, 129.0750], tiles='CartoDB positron', zoom_start = 10)
 
 Choropleth(geo_data = geo_data['geometry'],
@@ -180,4 +224,20 @@ folium.Circle([35.145745, 128.988180], radius = 10, color = "#FF0000", tooltip =
 folium.Circle([35.328968, 129.201549], radius = 10, color = "#FF0000", tooltip = "하이넷 부산 정관 수소충전소").add_to(m_3)
 
 m_3
+```
+:::
+- 초등학교 50m 반경
+```{python}
+#| echo: false
+
+# Add  points to the map
+for _, row in school.iterrows():
+    Circle(location = [row['위도'], row['경도']],
+           radius = 50,
+           color = '#4B0082',
+           fill_color = '#8A2BE2',
+           tooltip = row['학교명'],
+    ).add_to(m)
+
+m
 ```
