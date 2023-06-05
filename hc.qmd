@@ -82,7 +82,10 @@ geo_data = gpd.read_file("/Users/jungwoolee/Downloads/LARD_ADM_SECT_SGG_부산/L
 #| include: false
 bs_pop = pd.read_csv('/Users/jungwoolee/Desktop/project/data mining/busan_popular.csv')
 bs_fire = pd.read_csv('/Users/jungwoolee/Desktop/project/data mining/부산시_화재.csv')
-school = pd.read_csv('/Users/jungwoolee/DemoProject/busan_school.csv')
+school = pd.read_csv('/Users/jungwoolee/Desktop/project/data mining/busan_school.csv')
+kinder = pd.read_csv('/Users/jungwoolee/Desktop/project/data mining/busan_kinder.csv')
+hospital = pd.read_csv('/Users/jungwoolee/Desktop/project/data mining/부산광역시_종합병원 현황_20230302.csv', encoding = 'euc-kr')
+senior = pd.read_csv('/Users/jungwoolee/Desktop/project/data mining/부산광역시_경로당 현황_20220208.csv', encoding = 'CP949')
 ```
 :::{layout-ncol=2}
 
@@ -229,15 +232,60 @@ m_3
 - 초등학교 50m 반경
 ```{python}
 #| echo: false
+m_5 = folium.Map(location = [35.1796, 129.0750], tiles='Stamen Terrain', zoom_start = 10)
 
 # Add  points to the map
+feature_group = folium.FeatureGroup(name = '초등학교')
 for _, row in school.iterrows():
     Circle(location = [row['위도'], row['경도']],
            radius = 50,
            color = '#4B0082',
            fill_color = '#8A2BE2',
            tooltip = row['학교명'],
-    ).add_to(m)
+    ).add_to(feature_group)
+feature_group2 = folium.FeatureGroup(name = '유치원')
+for _, row in kinder.iterrows():
+    Circle(location = [row['위도'], row['경도']],
+           radius = 50,
+           color = '#1E90FF',
+           fill_color = '#1E90FF',
+           tooltip = row['유치원명'],
+    ).add_to(feature_group2)
 
-m
+feature_group3 = folium.FeatureGroup(name = '종합병원')
+for _, row in hospital.iterrows():
+    Circle(location = [row['위도'], row['경도']],
+           radius = 50,
+           color = '#00FF00',
+           fill_color = '#00FF00',
+           tooltip = row['의료기관명'],
+    ).add_to(feature_group3)
+
+feature_group4 = folium.FeatureGroup(name = '경로당')
+for _, row in senior.iterrows():
+    Circle(location = [row['위도'], row['경도']],
+           radius = 50,
+           color = '#8B4513',
+           fill_color = '#8B4513',
+           tooltip = row['경로당명'],
+    ).add_to(feature_group4)
+    
+feature_group.add_to(m_5)
+feature_group2.add_to(m_5)
+feature_group3.add_to(m_5)
+feature_group4.add_to(m_5)
+
+folium.TileLayer('CartoDB positron',overlay=False).add_to(m_5)
+
+folium.LayerControl('topleft').add_to(m_5)
+
+folium.Circle([35.113698, 128.843072], radius = 10, color = "#FF0000", tooltip = "대도하이젠(주)수소복합충전소").add_to(m_5)
+folium.Circle([35.145745, 128.988180], radius = 10, color = "#FF0000", tooltip = "대도하이젠(주)수소복합충전소").add_to(m_5)
+folium.Circle([35.328968, 129.201549], radius = 10, color = "#FF0000", tooltip = "하이넷 부산 정관 수소충전소").add_to(m_5)
+
+m_5.add_child(feature_group)
+m_5.add_child(feature_group2)
+
+# Display the map
+m_5
 ```
