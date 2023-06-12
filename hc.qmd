@@ -277,7 +277,7 @@ feature_group4.add_to(m_5)
 
 folium.TileLayer('CartoDB positron',overlay=False).add_to(m_5)
 
-folium.LayerControl('topleft').add_to(m_5)
+folium.LayerControl('topright').add_to(m_5)
 
 folium.Circle([35.113698, 128.843072], radius = 10, color = "#FF0000", tooltip = "대도하이젠(주)수소복합충전소").add_to(m_5)
 folium.Circle([35.145745, 128.988180], radius = 10, color = "#FF0000", tooltip = "대도하이젠(주)수소복합충전소").add_to(m_5)
