@@ -20,14 +20,15 @@
     "items": [
       "/geo/4/ch4.html",
       "/geo/3/ch3.html",
-      "/geo/2/ch2.html"
+      "/geo/2/ch2.html",
+      "/geo/final_test/final_test.html"
     ]
   },
   {
     "listing": "/data_mining.html",
     "items": [
-      "/data_mining/japan earthequake/Untitled.html",
-      "/data_mining/japan earthequake/newyork/new york hospital.html",
+      "/data_mining/보고서.html",
+      "/data_mining/newyork/new york hospital.html",
       "/data_mining/starbucks/starbucks.html",
       "/data_mining/japan earthequake/japan earthquake.html",
       "/data_mining/purple martins/purple martins.html",

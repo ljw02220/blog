@@ -1,0 +1,273 @@
+---
+title: "공간정보분석 기말고사"
+author: "Jungwoo Lee"
+date: "2023-06-26"
+image: cover.jpeg
+categories: [code, visualation, R]
+format: html
+editor: visual
+---
+> 공간정보분석 기말고사
+
+```{r, echo=FALSE}
+knitr::opts_chunk$set(error = TRUE)
+```
+
+# 문제1) 타슈 데이터 분석하기 (총120점-100점 이상은 100점으로 간주) 
+
+- 대전광역시에서는 시민들의 이동의 편의성을 위하여 타슈 공영자전거시스템을 운영 중에 있습니다. 2022년도부터는 1시간 이내 이용에 한해서는
+무료로 이용할 수 있습니다. 아래에 주어진 데이터를 기반으로 해당 문제를 풀어 보세요.
+- ※ 반드시 문제에 주어진 변수명을 사용하고, 적절한 함수를 활용하여 답을 찾으세요.
+
+## 가) 작업경로 확인 및 불러오기 (5점)
+
+### a)　현재 설정된 작업공간(working directory)를 확인하고 필요하다면 새로운 작업 공간을 설정하세요. (1점)
+```{r}
+getwd()
+#setwd(...)
+```
+
+### b) 다운받은 csv, shape 형식의 파일을 r로 불러 오세요. (변수명 동일 설정) (4점)
+```{r}
+library(dplyr)
+library(raster)
+
+tasu_station <- read.csv("/Users/jungwoolee/Desktop/college/공간정보분석/data/tasu_station.csv", fileEncoding = "cp949")
+tasu_2020 <- read.csv("/Users/jungwoolee/Desktop/college/공간정보분석/data/tasu_2020.csv", fileEncoding = "cp949" )
+daejeon_area <- shapefile("/Users/jungwoolee/Desktop/college/공간정보분석/data/LSMD_ADM_SECT_UMD_30.shp.shp") #shp 데이터 불러오기
+```
+
+## 나) 데이터 확인 (5점)
+
+
+### a) 데이터의 상위 6개, 데이터의 하위 6개 관측치를 미리보기 하세요. (tasu_station, tasu_2020, daejeon_area) (1점)
+```{r}
+head(tasu_station)
+tail(tasu_station)
+
+head(tasu_2020)
+tail(tasu_2020)
+
+head(daejeon_area)
+tail(daejeon_area)
+```
+
+
+
+### b) 데이터구조, 변수개수, 변수 명, 관찰치 개수를 한 번에 확인 할 수 있는 함수를 활용하여 확인하세요.(tasu_station, tasu_2020) (1점)
+```{r}
+str(tasu_station)
+str(tasu_2020)
+```
+
+### c) 데이터 객체의 차원(행,열)을 확인하세요. (tasu_station, tasu_2020, daejeon_area) (1점)
+```{r}
+tasu_station %>% dim()
+tasu_2020 %>% dim()
+daejeon_area %>% dim()
+```
+
+
+### d) 데이터의 열 이름을 변경하세요. (2점)
+# - tasu_station : {'번호':'ID', '대여소명' : 'staionName', '거치대':'holder', '주소':'address'}
+# - tasu_2020 : {'대여스테이션':'borrowStation', '대여일시' : 'borrowTime', '반납스테이션':'returnStaion', '반납일시':'returnTime', '이동거리': 'distance'}
+```{r}
+tasu_station <- tasu_station %>%
+  rename(번호=ID, 대여소명=stationName, 거치대=holder, 주소=address)
+
+tasu_2020 <- tasu_2020 %>%
+  rename(대여스테이션=borrowStation, 대여일시=borrowTime, 반납스테이션=returnStaion, 반납일시=returnTime, 이동거리=distance)
+```
+
+
+## 다) Google API 활용하기 (20점)
+
+### a) ggmap활용을 위해  google map key를 등록하세요. (0점)
+```{r}
+library(ggmap)
+
+register_google(key = "AIzaSyD4mh0hzRfUtt1C5lbDNL-yQLGGM7YgrAg")
+```
+
+
+### b) google API의 geocode을 활용하여 tasu_station 별 주소의 위도(lat), 경도(lon)를 추출하여, tasu_station에 lat, lon열을 추가하세요. (15점)
+```{r}
+tasu_station_len <- dim(tasu_station)[1]
+
+geocode_result <- data.frame()
+
+for (idx in c(1:tasu_station_len)){
+  
+  address <- tasu_station$주소[idx]
+  result <- geocode(location = base::enc2utf8(address), source = 'google')
+
+  geocode_result <- rbind(geocode_result, result)
+}
+
+tasu_station <- cbind(tasu_station, geocode_result)
+```
+
+
+### c) 타슈 대여소의 위치를 지도위에 아래와 같이 그려보세요. (5점) (location = “대전”, zoom =12 로 설정)
+```{r}
+daejeon_map <- get_googlemap("daejeon", zoom = 12) %>%
+  ggmap
+
+daejeon_map + geom_point(data = tasu_station, aes(x = lon, y = lat)) + 
+  theme_void()
+```
+
+
+## 라) 타슈 이용 데이터(tasu_2020)를 이용하여 공간 분석하기 (25점)
+
+### a) '대여년월일' 열을 추가하세요. (2점)
+```{r}
+tasu_2020$대여년월일 <- substr(as.character(tasu_2020$대여일시),1,8)
+```
+
+
+### b) 'tasu_2020'데이터의 한 행은 1건의 대여/반납 행위를 의미합니다. 이때 가장 많은 대여/반납이 이루어진 날짜 하루를 'top1_day' 변수로 저장하세요. (3점)
+```{r}
+top1_day <- tasu_2020 %>% 
+  group_by(대여년월일) %>% 
+  summarise(count= n()) %>% 
+  arrange(desc(count)) %>% 
+  head(1)
+
+top1_day <- top1_day$대여년월일
+```
+
+
+### c) "tasu_2020"데이터에서 "대여년월일"이 "top1_day"와 동일한 날만 추출하여 "tasu_top1_day" 변수로 저장한 후 행과 열 갯수 출력하세요. (2점)
+```{r}
+tasu_top1_day <- tasu_2020[tasu_2020$대여년월일 == top1_day,]
+tasu_top1_day %>% dim()
+```
+
+### d) tasu_top1_day 데이터셋에서 “대여스테이션”과 “반납스테이션”이 262번인 것을 모두 제거한 후 행과 열 갯수 출력하세요.(변수명: tasu_top1_day 그대로 사용) (3점)
+# (※제거하는 이유: 262번 대여소는 2020년에 신설되었으며, tasu_station 정보는 2019년 기준이기 때문에 262번이 없어 공간분석을 위해 제거한다.) 
+```{r}
+tasu_top1_day <-  tasu_top1_day[tasu_top1_day$대여스테이션 != 262 & tasu_top1_day$반납스테이션 != 262, ]
+tasu_top1_day %>% dim()
+```
+
+### e) tasu_top1_day 데이터셋에서 대여스테이션별 갯수를 카운트하고 결측치가 있다면 제거하세요.(변수명 : borrow_count) (2점)
+```{r}
+borrow_count <- tasu_top1_day %>% 
+  group_by(대여스테이션) %>% 
+  summarise(count=n()) %>% 
+  na.omit()
+```
+
+### f) borrow_count 데이터셋의 "대여스테이션"과 tasu_station 데이터의 "번호"를 key값으로 결합하고, 결합된 열(ex.count)의 NaN값은 0으로 대체하세요. (3점)
+```{r}
+tasu_station <- merge(x=tasu_station, y=borrow_count, by.x='번호', by.y='대여스테이션', all.x = TRUE)
+tasu_station$count[is.na(tasu_station$count)] <- 0
+```
+
+### g) tasu_station를 sf(Simple Feature) 형식으로 변형시켜보세요.("lon", "lat"열에 결측값이 있다면 제거 후 변형형) (crs = 4326, 변수명 : tasu_sf )(5점)
+```{r}
+library(sf)
+tasu_sf <- tasu_station[!is.na(tasu_station$lat) | !is.na(tasu_station$lon),]
+tasu_sf <- tasu_sf %>% st_as_sf(coords = c("lon", "lat"), crs=4326, remove=T)
+```
+
+### h) tasu_sf를 아래와 같이 시각화하였습니다. 아래와 같은 그래프를 그려보세요. (반드시, 위에서 생성한 tasu_sf를 가지고 그리세요. alpha=0.7) (5점)
+```{r}
+qmap(location = "대전", zoom = 12) + 
+  geom_sf(data = tasu_sf, inherit.aes=F, aes(size=count), alpha =.7) 
+```
+
+
+## 마) 행정동 별 타슈 정류장 카운트 (25점)
+### a) daejeon_area 데이터셋의 좌표체계는 어떤 좌표체계인가요? (투영 or 경위도) 투영좌표체계이면, 경위도 좌표(WGS84) 체계로 변환한 후 sf클래스로 변환하세요. (5점) (변수명 : daejeon_area_sf)
+```{r}
+to_crs <- CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
+daejeon_area <- spTransform(daejeon_area, to_crs)
+daejeon_area_sf <- st_as_sf(daejeon_area)
+```
+
+### b) "a)"에서 실행한 결과에 st_make_valid() 함수를 적용하세요. (0점)
+```{r}
+daejeon_area_sf <- st_make_valid(daejeon_area_sf)
+```
+
+
+### c) 행정동 경계(daejeon_area_sf)를 나타내는 Polygon 데이터와 (라-g)에서 생성한 tasu_sf의 Point 데이터의 교차(Intersection)를 나타내는 변수를 추출하고, 결측값이 있는 행을 제거하세요. (변수명: join_result ) hint : st_join()활용 (5점)
+```{r}
+join_result <- st_join(daejeon_area_sf, tasu_sf)
+join_result <- join_result %>% na.omit()
+```
+
+
+### d) join_result에서 행정동 별(EMD_CD 또는 EMD_NM 열 사용) 갯수를 카운트한 후, data.frame 타입으로 저장하세요. (변수명 : join_result_count)(5점)
+```{r}
+join_result_count <- join_result %>% 
+  group_by(EMD_CD) %>% 
+  summarise(count=n())
+
+join_result_count <- data.frame(join_result_count)[,1:2]
+```
+
+### e) join_result_count 데이터와 daejeon_area_sf 데이터를 "d)"에서 사용한 열 를 key값으로 결합하고, 결합된 열(ex.count)의 NaN값은 0으로 대체하세요. (5점) (변수명 : HJD_station_cnt)
+```{r}
+HJD_station_cnt <- merge(x=daejeon_area_sf, y=join_result_count, by='EMD_CD', all.x = TRUE)
+HJD_station_cnt$count[is.na(HJD_station_cnt$count)] <- 0
+```
+
+### f) HJD_station_cnt를 아래와 같이 시각화하였습니다. 아래와 같은 그래프를 그려보세요. (5점) (alpha=.9)
+```{r}
+map <- qmap(location = "대전", zoom = 11, maptype = "roadmap", color ="bw")
+p <- map + geom_sf(data = HJD_station_cnt, inherit.aes=F, aes(fill=count), alpha =.9)
+p
+```
+
+
+## 바) 한남대 타슈 등교! (20점)
+### a) 집 좌표 = {lat : 36.330940, lon : 127.383236}, 한남대 좌표 = {lat : 36.353263, 127.421464}가 있을 때, tasu_station 데이터에서 집과 가장 가까운 타슈 정류장과 한남대와 가장 가까운 타슈 정류장을 찾아서 각각 home_station, university_station 변수로 저장하세요. (10점) ('geosphere' library 이용)
+```{r}
+library("geosphere")
+# 거리 구하는 함수 예시
+# distGeo(c(127.383236, 36.330940), c(127.421464, 36.353263))
+library("dplyr")
+
+home_distance <- c()
+university_distance <- c()
+
+for (idx in c(1:nrow(tasu_station))){
+  home_dist <- distGeo(c(127.383236, 36.330940), c(tasu_station$lon[idx], tasu_station$lat[idx]))
+  university_dist <- distGeo(c(127.421464, 36.353263), c(tasu_station$lon[idx], tasu_station$lat[idx]))
+  
+  home_distance[idx] <- home_dist
+  university_distance[idx] <- university_dist
+}
+
+home_station <- tasu_station[which.min(home_distance),]
+university_station <- tasu_station[which.min(university_distance),]
+```
+
+### b) 경로를 linestring으로 변환하여, 아래 그래프를 그리세요. (집->"a)"에서 추출한 집근처 정류장 : 'red' / "a)"에서 추출한 집근처 정류장-> "a)"에서 추출한 한남대 근처정류장 : 'blue' / "a)"에서 추출한 한남대 근처정류장 -> 한남대 : 'green')(10점)
+```{r}
+library(sf)
+
+
+first <- st_linestring(rbind(c(127.383236, 36.330940), as.numeric(home_station[1,c('lon','lat')])))
+first <- st_sfc(first, crs = 4326)
+first <- st_sf(first)
+
+
+middle <- st_linestring(rbind(as.numeric(home_station[1,c('lon','lat')]), as.numeric(university_station[1,c('lon','lat')])))
+middle <- st_sfc(middle, crs = 4326)
+middle <- st_sf(middle)
+
+last <- st_linestring(rbind(as.numeric(university_station[1,c('lon','lat')]), c(127.421464, 36.353263)))
+last <- st_sfc(last, crs = 4326)
+last <- st_sf(last)
+
+
+qmap(location = "대전", zoom = 13) + 
+  geom_sf(data = first, inherit.aes = F, color='red', size=2) +
+  geom_sf(data = middle, inherit.aes = F, color='blue', size=2) +
+  geom_sf(data = last, inherit.aes = F, color='green', size=2)
+
+```

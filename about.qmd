@@ -14,7 +14,11 @@ about:
 ---
 
 ## Education
-**Hannam University** | Deajeon, Kor
+**Hannam University Data Science** | Deajeon, Kor
+
+## Carrer
+**MaaS user customized route recommendation service** | Hannam University Presidential Award   
+**Community Problem Solving Big Data/AI Utilization Contest** | 3rd
 
 ## Introduction
-Hello. My name is Jungwoo Lee.
+Hello, I'm Jungwoo Lee, a passionate Data Science major committed to utilizing data for insightful decision-making. My education has grounded me in statistical analysis, machine learning, and data manipulation, enriched by projects in predictive modeling and data visualization to identify trends within complex datasets. Skilled in programming languages like Python and R, and tools such as SQL, TensorFlow, and Tableau, I effectively address data processing and interpretation challenges. My interest in applying data to real-world issues drives my exploration into artificial intelligence and big data analytics.

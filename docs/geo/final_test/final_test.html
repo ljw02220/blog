@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jungwoo Lee">
+<meta name="dcterms.date" content="2023-06-26">
+
+<title>Blog - 공간정보분석 기말고사</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Blog</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../about.html" aria-current="page">
+ <span class="menu-text">Profile</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-college" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">College</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-college">    
+        <li>
+    <a class="dropdown-item" href="../../data_mining.html">
+ <span class="dropdown-text">Data mining</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../data_vis.html">
+ <span class="dropdown-text">Data Visualization</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../geo.html">
+ <span class="dropdown-text">Geocomputation</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../new index.html">
+ <span class="menu-text">about</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/ljw02220"><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com"><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">공간정보분석 기말고사</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Profile</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../about.html" class="sidebar-item-text sidebar-link">Jungwoo Lee</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">College</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../data_mining.html" class="sidebar-item-text sidebar-link">Data Mining</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../data_vis.html" class="sidebar-item-text sidebar-link">Data Visualization</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../geo.html" class="sidebar-item-text sidebar-link">Geocomputation</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Project</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../machine learning.html" class="sidebar-item-text sidebar-link">제주도 교통량 예측 ai 만들기</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../hc.html" class="sidebar-item-text sidebar-link">수소충전소 입지 선정</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">공간정보분석 기말고사</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">code</div>
+    <div class="quarto-category">visualation</div>
+    <div class="quarto-category">R</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jungwoo Lee </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 26, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<blockquote class="blockquote">
+<p>공간정보분석 기말고사</p>
+</blockquote>
+<div class="cell">
+
+</div>
+<section id="문제1-타슈-데이터-분석하기-총120점-100점-이상은-100점으로-간주" class="level1">
+<h1>문제1) 타슈 데이터 분석하기 (총120점-100점 이상은 100점으로 간주)</h1>
+<ul>
+<li>대전광역시에서는 시민들의 이동의 편의성을 위하여 타슈 공영자전거시스템을 운영 중에 있습니다. 2022년도부터는 1시간 이내 이용에 한해서는 무료로 이용할 수 있습니다. 아래에 주어진 데이터를 기반으로 해당 문제를 풀어 보세요.</li>
+<li>※ 반드시 문제에 주어진 변수명을 사용하고, 적절한 함수를 활용하여 답을 찾으세요.</li>
+</ul>
+<section id="가-작업경로-확인-및-불러오기-5점" class="level2">
+<h2 class="anchored" data-anchor-id="가-작업경로-확인-및-불러오기-5점">가) 작업경로 확인 및 불러오기 (5점)</h2>
+<section id="a-현재-설정된-작업공간working-directory를-확인하고-필요하다면-새로운-작업-공간을-설정하세요.-1점" class="level3">
+<h3 class="anchored" data-anchor-id="a-현재-설정된-작업공간working-directory를-확인하고-필요하다면-새로운-작업-공간을-설정하세요.-1점">a)　현재 설정된 작업공간(working directory)를 확인하고 필요하다면 새로운 작업 공간을 설정하세요. (1점)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "/Users/jungwoolee/Desktop/college/blog/geo/final_test"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#setwd(...)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="b-다운받은-csv-shape-형식의-파일을-r로-불러-오세요.-변수명-동일-설정-4점" class="level3">
+<h3 class="anchored" data-anchor-id="b-다운받은-csv-shape-형식의-파일을-r로-불러-오세요.-변수명-동일-설정-4점">b) 다운받은 csv, shape 형식의 파일을 r로 불러 오세요. (변수명 동일 설정) (4점)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+다음의 패키지를 부착합니다: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(raster)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>필요한 패키지를 로딩중입니다: sp</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+다음의 패키지를 부착합니다: 'raster'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:dplyr':
+
+    select</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>tasu_station <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"/Users/jungwoolee/Desktop/college/공간정보분석/data/tasu_station.csv"</span>, <span class="at">fileEncoding =</span> <span class="st">"cp949"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>tasu_2020 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"/Users/jungwoolee/Desktop/college/공간정보분석/data/tasu_2020.csv"</span>, <span class="at">fileEncoding =</span> <span class="st">"cp949"</span> )</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>daejeon_area <span class="ot">&lt;-</span> <span class="fu">shapefile</span>(<span class="st">"/Users/jungwoolee/Desktop/college/공간정보분석/data/LSMD_ADM_SECT_UMD_30.shp.shp"</span>) <span class="co">#shp 데이터 불러오기</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in .local(x, ...): file.exists(x) is not TRUE</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="나-데이터-확인-5점" class="level2">
+<h2 class="anchored" data-anchor-id="나-데이터-확인-5점">나) 데이터 확인 (5점)</h2>
+<section id="a-데이터의-상위-6개-데이터의-하위-6개-관측치를-미리보기-하세요.-tasu_station-tasu_2020-daejeon_area-1점" class="level3">
+<h3 class="anchored" data-anchor-id="a-데이터의-상위-6개-데이터의-하위-6개-관측치를-미리보기-하세요.-tasu_station-tasu_2020-daejeon_area-1점">a) 데이터의 상위 6개, 데이터의 하위 6개 관측치를 미리보기 하세요. (tasu_station, tasu_2020, daejeon_area) (1점)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tasu_station)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  ID                  stationName holder                         address
+1  1   무역전시관입구(택시승강장)     14    대전광역시 유성구 도룡동 3-8
+2  2               대전컨벤션센터     20   대전광역시 유성구 도룡동 4-19
+3  3                  한밭수목원1     19      대전광역시 서구 만년동 396
+4  4 초원아파트(104동 버스정류장)     12      대전광역시 서구 만년동 401
+5  5  둔산대공원 입구(버스정류장)     13 대전광역시 서구 둔산2동 1521-10
+6  6             백합네거리(농협)     12     대전광역시 서구 월평2동 266</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(tasu_station)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     ID                   stationName holder                        address
+256 256      신성동 수천이들 근린공원     15   대전광역시 유성구 신성동 494
+257 257                대전테크노파크     15   대전광역시 유성구 용산동 605
+258 258                    천문대입구     12   대전광역시 유성구 신성동 458
+259 259                    대덕대학교     14      대전광역시 유성구 장동 48
+260 260         오정농수산물 도매시장     15  대전광역시 대덕구 오정동 45-1
+261 261 도로교통공단(건너편 라도무스)     15 대전광역시 유성구 원신흥동 608</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tasu_2020)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  borrowStation  borrowTime returnStaion  returnTime distance
+1           174 2.02001e+13          224 2.02001e+13      640
+2           174 2.02001e+13          224 2.02001e+13      640
+3           117 2.02001e+13          115 2.02001e+13     1070
+4           167 2.02001e+13           94 2.02001e+13     1490
+5           203 2.02001e+13          203 2.02001e+13        0
+6           167 2.02001e+13           94 2.02001e+13     1540</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(tasu_2020)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       borrowStation   borrowTime returnStaion   returnTime distance
+604441            56 2.020123e+13          148 2.020123e+13        0
+604442            87 2.020123e+13          118 2.021010e+13        0
+604443           182 2.020123e+13          182 2.020123e+13        0
+604444            42 2.020123e+13           83 2.021010e+13     2470
+604445           115 2.020123e+13          196 2.021010e+13     1730
+604446            60 2.020123e+13          108 2.021010e+13     1590</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(daejeon_area)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in h(simpleError(msg, call)): 함수 'head'를 위한 메소드 선택시 인수 'x'를 평가하는데 오류가 발생했습니다: 객체 'daejeon_area'를 찾을 수 없습니다</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(daejeon_area)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in h(simpleError(msg, call)): 함수 'tail'를 위한 메소드 선택시 인수 'x'를 평가하는데 오류가 발생했습니다: 객체 'daejeon_area'를 찾을 수 없습니다</code></pre>
+</div>
+</div>
+</section>
+<section id="b-데이터구조-변수개수-변수-명-관찰치-개수를-한-번에-확인-할-수-있는-함수를-활용하여-확인하세요.tasu_station-tasu_2020-1점" class="level3">
+<h3 class="anchored" data-anchor-id="b-데이터구조-변수개수-변수-명-관찰치-개수를-한-번에-확인-할-수-있는-함수를-활용하여-확인하세요.tasu_station-tasu_2020-1점">b) 데이터구조, 변수개수, 변수 명, 관찰치 개수를 한 번에 확인 할 수 있는 함수를 활용하여 확인하세요.(tasu_station, tasu_2020) (1점)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(tasu_station)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   261 obs. of  4 variables:
+ $ ID         : int  1 2 3 4 5 6 7 8 9 10 ...
+ $ stationName: chr  "무역전시관입구(택시승강장)" "대전컨벤션센터" "한밭수목원1" "초원아파트(104동 버스정류장)" ...
+ $ holder     : int  14 20 19 12 13 12 13 12 12 12 ...
+ $ address    : chr  "대전광역시 유성구 도룡동 3-8" "대전광역시 유성구 도룡동 4-19" "대전광역시 서구 만년동 396" "대전광역시 서구 만년동 401" ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(tasu_2020)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   604446 obs. of  5 variables:
+ $ borrowStation: int  174 174 117 167 203 167 92 203 154 110 ...
+ $ borrowTime   : num  2.02e+13 2.02e+13 2.02e+13 2.02e+13 2.02e+13 ...
+ $ returnStaion : num  224 224 115 94 203 94 83 55 169 16 ...
+ $ returnTime   : num  2.02e+13 2.02e+13 2.02e+13 2.02e+13 2.02e+13 ...
+ $ distance     : num  640 640 1070 1490 0 1540 1190 750 1110 1490 ...</code></pre>
+</div>
+</div>
+</section>
+<section id="c-데이터-객체의-차원행열을-확인하세요.-tasu_station-tasu_2020-daejeon_area-1점" class="level3">
+<h3 class="anchored" data-anchor-id="c-데이터-객체의-차원행열을-확인하세요.-tasu_station-tasu_2020-daejeon_area-1점">c) 데이터 객체의 차원(행,열)을 확인하세요. (tasu_station, tasu_2020, daejeon_area) (1점)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>tasu_station <span class="sc">%&gt;%</span> <span class="fu">dim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 261   4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>tasu_2020 <span class="sc">%&gt;%</span> <span class="fu">dim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 604446      5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>daejeon_area <span class="sc">%&gt;%</span> <span class="fu">dim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in daejeon_area %&gt;% dim(): 객체 'daejeon_area'를 찾을 수 없습니다</code></pre>
+</div>
+</div>
+</section>
+<section id="d-데이터의-열-이름을-변경하세요.-2점" class="level3">
+<h3 class="anchored" data-anchor-id="d-데이터의-열-이름을-변경하세요.-2점">d) 데이터의 열 이름을 변경하세요. (2점)</h3>
+</section>
+</section>
+</section>
+<section id="tasu_station-번호id-대여소명-staionname-거치대holder-주소address" class="level1">
+<h1>- tasu_station : {‘번호’:‘ID’, ‘대여소명’ : ‘staionName’, ‘거치대’:‘holder’, ‘주소’:‘address’}</h1>
+</section>
+<section id="tasu_2020-대여스테이션borrowstation-대여일시-borrowtime-반납스테이션returnstaion-반납일시returntime-이동거리-distance" class="level1">
+<h1>- tasu_2020 : {‘대여스테이션’:‘borrowStation’, ‘대여일시’ : ‘borrowTime’, ‘반납스테이션’:‘returnStaion’, ‘반납일시’:‘returnTime’, ‘이동거리’: ‘distance’}</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>tasu_station <span class="ot">&lt;-</span> tasu_station <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(번호<span class="ot">=</span>ID, 대여소명<span class="ot">=</span>stationName, 거치대<span class="ot">=</span>holder, 주소<span class="ot">=</span>address)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>tasu_2020 <span class="ot">&lt;-</span> tasu_2020 <span class="sc">%&gt;%</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(대여스테이션<span class="ot">=</span>borrowStation, 대여일시<span class="ot">=</span>borrowTime, 반납스테이션<span class="ot">=</span>returnStaion, 반납일시<span class="ot">=</span>returnTime, 이동거리<span class="ot">=</span>distance)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="다-google-api-활용하기-20점" class="level2">
+<h2 class="anchored" data-anchor-id="다-google-api-활용하기-20점">다) Google API 활용하기 (20점)</h2>
+<section id="a-ggmap활용을-위해-google-map-key를-등록하세요.-0점" class="level3">
+<h3 class="anchored" data-anchor-id="a-ggmap활용을-위해-google-map-key를-등록하세요.-0점">a) ggmap활용을 위해 google map key를 등록하세요. (0점)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggmap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>필요한 패키지를 로딩중입니다: ggplot2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ Google's Terms of Service: &lt;https://mapsplatform.google.com&gt;
+ℹ Please cite ggmap if you use it! Use `citation("ggmap")` for details.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">register_google</span>(<span class="at">key =</span> <span class="st">"AIzaSyD4mh0hzRfUtt1C5lbDNL-yQLGGM7YgrAg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="b-google-api의-geocode을-활용하여-tasu_station-별-주소의-위도lat-경도lon를-추출하여-tasu_station에-lat-lon열을-추가하세요.-15점" class="level3">
+<h3 class="anchored" data-anchor-id="b-google-api의-geocode을-활용하여-tasu_station-별-주소의-위도lat-경도lon를-추출하여-tasu_station에-lat-lon열을-추가하세요.-15점">b) google API의 geocode을 활용하여 tasu_station 별 주소의 위도(lat), 경도(lon)를 추출하여, tasu_station에 lat, lon열을 추가하세요. (15점)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>tasu_station_len <span class="ot">&lt;-</span> <span class="fu">dim</span>(tasu_station)[<span class="dv">1</span>]</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>geocode_result <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (idx <span class="cf">in</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span>tasu_station_len)){</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  address <span class="ot">&lt;-</span> tasu_station<span class="sc">$</span>주소[idx]</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">geocode</span>(<span class="at">location =</span> base<span class="sc">::</span><span class="fu">enc2utf8</span>(address), <span class="at">source =</span> <span class="st">'google'</span>)</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>  geocode_result <span class="ot">&lt;-</span> <span class="fu">rbind</span>(geocode_result, result)</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EB%8F%84%EB%A3%A1%EB%8F%99+3-8&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EB%8F%84%EB%A3%A1%EB%8F%99+4-19&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%A7%8C%EB%85%84%EB%8F%99+396&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%A7%8C%EB%85%84%EB%8F%99+401&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%91%94%EC%82%B02%EB%8F%99+1521-10&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EC%9B%94%ED%8F%892%EB%8F%99+266&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%91%94%EC%82%B02%EB%8F%99+920-2&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: "대전광역시 서구 둔산2동 920-2" not uniquely geocoded, using
+"대전광역시 2"</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%91%94%EC%82%B02%EB%8F%99+1518&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EC%9B%94%ED%8F%892%EB%8F%99+304&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%A7%8C%EB%85%84%EB%8F%99+300&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EC%9B%94%ED%8F%893%EB%8F%99+301&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%91%94%EC%82%B02%EB%8F%99+949-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%91%94%EC%82%B02%EB%8F%99+911&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%91%94%EC%82%B02%EB%8F%99+962&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%91%94%EC%82%B01%EB%8F%99+1380-5&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%91%94%EC%82%B03%EB%8F%99+1386&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%91%94%EC%82%B02%EB%8F%99+1036&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%91%94%EC%82%B01%EB%8F%99+1420&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%91%94%EC%82%B01%EB%8F%99+1457&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%91%94%EC%82%B01%EB%8F%99+1554-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%96%B4%EC%9D%80%EB%8F%99+44&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EA%B5%AC%EC%84%B1%EB%8F%99+23&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EA%B5%AC%EC%84%B1%EB%8F%99+284-4&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EA%B0%80%EC%A0%95%EB%8F%99+35&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EA%B5%AC%EC%84%B1%EB%8F%99+145&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EA%B0%80%EC%A0%95%EB%8F%99+39-2&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EB%8F%84%EB%A3%A1%EB%8F%99+3-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EB%8F%84%EB%A3%A1%EB%8F%99+4-32&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%A7%8C%EB%85%84%EB%8F%99+13&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EC%9B%94%ED%8F%892%EB%8F%99+2243&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%96%B4%EC%9D%80%EB%8F%99+59-12&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EB%B4%89%EB%AA%85%EB%8F%99+669&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EC%9B%94%ED%8F%89%EB%8F%99+428&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EC%9B%94%ED%8F%89%EB%8F%99+604&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%91%94%EC%82%B0%EB%8F%99+1515-2&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%91%94%EC%82%B0%EB%8F%99+2156&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%91%94%EC%82%B0%EB%8F%99+1515&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EC%9B%94%ED%8F%89%EB%8F%99+1534&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EC%9B%94%ED%8F%891%EB%8F%99+1498&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EC%9B%94%ED%8F%89%EB%8F%99+1543&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EC%9B%94%ED%8F%89%EB%8F%99+41-3&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EA%B0%88%EB%A7%88%EB%8F%99+292-20&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%91%94%EC%82%B0%EB%8F%99+1526&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%91%94%EC%82%B0%EB%8F%99+1542&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%91%94%EC%82%B0%EB%8F%99+2161&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EA%B0%88%EB%A7%88%EB%8F%99+1438&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%91%94%EC%82%B0%EB%8F%99+1257&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%ED%83%84%EB%B0%A9%EB%8F%99+1453-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%ED%83%84%EB%B0%A9%EB%8F%99+735&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%ED%83%84%EB%B0%A9%EB%8F%99+1447&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%ED%83%84%EB%B0%A9%EB%8F%99+1458&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%ED%83%84%EB%B0%A9%EB%8F%99+521-2&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%ED%83%84%EB%B0%A9%EB%8F%99+1452&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%9E%A5%EB%8C%80%EB%8F%99+312-3&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EA%B6%81%EB%8F%99+258-8&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EA%B6%81%EB%8F%99+376-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EB%B4%89%EB%AA%85%EB%8F%99+535-5&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EA%B5%AC%EC%95%94%EB%8F%99+96-9&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EB%B4%89%EB%AA%85%EB%8F%99+552-5&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EB%B4%89%EB%AA%85%EB%8F%99+326-95&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EB%B4%89%EB%AA%85%EB%8F%99+328-22&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EB%B4%89%EB%AA%85%EB%8F%99+1024&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%83%81%EB%8C%80%EB%8F%99+138-67&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%83%81%EB%8C%80%EB%8F%99+425-9&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EB%B4%89%EB%AA%85%EB%8F%99+385-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%83%81%EB%8C%80%EB%8F%99+7-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%83%81%EB%8C%80%EB%8F%99+173&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: "대전광역시 유성구 상대동 173" not uniquely geocoded, using "sangdae-dong,
+yuseong-gu, daejeon, south korea"</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%9B%90%EC%8B%A0%ED%9D%A5%EB%8F%99+204-8&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%83%81%EB%8C%80%EB%8F%99+72-5&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%9B%90%EC%8B%A0%ED%9D%A5%EB%8F%99+183-2&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EB%B2%95%EB%8F%99+186&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EB%B2%95%EB%8F%99+212&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EB%B2%95%EB%8F%99+285-3&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EC%A4%91%EB%A6%AC%EB%8F%99+370-24&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EB%B2%95%EB%8F%99+202-4&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EC%86%A1%EC%B4%8C%EB%8F%99+446-3&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EC%86%A1%EC%B4%8C%EB%8F%99+461-2&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EC%A4%91%EB%A6%AC%EB%8F%99+107-8&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EC%A4%91%EB%A6%AC%EB%8F%99+118-12&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EC%86%A1%EC%B4%8C%EB%8F%99+539&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EC%86%A1%EC%B4%8C%EB%8F%99+192-2&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EC%86%A1%EC%B4%8C%EB%8F%99+510&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%ED%83%9C%ED%8F%89%EB%8F%99+254-15&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%ED%83%9C%ED%8F%892%EB%8F%99+2409-21&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%ED%83%9C%ED%8F%89%EB%8F%99+331-41&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%ED%83%9C%ED%8F%892%EB%8F%99+2395-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EC%9C%A0%EC%B2%9C%EB%8F%99+198-15&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EC%9C%A0%EC%B2%9C%EB%8F%99+319-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%ED%83%9C%ED%8F%89%EB%8F%99+422-33&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EC%9C%A0%EC%B2%9C%EB%8F%99+338-13&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EC%9C%A0%EC%B2%9C%EB%8F%99+306-18&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EC%9C%A0%EC%B2%9C%EB%8F%99+308-7&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EC%9C%A0%EC%B2%9C%EB%8F%99+186-7&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%ED%8C%90%EC%95%94%EB%8F%99+451-10&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%ED%8C%90%EC%95%94%EB%8F%99+323-2&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%ED%8C%90%EC%95%94%EB%8F%99+303-25&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EA%B0%80%EC%98%A4%EB%8F%99+465&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EA%B0%80%EC%98%A4%EB%8F%99+217-4&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EA%B0%80%EC%98%A4%EB%8F%99+644&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EA%B0%80%EC%98%A4%EB%8F%99+552&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EA%B0%80%EC%98%A4%EB%8F%99+555&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EB%8C%80%EC%84%B1%EB%8F%99+130-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EA%B0%80%EC%98%A4%EB%8F%99+559-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EA%B0%80%EC%A0%95%EB%8F%99+54-4&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EA%B5%AC%EC%84%B1%EB%8F%99+23&amp;key=xxx-yQLGGM7YgrAg&gt;
+ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EA%B5%AC%EC%84%B1%EB%8F%99+23&amp;key=xxx-yQLGGM7YgrAg&gt;
+ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EA%B5%AC%EC%84%B1%EB%8F%99+23&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%9A%A9%EA%B3%84%EB%8F%99+664-4&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%ED%83%84%EB%B0%A9%EB%8F%99+1455&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EC%9A%A9%EB%AC%B8%EB%8F%99+594-10&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EC%9A%A9%EB%AC%B8%EB%8F%99+249-11&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EA%B0%80%EC%9E%A5%EB%8F%99+45-8&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EA%B0%80%EC%9E%A5%EB%8F%99+31-7&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%ED%83%9C%ED%8F%89%EB%8F%99+346-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EC%9A%A9%EC%A0%84%EB%8F%99+45-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EC%9A%A9%EC%A0%84%EB%8F%99+51-17&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EC%9A%A9%EC%A0%84%EB%8F%99+111-26&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EC%9A%A9%EC%A0%84%EB%8F%99+143-16&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EC%9A%A9%EC%A0%84%EB%8F%99+144-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EC%9A%A9%EC%A0%84%EB%8F%99+167-20&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EC%9A%A9%EC%A0%84%EB%8F%99+44-2&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EC%A4%91%EB%A6%AC%EB%8F%99+231-5&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EB%AC%B8%ED%8F%89%EB%8F%99+83-2&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EB%AA%A9%EC%83%81%EB%8F%99+185-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EC%84%9D%EB%B4%89%EB%8F%99+336&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EC%8B%A0%ED%83%84%EC%A7%84%EB%8F%99+120-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EC%8B%A0%ED%83%84%EC%A7%84%EB%8F%99+147-6&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%ED%8F%89%EC%B4%8C%EB%8F%99+264-64&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EC%8B%A0%ED%83%84%EC%A7%84%EB%8F%99+149-6&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EC%8B%A0%ED%83%84%EC%A7%84%EB%8F%99+52-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EC%8B%A0%ED%83%84%EC%A7%84%EB%8F%99+%EC%82%B01-7&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EC%82%BC%EC%A0%95%EB%8F%99+%EC%82%B027-4&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EC%9A%A9%EB%91%90%EB%8F%99+113-12&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EC%98%A4%EB%A5%98%EB%8F%99+175-3&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EC%98%A4%EB%A5%98%EB%8F%99+168-7&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EB%8C%80%ED%9D%A5%EB%8F%99+499-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EB%AC%B8%ED%99%94%EB%8F%99+1-256&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EB%AC%B8%ED%99%94%EB%8F%99+284-168&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EC%98%A4%EB%A5%98%EB%8F%99+152-5&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EC%84%A0%ED%99%94%EB%8F%99+287-2&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EC%84%A0%ED%99%94%EB%8F%99+184-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EC%84%A0%ED%99%94%EB%8F%99+83-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EB%8C%80%ED%9D%A5%EB%8F%99+198-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%9B%90%EC%B4%8C%EB%8F%99+76-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EB%B4%89%EB%AA%85%EB%8F%99+972&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EA%B0%80%EC%88%98%EC%9B%90%EB%8F%99+394&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%8F%84%EC%95%88%EB%8F%99+1370&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EB%B4%89%EB%AA%85%EB%8F%99+1038-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%83%81%EB%8C%80%EB%8F%99+495&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EA%B0%80%EC%88%98%EC%9B%90%EB%8F%99+1363&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EC%9E%90%EC%96%91%EB%8F%99+58-12&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EC%A0%95%EB%8F%99+15-23&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EB%8C%80%EB%8F%99+148-112&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EC%98%A4%EC%A0%95%EB%8F%99+731&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EC%98%A4%EC%A0%95%EB%8F%99+61-13&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EC%A4%91%EC%B4%8C%EB%8F%99+398-14&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EC%A4%91%EC%B4%8C%EB%8F%99+462&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EA%B0%80%EC%A0%95%EB%8F%99+160-2&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EB%8F%84%EB%A3%A1%EB%8F%99+393-2&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%8B%A0%EC%84%B1%EB%8F%99+108-2&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%8B%A0%EC%84%B1%EB%8F%99+%EC%82%B019-3&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%86%A1%EA%B0%95%EB%8F%99+200-2&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%86%A1%EA%B0%95%EB%8F%99+199&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EA%B4%80%ED%8F%89%EB%8F%99+1286&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EA%B4%80%ED%8F%89%EB%8F%99+912&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EC%9D%B8%EB%8F%99+116-18&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EC%9B%90%EB%8F%99+36-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EC%84%B1%EB%82%A8%EB%8F%99+50-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EC%82%BC%EC%84%B1%EB%8F%99+112-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EB%8C%80%ED%9D%A5%EB%8F%99+320-2&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EB%8C%80%ED%9D%A5%EB%8F%99+173-5&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EB%B6%80%EC%82%AC%EB%8F%99+129-5&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EC%9B%94%ED%8F%89%EB%8F%99+298&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EA%B0%80%EC%88%98%EC%9B%90%EB%8F%99+764-11&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EA%B4%80%EC%A0%80%EB%8F%99+999&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EA%B4%80%EC%A0%80%EB%8F%99+1104&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EA%B4%80%EC%A0%80%EB%8F%99+999-3&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%A7%80%EC%A1%B1%EB%8F%99+901-5&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EB%B0%98%EC%84%9D%EB%8F%99+694&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%A0%84%EB%AF%BC%EB%8F%99+304-5&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%A0%84%EB%AF%BC%EB%8F%99+385-8&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EB%8D%95%EB%AA%85%EB%8F%99+16-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EA%B5%AC%EC%95%94%EB%8F%99+424-67&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EC%98%A4%EC%A0%95%EB%8F%99+432-4&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EB%B9%84%EB%9E%98%EB%8F%99+123-7&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%A7%8C%EB%85%84%EB%8F%99+396&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%9B%90%EC%8B%A0%ED%9D%A5%EB%8F%99+485-3&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EA%B4%80%EC%A0%80%EB%8F%99+1147&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%9B%90%EB%82%B4%EB%8F%99+349&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EA%B5%90%EC%B4%8C%EB%8F%99+617&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EC%8B%A0%ED%9D%A5%EB%8F%99+212&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EB%8C%80%EC%82%AC%EB%8F%99+118-9&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EC%84%9D%EA%B5%90%EB%8F%99+12-7&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%ED%98%B8%EB%8F%99+10-14&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EB%AC%B8%ED%99%94%EB%8F%99+141&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EC%9D%8D%EB%82%B4%EB%8F%99+324-5&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%8F%84%EB%A7%88%EB%8F%99+65-56&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%8F%84%EB%A7%88%EB%8F%99+172-13&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EB%85%B8%EC%9D%80%EB%8F%99+546&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%A7%80%EC%A1%B1%EB%8F%99+840-2&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%A7%80%EC%A1%B1%EB%8F%99+1024-2&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%8F%84%EC%95%88%EB%8F%99+1364&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%A3%BD%EB%8F%99+108-4&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EB%82%AD%EC%9B%94%EB%8F%99+215-2&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EB%8C%80%EC%84%B1%EB%8F%99+200-4&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EC%9A%A9%EC%9A%B4%EB%8F%99+631&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EA%B0%80%EC%96%91%EB%8F%99+288-6&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EC%9D%8D%EB%82%B4%EB%8F%99+573-4&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EB%B2%95%EB%8F%99+440-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EC%9D%8D%EB%82%B4+215-5&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EC%84%9D%EB%B4%89%EB%8F%99+184-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EB%8D%95%EC%95%94%EB%8F%99+12-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%ED%95%98%EA%B8%B0%EB%8F%99+516&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EB%B0%98%EC%84%9D%EB%8F%99+613&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%A7%80%EC%A1%B1%EB%8F%99+853&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EA%B4%80%EC%A0%80%EB%8F%99+1900&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%B3%B5%EC%88%98%EB%8F%99+613&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EB%8C%80%EC%82%AC%EB%8F%99+248-29&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EC%9C%A0%EC%B2%9C%EB%8F%99+168-8&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EC%82%B0%EC%84%B1%EB%8F%99+160-9&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EA%B0%88%EB%A7%88%EB%8F%99+338-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EA%B0%88%EB%A7%88%EB%8F%99+392-6&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EB%B9%84%EB%9E%98%EB%8F%99+47-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EC%A0%95%EB%A6%BC%EB%8F%99+497&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EA%B0%80%EC%96%91%EB%8F%99+88-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EB%8C%80%EC%A0%95%EB%8F%99+303-2&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%A3%BD%EB%8F%99+141-3&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%A7%80%EC%A1%B1%EB%8F%99+1043&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%ED%95%98%EA%B8%B0%EB%8F%99+545&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%A7%80%EC%A1%B1%EB%8F%99+1093&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EB%8D%95%EB%AA%85%EB%8F%99+525&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%9E%A5%EB%8C%80%EB%8F%99+40-2&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EB%AC%B8%ED%8F%89%EB%8F%99+92-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EC%99%80%EB%8F%99+372-7&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EB%B9%84%EB%9E%98%EB%8F%99+130-7&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EA%B0%80%EC%96%91%EB%8F%99+55-3&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%B3%80%EB%8F%99+60-2&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%B3%80%EB%8F%99+70-9&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EA%B4%80%EC%A0%80%EB%8F%99+1394&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%B3%B5%EC%88%98%EB%8F%99+292-14&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EC%82%AC%EC%A0%95%EB%8F%99+401&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EC%98%A4%EB%A5%98%EB%8F%99+170-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EC%82%BC%EC%84%B1%EB%8F%99+151-13&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EA%B0%80%EC%96%91%EB%8F%99+307-3&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EC%B2%9C%EB%8F%99+199-64&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EC%9A%A9%EC%9A%B4%EB%8F%99+460&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EB%AA%A9%EB%8F%99+112-12&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%A4%91%EA%B5%AC+%EC%98%A5%EA%B3%84%EB%8F%99+46-15&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EA%B4%80%EC%A0%80%EB%8F%99+1574&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%A7%80%EC%A1%B1%EB%8F%99+1052&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EA%B4%80%EC%A0%80%EB%8F%99+1985&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%91%94%EC%82%B0%EB%8F%99+1517&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EA%B0%80%EC%88%98%EC%9B%90%EB%8F%99+1373&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%84%9C%EA%B5%AC+%EB%B3%B5%EC%88%98%EB%8F%99+257-5&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8F%99%EA%B5%AC+%EC%9A%A9%EC%9A%B4%EB%8F%99+301-12&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%8B%A0%EC%84%B1%EB%8F%99+494&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%9A%A9%EC%82%B0%EB%8F%99+605&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%8B%A0%EC%84%B1%EB%8F%99+458&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%9E%A5%EB%8F%99+48&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EB%8C%80%EB%8D%95%EA%B5%AC+%EC%98%A4%EC%A0%95%EB%8F%99+45-1&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%9C%A0%EC%84%B1%EA%B5%AC+%EC%9B%90%EC%8B%A0%ED%9D%A5%EB%8F%99+608&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb303"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb303-1"><a href="#cb303-1" aria-hidden="true" tabindex="-1"></a>tasu_station <span class="ot">&lt;-</span> <span class="fu">cbind</span>(tasu_station, geocode_result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="c-타슈-대여소의-위치를-지도위에-아래와-같이-그려보세요.-5점-location-대전-zoom-12-로-설정" class="level3">
+<h3 class="anchored" data-anchor-id="c-타슈-대여소의-위치를-지도위에-아래와-같이-그려보세요.-5점-location-대전-zoom-12-로-설정">c) 타슈 대여소의 위치를 지도위에 아래와 같이 그려보세요. (5점) (location = “대전”, zoom =12 로 설정)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb304"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb304-1"><a href="#cb304-1" aria-hidden="true" tabindex="-1"></a>daejeon_map <span class="ot">&lt;-</span> <span class="fu">get_googlemap</span>(<span class="st">"daejeon"</span>, <span class="at">zoom =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb304-2"><a href="#cb304-2" aria-hidden="true" tabindex="-1"></a>  ggmap</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/staticmap?center=daejeon&amp;zoom=12&amp;size=640x640&amp;scale=2&amp;maptype=terrain&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=daejeon&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb307"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb307-1"><a href="#cb307-1" aria-hidden="true" tabindex="-1"></a>daejeon_map <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">data =</span> tasu_station, <span class="fu">aes</span>(<span class="at">x =</span> lon, <span class="at">y =</span> lat)) <span class="sc">+</span> </span>
+<span id="cb307-2"><a href="#cb307-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 16 rows containing missing values (`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="final_test_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="라-타슈-이용-데이터tasu_2020를-이용하여-공간-분석하기-25점" class="level2">
+<h2 class="anchored" data-anchor-id="라-타슈-이용-데이터tasu_2020를-이용하여-공간-분석하기-25점">라) 타슈 이용 데이터(tasu_2020)를 이용하여 공간 분석하기 (25점)</h2>
+<section id="a-대여년월일-열을-추가하세요.-2점" class="level3">
+<h3 class="anchored" data-anchor-id="a-대여년월일-열을-추가하세요.-2점">a) ‘대여년월일’ 열을 추가하세요. (2점)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb309"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb309-1"><a href="#cb309-1" aria-hidden="true" tabindex="-1"></a>tasu_2020<span class="sc">$</span>대여년월일 <span class="ot">&lt;-</span> <span class="fu">substr</span>(<span class="fu">as.character</span>(tasu_2020<span class="sc">$</span>대여일시),<span class="dv">1</span>,<span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="b-tasu_2020데이터의-한-행은-1건의-대여반납-행위를-의미합니다.-이때-가장-많은-대여반납이-이루어진-날짜-하루를-top1_day-변수로-저장하세요.-3점" class="level3">
+<h3 class="anchored" data-anchor-id="b-tasu_2020데이터의-한-행은-1건의-대여반납-행위를-의미합니다.-이때-가장-많은-대여반납이-이루어진-날짜-하루를-top1_day-변수로-저장하세요.-3점">b) ‘tasu_2020’데이터의 한 행은 1건의 대여/반납 행위를 의미합니다. 이때 가장 많은 대여/반납이 이루어진 날짜 하루를 ’top1_day’ 변수로 저장하세요. (3점)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb310"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb310-1"><a href="#cb310-1" aria-hidden="true" tabindex="-1"></a>top1_day <span class="ot">&lt;-</span> tasu_2020 <span class="sc">%&gt;%</span> </span>
+<span id="cb310-2"><a href="#cb310-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(대여년월일) <span class="sc">%&gt;%</span> </span>
+<span id="cb310-3"><a href="#cb310-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count=</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb310-4"><a href="#cb310-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(count)) <span class="sc">%&gt;%</span> </span>
+<span id="cb310-5"><a href="#cb310-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">1</span>)</span>
+<span id="cb310-6"><a href="#cb310-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb310-7"><a href="#cb310-7" aria-hidden="true" tabindex="-1"></a>top1_day <span class="ot">&lt;-</span> top1_day<span class="sc">$</span>대여년월일</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="c-tasu_2020데이터에서-대여년월일이-top1_day와-동일한-날만-추출하여-tasu_top1_day-변수로-저장한-후-행과-열-갯수-출력하세요.-2점" class="level3">
+<h3 class="anchored" data-anchor-id="c-tasu_2020데이터에서-대여년월일이-top1_day와-동일한-날만-추출하여-tasu_top1_day-변수로-저장한-후-행과-열-갯수-출력하세요.-2점">c) “tasu_2020”데이터에서 “대여년월일”이 “top1_day”와 동일한 날만 추출하여 “tasu_top1_day” 변수로 저장한 후 행과 열 갯수 출력하세요. (2점)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb311"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb311-1"><a href="#cb311-1" aria-hidden="true" tabindex="-1"></a>tasu_top1_day <span class="ot">&lt;-</span> tasu_2020[tasu_2020<span class="sc">$</span>대여년월일 <span class="sc">==</span> top1_day,]</span>
+<span id="cb311-2"><a href="#cb311-2" aria-hidden="true" tabindex="-1"></a>tasu_top1_day <span class="sc">%&gt;%</span> <span class="fu">dim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4048    6</code></pre>
+</div>
+</div>
+</section>
+<section id="d-tasu_top1_day-데이터셋에서-대여스테이션과-반납스테이션이-262번인-것을-모두-제거한-후-행과-열-갯수-출력하세요.변수명-tasu_top1_day-그대로-사용-3점" class="level3">
+<h3 class="anchored" data-anchor-id="d-tasu_top1_day-데이터셋에서-대여스테이션과-반납스테이션이-262번인-것을-모두-제거한-후-행과-열-갯수-출력하세요.변수명-tasu_top1_day-그대로-사용-3점">d) tasu_top1_day 데이터셋에서 “대여스테이션”과 “반납스테이션”이 262번인 것을 모두 제거한 후 행과 열 갯수 출력하세요.(변수명: tasu_top1_day 그대로 사용) (3점)</h3>
+</section>
+</section>
+</section>
+<section id="제거하는-이유-262번-대여소는-2020년에-신설되었으며-tasu_station-정보는-2019년-기준이기-때문에-262번이-없어-공간분석을-위해-제거한다." class="level1">
+<h1>(※제거하는 이유: 262번 대여소는 2020년에 신설되었으며, tasu_station 정보는 2019년 기준이기 때문에 262번이 없어 공간분석을 위해 제거한다.)</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb313"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb313-1"><a href="#cb313-1" aria-hidden="true" tabindex="-1"></a>tasu_top1_day <span class="ot">&lt;-</span>  tasu_top1_day[tasu_top1_day<span class="sc">$</span>대여스테이션 <span class="sc">!=</span> <span class="dv">262</span> <span class="sc">&amp;</span> tasu_top1_day<span class="sc">$</span>반납스테이션 <span class="sc">!=</span> <span class="dv">262</span>, ]</span>
+<span id="cb313-2"><a href="#cb313-2" aria-hidden="true" tabindex="-1"></a>tasu_top1_day <span class="sc">%&gt;%</span> <span class="fu">dim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4037    6</code></pre>
+</div>
+</div>
+<section id="e-tasu_top1_day-데이터셋에서-대여스테이션별-갯수를-카운트하고-결측치가-있다면-제거하세요.변수명-borrow_count-2점" class="level3">
+<h3 class="anchored" data-anchor-id="e-tasu_top1_day-데이터셋에서-대여스테이션별-갯수를-카운트하고-결측치가-있다면-제거하세요.변수명-borrow_count-2점">e) tasu_top1_day 데이터셋에서 대여스테이션별 갯수를 카운트하고 결측치가 있다면 제거하세요.(변수명 : borrow_count) (2점)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb315"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb315-1"><a href="#cb315-1" aria-hidden="true" tabindex="-1"></a>borrow_count <span class="ot">&lt;-</span> tasu_top1_day <span class="sc">%&gt;%</span> </span>
+<span id="cb315-2"><a href="#cb315-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(대여스테이션) <span class="sc">%&gt;%</span> </span>
+<span id="cb315-3"><a href="#cb315-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count=</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb315-4"><a href="#cb315-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="f-borrow_count-데이터셋의-대여스테이션과-tasu_station-데이터의-번호를-key값으로-결합하고-결합된-열ex.count의-nan값은-0으로-대체하세요.-3점" class="level3">
+<h3 class="anchored" data-anchor-id="f-borrow_count-데이터셋의-대여스테이션과-tasu_station-데이터의-번호를-key값으로-결합하고-결합된-열ex.count의-nan값은-0으로-대체하세요.-3점">f) borrow_count 데이터셋의 “대여스테이션”과 tasu_station 데이터의 “번호”를 key값으로 결합하고, 결합된 열(ex.count)의 NaN값은 0으로 대체하세요. (3점)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb316"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb316-1"><a href="#cb316-1" aria-hidden="true" tabindex="-1"></a>tasu_station <span class="ot">&lt;-</span> <span class="fu">merge</span>(<span class="at">x=</span>tasu_station, <span class="at">y=</span>borrow_count, <span class="at">by.x=</span><span class="st">'번호'</span>, <span class="at">by.y=</span><span class="st">'대여스테이션'</span>, <span class="at">all.x =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb316-2"><a href="#cb316-2" aria-hidden="true" tabindex="-1"></a>tasu_station<span class="sc">$</span>count[<span class="fu">is.na</span>(tasu_station<span class="sc">$</span>count)] <span class="ot">&lt;-</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="g-tasu_station를-sfsimple-feature-형식으로-변형시켜보세요.lon-lat열에-결측값이-있다면-제거-후-변형형-crs-4326-변수명-tasu_sf-5점" class="level3">
+<h3 class="anchored" data-anchor-id="g-tasu_station를-sfsimple-feature-형식으로-변형시켜보세요.lon-lat열에-결측값이-있다면-제거-후-변형형-crs-4326-변수명-tasu_sf-5점">g) tasu_station를 sf(Simple Feature) 형식으로 변형시켜보세요.(“lon”, “lat”열에 결측값이 있다면 제거 후 변형형) (crs = 4326, 변수명 : tasu_sf )(5점)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb317"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb317-1"><a href="#cb317-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Linking to GEOS 3.11.0, GDAL 3.5.3, PROJ 9.1.0; sf_use_s2() is TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb319"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb319-1"><a href="#cb319-1" aria-hidden="true" tabindex="-1"></a>tasu_sf <span class="ot">&lt;-</span> tasu_station[<span class="sc">!</span><span class="fu">is.na</span>(tasu_station<span class="sc">$</span>lat) <span class="sc">|</span> <span class="sc">!</span><span class="fu">is.na</span>(tasu_station<span class="sc">$</span>lon),]</span>
+<span id="cb319-2"><a href="#cb319-2" aria-hidden="true" tabindex="-1"></a>tasu_sf <span class="ot">&lt;-</span> tasu_sf <span class="sc">%&gt;%</span> <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"lon"</span>, <span class="st">"lat"</span>), <span class="at">crs=</span><span class="dv">4326</span>, <span class="at">remove=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="h-tasu_sf를-아래와-같이-시각화하였습니다.-아래와-같은-그래프를-그려보세요.-반드시-위에서-생성한-tasu_sf를-가지고-그리세요.-alpha0.7-5점" class="level3">
+<h3 class="anchored" data-anchor-id="h-tasu_sf를-아래와-같이-시각화하였습니다.-아래와-같은-그래프를-그려보세요.-반드시-위에서-생성한-tasu_sf를-가지고-그리세요.-alpha0.7-5점">h) tasu_sf를 아래와 같이 시각화하였습니다. 아래와 같은 그래프를 그려보세요. (반드시, 위에서 생성한 tasu_sf를 가지고 그리세요. alpha=0.7) (5점)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb320"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb320-1"><a href="#cb320-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qmap</span>(<span class="at">location =</span> <span class="st">"대전"</span>, <span class="at">zoom =</span> <span class="dv">12</span>) <span class="sc">+</span> </span>
+<span id="cb320-2"><a href="#cb320-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> tasu_sf, <span class="at">inherit.aes=</span>F, <span class="fu">aes</span>(<span class="at">size=</span>count), <span class="at">alpha =</span>.<span class="dv">7</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/staticmap?center=%EB%8C%80%EC%A0%84&amp;zoom=12&amp;size=640x640&amp;scale=2&amp;maptype=terrain&amp;language=en-EN&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Coordinate system already present. Adding new coordinate system, which will
+replace the existing one.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="final_test_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="마-행정동-별-타슈-정류장-카운트-25점" class="level2">
+<h2 class="anchored" data-anchor-id="마-행정동-별-타슈-정류장-카운트-25점">마) 행정동 별 타슈 정류장 카운트 (25점)</h2>
+<section id="a-daejeon_area-데이터셋의-좌표체계는-어떤-좌표체계인가요-투영-or-경위도-투영좌표체계이면-경위도-좌표wgs84-체계로-변환한-후-sf클래스로-변환하세요.-5점-변수명-daejeon_area_sf" class="level3">
+<h3 class="anchored" data-anchor-id="a-daejeon_area-데이터셋의-좌표체계는-어떤-좌표체계인가요-투영-or-경위도-투영좌표체계이면-경위도-좌표wgs84-체계로-변환한-후-sf클래스로-변환하세요.-5점-변수명-daejeon_area_sf">a) daejeon_area 데이터셋의 좌표체계는 어떤 좌표체계인가요? (투영 or 경위도) 투영좌표체계이면, 경위도 좌표(WGS84) 체계로 변환한 후 sf클래스로 변환하세요. (5점) (변수명 : daejeon_area_sf)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb324"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb324-1"><a href="#cb324-1" aria-hidden="true" tabindex="-1"></a>to_crs <span class="ot">&lt;-</span> <span class="fu">CRS</span>(<span class="st">"+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"</span>)</span>
+<span id="cb324-2"><a href="#cb324-2" aria-hidden="true" tabindex="-1"></a>daejeon_area <span class="ot">&lt;-</span> <span class="fu">spTransform</span>(daejeon_area, to_crs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in h(simpleError(msg, call)): 함수 'spTransform'를 위한 메소드 선택시 인수 'x'를 평가하는데 오류가 발생했습니다: 객체 'daejeon_area'를 찾을 수 없습니다</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb326"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb326-1"><a href="#cb326-1" aria-hidden="true" tabindex="-1"></a>daejeon_area_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(daejeon_area)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in st_as_sf(daejeon_area): 객체 'daejeon_area'를 찾을 수 없습니다</code></pre>
+</div>
+</div>
+</section>
+<section id="b-a에서-실행한-결과에-st_make_valid-함수를-적용하세요.-0점" class="level3">
+<h3 class="anchored" data-anchor-id="b-a에서-실행한-결과에-st_make_valid-함수를-적용하세요.-0점">b) “a)”에서 실행한 결과에 st_make_valid() 함수를 적용하세요. (0점)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb328"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb328-1"><a href="#cb328-1" aria-hidden="true" tabindex="-1"></a>daejeon_area_sf <span class="ot">&lt;-</span> <span class="fu">st_make_valid</span>(daejeon_area_sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in st_make_valid(daejeon_area_sf): 객체 'daejeon_area_sf'를 찾을 수 없습니다</code></pre>
+</div>
+</div>
+</section>
+<section id="c-행정동-경계daejeon_area_sf를-나타내는-polygon-데이터와-라-g에서-생성한-tasu_sf의-point-데이터의-교차intersection를-나타내는-변수를-추출하고-결측값이-있는-행을-제거하세요.-변수명-join_result-hint-st_join활용-5점" class="level3">
+<h3 class="anchored" data-anchor-id="c-행정동-경계daejeon_area_sf를-나타내는-polygon-데이터와-라-g에서-생성한-tasu_sf의-point-데이터의-교차intersection를-나타내는-변수를-추출하고-결측값이-있는-행을-제거하세요.-변수명-join_result-hint-st_join활용-5점">c) 행정동 경계(daejeon_area_sf)를 나타내는 Polygon 데이터와 (라-g)에서 생성한 tasu_sf의 Point 데이터의 교차(Intersection)를 나타내는 변수를 추출하고, 결측값이 있는 행을 제거하세요. (변수명: join_result ) hint : st_join()활용 (5점)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb330"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb330-1"><a href="#cb330-1" aria-hidden="true" tabindex="-1"></a>join_result <span class="ot">&lt;-</span> <span class="fu">st_join</span>(daejeon_area_sf, tasu_sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in st_join(daejeon_area_sf, tasu_sf): 객체 'daejeon_area_sf'를 찾을 수 없습니다</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb332"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb332-1"><a href="#cb332-1" aria-hidden="true" tabindex="-1"></a>join_result <span class="ot">&lt;-</span> join_result <span class="sc">%&gt;%</span> <span class="fu">na.omit</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in na.omit(.): 객체 'join_result'를 찾을 수 없습니다</code></pre>
+</div>
+</div>
+</section>
+<section id="d-join_result에서-행정동-별emd_cd-또는-emd_nm-열-사용-갯수를-카운트한-후-data.frame-타입으로-저장하세요.-변수명-join_result_count5점" class="level3">
+<h3 class="anchored" data-anchor-id="d-join_result에서-행정동-별emd_cd-또는-emd_nm-열-사용-갯수를-카운트한-후-data.frame-타입으로-저장하세요.-변수명-join_result_count5점">d) join_result에서 행정동 별(EMD_CD 또는 EMD_NM 열 사용) 갯수를 카운트한 후, data.frame 타입으로 저장하세요. (변수명 : join_result_count)(5점)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb334"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb334-1"><a href="#cb334-1" aria-hidden="true" tabindex="-1"></a>join_result_count <span class="ot">&lt;-</span> join_result <span class="sc">%&gt;%</span> </span>
+<span id="cb334-2"><a href="#cb334-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(EMD_CD) <span class="sc">%&gt;%</span> </span>
+<span id="cb334-3"><a href="#cb334-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count=</span><span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in group_by(., EMD_CD): 객체 'join_result'를 찾을 수 없습니다</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb336"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb336-1"><a href="#cb336-1" aria-hidden="true" tabindex="-1"></a>join_result_count <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(join_result_count)[,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in data.frame(join_result_count): 객체 'join_result_count'를 찾을 수 없습니다</code></pre>
+</div>
+</div>
+</section>
+<section id="e-join_result_count-데이터와-daejeon_area_sf-데이터를-d에서-사용한-열-를-key값으로-결합하고-결합된-열ex.count의-nan값은-0으로-대체하세요.-5점-변수명-hjd_station_cnt" class="level3">
+<h3 class="anchored" data-anchor-id="e-join_result_count-데이터와-daejeon_area_sf-데이터를-d에서-사용한-열-를-key값으로-결합하고-결합된-열ex.count의-nan값은-0으로-대체하세요.-5점-변수명-hjd_station_cnt">e) join_result_count 데이터와 daejeon_area_sf 데이터를 “d)”에서 사용한 열 를 key값으로 결합하고, 결합된 열(ex.count)의 NaN값은 0으로 대체하세요. (5점) (변수명 : HJD_station_cnt)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb338"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb338-1"><a href="#cb338-1" aria-hidden="true" tabindex="-1"></a>HJD_station_cnt <span class="ot">&lt;-</span> <span class="fu">merge</span>(<span class="at">x=</span>daejeon_area_sf, <span class="at">y=</span>join_result_count, <span class="at">by=</span><span class="st">'EMD_CD'</span>, <span class="at">all.x =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in h(simpleError(msg, call)): 함수 'merge'를 위한 메소드 선택시 인수 'x'를 평가하는데 오류가 발생했습니다: 객체 'daejeon_area_sf'를 찾을 수 없습니다</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb340"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb340-1"><a href="#cb340-1" aria-hidden="true" tabindex="-1"></a>HJD_station_cnt<span class="sc">$</span>count[<span class="fu">is.na</span>(HJD_station_cnt<span class="sc">$</span>count)] <span class="ot">&lt;-</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in HJD_station_cnt$count[is.na(HJD_station_cnt$count)] &lt;- 0: 객체 'HJD_station_cnt'를 찾을 수 없습니다</code></pre>
+</div>
+</div>
+</section>
+<section id="f-hjd_station_cnt를-아래와-같이-시각화하였습니다.-아래와-같은-그래프를-그려보세요.-5점-alpha.9" class="level3">
+<h3 class="anchored" data-anchor-id="f-hjd_station_cnt를-아래와-같이-시각화하였습니다.-아래와-같은-그래프를-그려보세요.-5점-alpha.9">f) HJD_station_cnt를 아래와 같이 시각화하였습니다. 아래와 같은 그래프를 그려보세요. (5점) (alpha=.9)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb342"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb342-1"><a href="#cb342-1" aria-hidden="true" tabindex="-1"></a>map <span class="ot">&lt;-</span> <span class="fu">qmap</span>(<span class="at">location =</span> <span class="st">"대전"</span>, <span class="at">zoom =</span> <span class="dv">11</span>, <span class="at">maptype =</span> <span class="st">"roadmap"</span>, <span class="at">color =</span><span class="st">"bw"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/staticmap?center=%EB%8C%80%EC%A0%84&amp;zoom=11&amp;size=640x640&amp;scale=2&amp;maptype=roadmap&amp;language=en-EN&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb345"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb345-1"><a href="#cb345-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> map <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data =</span> HJD_station_cnt, <span class="at">inherit.aes=</span>F, <span class="fu">aes</span>(<span class="at">fill=</span>count), <span class="at">alpha =</span>.<span class="dv">9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in fortify(data): 객체 'HJD_station_cnt'를 찾을 수 없습니다</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb347"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb347-1"><a href="#cb347-1" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in eval(expr, envir, enclos): 객체 'p'를 찾을 수 없습니다</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="바-한남대-타슈-등교-20점" class="level2">
+<h2 class="anchored" data-anchor-id="바-한남대-타슈-등교-20점">바) 한남대 타슈 등교! (20점)</h2>
+<section id="a-집-좌표-lat-36.330940-lon-127.383236-한남대-좌표-lat-36.353263-127.421464가-있을-때-tasu_station-데이터에서-집과-가장-가까운-타슈-정류장과-한남대와-가장-가까운-타슈-정류장을-찾아서-각각-home_station-university_station-변수로-저장하세요.-10점-geosphere-library-이용" class="level3">
+<h3 class="anchored" data-anchor-id="a-집-좌표-lat-36.330940-lon-127.383236-한남대-좌표-lat-36.353263-127.421464가-있을-때-tasu_station-데이터에서-집과-가장-가까운-타슈-정류장과-한남대와-가장-가까운-타슈-정류장을-찾아서-각각-home_station-university_station-변수로-저장하세요.-10점-geosphere-library-이용">a) 집 좌표 = {lat : 36.330940, lon : 127.383236}, 한남대 좌표 = {lat : 36.353263, 127.421464}가 있을 때, tasu_station 데이터에서 집과 가장 가까운 타슈 정류장과 한남대와 가장 가까운 타슈 정류장을 찾아서 각각 home_station, university_station 변수로 저장하세요. (10점) (‘geosphere’ library 이용)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb349"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb349-1"><a href="#cb349-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"geosphere"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in library("geosphere"): 'geosphere'이라고 불리는 패키지가 없습니다</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb351"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb351-1"><a href="#cb351-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 거리 구하는 함수 예시</span></span>
+<span id="cb351-2"><a href="#cb351-2" aria-hidden="true" tabindex="-1"></a><span class="co"># distGeo(c(127.383236, 36.330940), c(127.421464, 36.353263))</span></span>
+<span id="cb351-3"><a href="#cb351-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"dplyr"</span>)</span>
+<span id="cb351-4"><a href="#cb351-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb351-5"><a href="#cb351-5" aria-hidden="true" tabindex="-1"></a>home_distance <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb351-6"><a href="#cb351-6" aria-hidden="true" tabindex="-1"></a>university_distance <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb351-7"><a href="#cb351-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb351-8"><a href="#cb351-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (idx <span class="cf">in</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(tasu_station))){</span>
+<span id="cb351-9"><a href="#cb351-9" aria-hidden="true" tabindex="-1"></a>  home_dist <span class="ot">&lt;-</span> <span class="fu">distGeo</span>(<span class="fu">c</span>(<span class="fl">127.383236</span>, <span class="fl">36.330940</span>), <span class="fu">c</span>(tasu_station<span class="sc">$</span>lon[idx], tasu_station<span class="sc">$</span>lat[idx]))</span>
+<span id="cb351-10"><a href="#cb351-10" aria-hidden="true" tabindex="-1"></a>  university_dist <span class="ot">&lt;-</span> <span class="fu">distGeo</span>(<span class="fu">c</span>(<span class="fl">127.421464</span>, <span class="fl">36.353263</span>), <span class="fu">c</span>(tasu_station<span class="sc">$</span>lon[idx], tasu_station<span class="sc">$</span>lat[idx]))</span>
+<span id="cb351-11"><a href="#cb351-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb351-12"><a href="#cb351-12" aria-hidden="true" tabindex="-1"></a>  home_distance[idx] <span class="ot">&lt;-</span> home_dist</span>
+<span id="cb351-13"><a href="#cb351-13" aria-hidden="true" tabindex="-1"></a>  university_distance[idx] <span class="ot">&lt;-</span> university_dist</span>
+<span id="cb351-14"><a href="#cb351-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in distGeo(c(127.383236, 36.33094), c(tasu_station$lon[idx], tasu_station$lat[idx])): 함수 "distGeo"를 찾을 수 없습니다</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb353"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb353-1"><a href="#cb353-1" aria-hidden="true" tabindex="-1"></a>home_station <span class="ot">&lt;-</span> tasu_station[<span class="fu">which.min</span>(home_distance),]</span>
+<span id="cb353-2"><a href="#cb353-2" aria-hidden="true" tabindex="-1"></a>university_station <span class="ot">&lt;-</span> tasu_station[<span class="fu">which.min</span>(university_distance),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="b-경로를-linestring으로-변환하여-아래-그래프를-그리세요.-집-a에서-추출한-집근처-정류장-red-a에서-추출한-집근처-정류장--a에서-추출한-한남대-근처정류장-blue-a에서-추출한-한남대-근처정류장---한남대-green10점" class="level3">
+<h3 class="anchored" data-anchor-id="b-경로를-linestring으로-변환하여-아래-그래프를-그리세요.-집-a에서-추출한-집근처-정류장-red-a에서-추출한-집근처-정류장--a에서-추출한-한남대-근처정류장-blue-a에서-추출한-한남대-근처정류장---한남대-green10점">b) 경로를 linestring으로 변환하여, 아래 그래프를 그리세요. (집-&gt;“a)”에서 추출한 집근처 정류장 : ‘red’ / “a)”에서 추출한 집근처 정류장-&gt; “a)”에서 추출한 한남대 근처정류장 : ‘blue’ / “a)”에서 추출한 한남대 근처정류장 -&gt; 한남대 : ‘green’)(10점)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb354"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb354-1"><a href="#cb354-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb354-2"><a href="#cb354-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb354-3"><a href="#cb354-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb354-4"><a href="#cb354-4" aria-hidden="true" tabindex="-1"></a>first <span class="ot">&lt;-</span> <span class="fu">st_linestring</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="fl">127.383236</span>, <span class="fl">36.330940</span>), <span class="fu">as.numeric</span>(home_station[<span class="dv">1</span>,<span class="fu">c</span>(<span class="st">'lon'</span>,<span class="st">'lat'</span>)])))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in valid_numeric_matrix(x): !anyNA(x) is not TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb356"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb356-1"><a href="#cb356-1" aria-hidden="true" tabindex="-1"></a>first <span class="ot">&lt;-</span> <span class="fu">st_sfc</span>(first, <span class="at">crs =</span> <span class="dv">4326</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in UseMethod("st_bbox"): 클래스 "function"의 객체에 적용된 'st_bbox'에 사용할수 있는 메소드가 없습니다</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb358"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb358-1"><a href="#cb358-1" aria-hidden="true" tabindex="-1"></a>first <span class="ot">&lt;-</span> <span class="fu">st_sf</span>(first)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in st_sf(first): no simple features geometry column present</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb360"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb360-1"><a href="#cb360-1" aria-hidden="true" tabindex="-1"></a>middle <span class="ot">&lt;-</span> <span class="fu">st_linestring</span>(<span class="fu">rbind</span>(<span class="fu">as.numeric</span>(home_station[<span class="dv">1</span>,<span class="fu">c</span>(<span class="st">'lon'</span>,<span class="st">'lat'</span>)]), <span class="fu">as.numeric</span>(university_station[<span class="dv">1</span>,<span class="fu">c</span>(<span class="st">'lon'</span>,<span class="st">'lat'</span>)])))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in valid_numeric_matrix(x): !anyNA(x) is not TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb362"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb362-1"><a href="#cb362-1" aria-hidden="true" tabindex="-1"></a>middle <span class="ot">&lt;-</span> <span class="fu">st_sfc</span>(middle, <span class="at">crs =</span> <span class="dv">4326</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in st_sfc(middle, crs = 4326): 객체 'middle'를 찾을 수 없습니다</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb364"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb364-1"><a href="#cb364-1" aria-hidden="true" tabindex="-1"></a>middle <span class="ot">&lt;-</span> <span class="fu">st_sf</span>(middle)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in st_sf(middle): 객체 'middle'를 찾을 수 없습니다</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb366"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb366-1"><a href="#cb366-1" aria-hidden="true" tabindex="-1"></a>last <span class="ot">&lt;-</span> <span class="fu">st_linestring</span>(<span class="fu">rbind</span>(<span class="fu">as.numeric</span>(university_station[<span class="dv">1</span>,<span class="fu">c</span>(<span class="st">'lon'</span>,<span class="st">'lat'</span>)]), <span class="fu">c</span>(<span class="fl">127.421464</span>, <span class="fl">36.353263</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in valid_numeric_matrix(x): !anyNA(x) is not TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb368"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb368-1"><a href="#cb368-1" aria-hidden="true" tabindex="-1"></a>last <span class="ot">&lt;-</span> <span class="fu">st_sfc</span>(last, <span class="at">crs =</span> <span class="dv">4326</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in UseMethod("st_bbox"): 클래스 "function"의 객체에 적용된 'st_bbox'에 사용할수 있는 메소드가 없습니다</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb370"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb370-1"><a href="#cb370-1" aria-hidden="true" tabindex="-1"></a>last <span class="ot">&lt;-</span> <span class="fu">st_sf</span>(last)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in st_sf(last): no simple features geometry column present</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb372"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb372-1"><a href="#cb372-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qmap</span>(<span class="at">location =</span> <span class="st">"대전"</span>, <span class="at">zoom =</span> <span class="dv">13</span>) <span class="sc">+</span> </span>
+<span id="cb372-2"><a href="#cb372-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> first, <span class="at">inherit.aes =</span> F, <span class="at">color=</span><span class="st">'red'</span>, <span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb372-3"><a href="#cb372-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> middle, <span class="at">inherit.aes =</span> F, <span class="at">color=</span><span class="st">'blue'</span>, <span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb372-4"><a href="#cb372-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> last, <span class="at">inherit.aes =</span> F, <span class="at">color=</span><span class="st">'green'</span>, <span class="at">size=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/staticmap?center=%EB%8C%80%EC%A0%84&amp;zoom=13&amp;size=640x640&amp;scale=2&amp;maptype=terrain&amp;language=en-EN&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ &lt;https://maps.googleapis.com/maps/api/geocode/json?address=%EB%8C%80%EC%A0%84&amp;key=xxx-yQLGGM7YgrAg&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Coordinate system already present. Adding new coordinate system, which will
+replace the existing one.</code></pre>
+</div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in fortify(data): 객체 'middle'를 찾을 수 없습니다</code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
